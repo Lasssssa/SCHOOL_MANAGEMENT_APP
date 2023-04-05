@@ -1,0 +1,119 @@
+body{
+    background: linear-gradient(.25turn, #1E559C, #478AF7);
+}
+#bodyLogin{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+#leftLogin{
+    grid-column-start: 1;
+    grid-column-end: 1;
+    padding-left: 20%;
+    padding-top: 20%;
+}
+#centerLogin{
+    grid-column-start: 2;
+    grid-column-end: 2;
+    text-align: center;
+    padding-top: 20%;
+}
+#rightLogin{
+    grid-column-start: 3;
+    grid-column-end: 3;
+}
+#chooseRole{
+    word-spacing: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+/*
+    A    VOIR POUR CHANGER LA COULEUR : BLACK
+*/
+#chooseRole a:hover{
+    color: black;
+}
+#black{
+    color: black;
+}
+.colorRoleCurrent{
+    border-bottom: solid 3px black;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+
+.colorRole{
+    border-bottom: solid 3px white;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+#white{
+    color: white;
+}
+a:link{
+    text-decoration: none;
+}
+
+#contentLogin{
+    margin-top: 5%;
+    display: grid;
+    grid-template-columns: 1fr 1.75fr 1fr;
+}
+
+#loginBox{
+    grid-column-start: 2;
+    grid-column-end: 2;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    margin-bottom: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#test{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#ecarted{
+    margin-top: 11px;
+    margin-bottom: 11px;
+}
+
+#ecarted2 a:link{
+    text-decoration: underline;
+}
+
+#titleLogin{
+    margin-bottom: 5px;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    text-align: center;
+    margin-top: 10%;
+}
+#titleLogin p{
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+    color: white;
+}
+#erreurParagraphe{
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+    color: red;
+    grid-column-start: 2;
+    grid-column-end: 2;
+}
