@@ -1,4 +1,11 @@
-
+<?php 
+    session_start();
+    $_SESSION['identifiedAdmin'] = false;
+    $_SESSION['identifiedEnseignant'] = false;
+    $_SESSION['identifiedEtudiant'] = false;
+    $_SESSION['erreurIdentificationEnseignant'] = false;
+    $_SESSION['erreurIdentificationAdmin'] = false;
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,8 +38,9 @@
                             $_SESSION['nom'] = $user['nom'];
                             $_SESSION['prenom'] = $user['prenom'];
                             $_SESSION['telephone'] = $user['telephone'];
-                            $_SESSION['identified'] = true;
-                            header("Location: persoAdmin.php");
+                            $_SESSION['id'] = $user['id'];
+                            $_SESSION['identifiedEtudiant'] = true;
+                            header("Location: etudiant/persoEtudiant.php");
                             exit;
                         }else{
                             $_SESSION['erreurIdentificationEtudiant'] = true;
