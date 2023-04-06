@@ -94,8 +94,10 @@
                         </form>
                     </div>
                     <?php
-                        if($_SESSION['erreurIdentification']){
-                            echo '<p id="erreurParagraphe">Erreur d\'authentification</p>';
+                        if(isset($_SESSION['erreurIdentification'])){
+                            if($_SESSION['erreurIdentification']){
+                                echo '<p id="erreurParagraphe">Erreur d\'authentification</p>';
+                            }
                         }
                     ?>
                 </div>
