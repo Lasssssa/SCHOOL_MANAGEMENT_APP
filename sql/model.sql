@@ -175,7 +175,8 @@ CREATE TABLE public.participe(
 CREATE TABLE public.fait_epreuve(
 	id            INT  NOT NULL ,
 	id_etudiant   INT  NOT NULL ,
-	note          FLOAT  NOT NULL  ,
+	note          FLOAT  NOT NULL ,
+	est_note      BOOL  NOT NULL  ,
 	CONSTRAINT fait_epreuve_PK PRIMARY KEY (id,id_etudiant)
 
 	,CONSTRAINT fait_epreuve_epreuve_FK FOREIGN KEY (id) REFERENCES public.epreuve(id)
