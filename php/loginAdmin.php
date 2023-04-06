@@ -25,12 +25,14 @@
         $dbConnection = dbConnect();
         if(isset($_POST['envoyer']) && isset($_POST['email']) && isset($_POST['password'])){
            $email = $_POST['email'];
-           $table = "admin";
+           $table = "administrateur";
+           
            if(isValidUser($email, $dbConnection,$table)){
+                echo "test";
                 $encryptedPassword = getEncryptedPassword($email, $dbConnection,$table);
                 if(password_verify($_POST['password'], $encryptedPassword)){
                     $user = getUser($email, $dbConnection,$table);
-                    $_SESSION['email'] = $user['email'];
+                    $_SESSION['email'] = $user['mail'];
                     $_SESSION['nom'] = $user['nom'];
                     $_SESSION['prenom'] = $user['prenom'];
                     $_SESSION['telephone'] = $user['telephone'];
@@ -38,13 +40,13 @@
                     header("Location: persoAdmin.php");
                     exit;
                 }else{
-                    $_SESSION['erreurIdentification'] = true;
+                    $_SESSION['erreurIdentificationAdmin'] = true;
                 } 
             }else{
-                $_SESSION['erreurIdentification'] = true;
+                $_SESSION['erreurIdentificationAdmin'] = true;
             }
         }
-    ?>
+    ?>  
 
     <body>
         <div id="bodyLogin">
@@ -94,8 +96,8 @@
                         </form>
                     </div>
                     <?php
-                        if(isset($_SESSION['erreurIdentification'])){
-                            if($_SESSION['erreurIdentification']){
+                        if(isset($_SESSION['erreurIdentificationAdmin'])){
+                            if($_SESSION['erreurIdentificationAdmin']){
                                 echo '<p id="erreurParagraphe">Erreur d\'authentification</p>';
                             }
                         }

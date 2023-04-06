@@ -2,67 +2,184 @@
 ------------------------------------------------------------
 --        A ADAPTER AVEC NOTRE BASE DE DONNEES
 ------------------------------------------------------------
-
-
-------------------------------------------------------------
---        Script Postgre 
-------------------------------------------------------------
+/*
 DROP TABLE IF EXISTS client CASCADE;
 DROP TABLE IF EXISTS Produit CASCADE;
 DROP TABLE IF EXISTS Commande CASCADE;
 DROP TABLE IF EXISTS Est_Constitue CASCADE;
+*/
+
 ------------------------------------------------------------
--- Table: client
+--        Script Postgre 
 ------------------------------------------------------------
-CREATE TABLE client(
-	id_client       SERIAL NOT NULL ,
+DROP TABLE IF EXISTS administrateur CASCADE;
+DROP TABLE IF EXISTS enseignant CASCADE;
+DROP TABLE IF EXISTS annee CASCADE;
+DROP TABLE IF EXISTS participe CASCADE;
+DROP TABLE IF EXISTS cycle CASCADE;
+DROP TABLE IF EXISTS semestre CASCADE;
+DROP TABLE IF EXISTS etudiant CASCADE;
+DROP TABLE IF EXISTS cours CASCADE;
+DROP TABLE IF EXISTS epreuve CASCADE;
+DROP TABLE IF EXISTS appreciation CASCADE;
+DROP TABLE IF EXISTS fait_epreuve CASCADE;
+------------------------------------------------------------
+--        Script Postgre 
+------------------------------------------------------------
+
+
+
+------------------------------------------------------------
+-- Table: administrateur
+------------------------------------------------------------
+CREATE TABLE public.administrateur(
+	id             SERIAL NOT NULL ,
+	nom            VARCHAR (50) NOT NULL ,
+	prenom         VARCHAR (50) NOT NULL ,
+	telephone      VARCHAR (25) NOT NULL ,
+	mail           VARCHAR (60) NOT NULL ,
+	passworduser   VARCHAR (60) NOT NULL  ,
+	CONSTRAINT administrateur_PK PRIMARY KEY (id)
+)WITHOUT OIDS;
+
+
+------------------------------------------------------------
+-- Table: enseignant
+------------------------------------------------------------
+CREATE TABLE public.enseignant(
+	id             SERIAL NOT NULL ,
+	nom            VARCHAR (50) NOT NULL ,
+	prenom         VARCHAR (50) NOT NULL ,
+	telephone      VARCHAR (25) NOT NULL ,
+	passworduser   VARCHAR (60) NOT NULL ,
+	mail           VARCHAR (50) NOT NULL  ,
+	CONSTRAINT enseignant_PK PRIMARY KEY (id)
+)WITHOUT OIDS;
+
+
+------------------------------------------------------------
+-- Table: annee
+------------------------------------------------------------
+CREATE TABLE public.annee(
+	id_annee   SERIAL NOT NULL ,
+	numero     INT  NOT NULL  ,
+	CONSTRAINT annee_PK PRIMARY KEY (id_annee)
+)WITHOUT OIDS;
+
+
+------------------------------------------------------------
+-- Table: semestre
+------------------------------------------------------------
+CREATE TABLE public.semestre(
+	id_semestre   SERIAL NOT NULL ,
+	numero        INT  NOT NULL ,
+	id_annee      INT  NOT NULL  ,
+	CONSTRAINT semestre_PK PRIMARY KEY (id_semestre)
+
+	,CONSTRAINT semestre_annee_FK FOREIGN KEY (id_annee) REFERENCES public.annee(id_annee)
+)WITHOUT OIDS;
+
+
+------------------------------------------------------------
+-- Table: cours
+------------------------------------------------------------
+CREATE TABLE public.cours(
+	nom_matiere   VARCHAR (50) NOT NULL ,
+	duree         INT  NOT NULL ,
+	id            INT  NOT NULL ,
+	id_annee      INT  NOT NULL ,
+	id_semestre   INT  NOT NULL  ,
+	CONSTRAINT cours_PK PRIMARY KEY (nom_matiere)
+
+	,CONSTRAINT cours_enseignant_FK FOREIGN KEY (id) REFERENCES public.enseignant(id)
+	,CONSTRAINT cours_annee0_FK FOREIGN KEY (id_annee) REFERENCES public.annee(id_annee)
+	,CONSTRAINT cours_semestre1_FK FOREIGN KEY (id_semestre) REFERENCES public.semestre(id_semestre)
+)WITHOUT OIDS;
+
+
+------------------------------------------------------------
+-- Table: epreuve
+------------------------------------------------------------
+CREATE TABLE public.epreuve(
+	id              SERIAL NOT NULL ,
 	nom             VARCHAR (50) NOT NULL ,
-  prenom          VARCHAR (50) NOT NULL,
-  email           VARCHAR (50) NOT NULL,
-  passwordUser        VARCHAR (100) NOT NULL,
-	adresse_ville   VARCHAR (50) NOT NULL ,
-	code_postale    INT  NOT NULL  ,
-	CONSTRAINT client_PK PRIMARY KEY (id_client)
+	coefficient     FLOAT  NOT NULL ,
+	id_enseignant   INT  NOT NULL ,
+	nom_matiere     VARCHAR (50) NOT NULL  ,
+	CONSTRAINT epreuve_PK PRIMARY KEY (id)
+
+	,CONSTRAINT epreuve_enseignant_FK FOREIGN KEY (id_enseignant) REFERENCES public.enseignant(id)
+	,CONSTRAINT epreuve_cours0_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere)
 )WITHOUT OIDS;
 
 
 ------------------------------------------------------------
--- Table: Produit
+-- Table: cycle
 ------------------------------------------------------------
-CREATE TABLE Produit(
-	reference        INT  NOT NULL ,
-	prix             INT   ,
-	designatiion     VARCHAR (50)  ,
-	quantite_stock   INT   ,
-	tva              FLOAT  NOT NULL  ,
-	CONSTRAINT Produit_PK PRIMARY KEY (reference)
+CREATE TABLE public.cycle(
+	nom_cycle   VARCHAR (20) NOT NULL  ,
+	CONSTRAINT cycle_PK PRIMARY KEY (nom_cycle)
 )WITHOUT OIDS;
 
 
 ------------------------------------------------------------
--- Table: Commande
+-- Table: etudiant
 ------------------------------------------------------------
-CREATE TABLE Commande(
-	numero      SERIAL NOT NULL ,
-	date        DATE  NOT NULL ,
-	id_client   INT  NOT NULL  ,
-	CONSTRAINT Commande_PK PRIMARY KEY (numero)
+CREATE TABLE public.etudiant(
+	id             SERIAL NOT NULL ,
+	nom            VARCHAR (50) NOT NULL ,
+	prenom         VARCHAR (50) NOT NULL ,
+	mail           VARCHAR (50) NOT NULL ,
+	passworduser   VARCHAR (60) NOT NULL ,
+	annee_cursus   INT  NOT NULL ,
+	nom_cycle      VARCHAR (20) NOT NULL  ,
+	CONSTRAINT etudiant_PK PRIMARY KEY (id)
 
-	,CONSTRAINT Commande_client_FK FOREIGN KEY (id_client) REFERENCES public.client(id_client)
+	,CONSTRAINT etudiant_cycle_FK FOREIGN KEY (nom_cycle) REFERENCES public.cycle(nom_cycle)
 )WITHOUT OIDS;
 
 
 ------------------------------------------------------------
--- Table: Est Constitué
+-- Table: appreciation
 ------------------------------------------------------------
-CREATE TABLE Est_Constitue(
-	reference               INT  NOT NULL ,
-	numero                  INT  NOT NULL ,
-	nombre_produit_achete   INT  NOT NULL  ,
-	CONSTRAINT Est_Constitue_PK PRIMARY KEY (reference,numero)
+CREATE TABLE public.appreciation(
+	id            SERIAL NOT NULL ,
+	phrase        VARCHAR (50) NOT NULL ,
+	id_etudiant   INT  NOT NULL ,
+	id_semestre   INT  NOT NULL ,
+	nom_matiere   VARCHAR (50) NOT NULL  ,
+	CONSTRAINT appreciation_PK PRIMARY KEY (id)
 
-	,CONSTRAINT Est_Constitue_Produit_FK FOREIGN KEY (reference) REFERENCES public.Produit(reference)
-	,CONSTRAINT Est_Constitue_Commande0_FK FOREIGN KEY (numero) REFERENCES public.Commande(numero)
+	,CONSTRAINT appreciation_etudiant_FK FOREIGN KEY (id_etudiant) REFERENCES public.etudiant(id)
+	,CONSTRAINT appreciation_semestre0_FK FOREIGN KEY (id_semestre) REFERENCES public.semestre(id_semestre)
+	,CONSTRAINT appreciation_cours1_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere)
+)WITHOUT OIDS;
+
+
+------------------------------------------------------------
+-- Table: participe
+------------------------------------------------------------
+CREATE TABLE public.participe(
+	nom_matiere   VARCHAR (50) NOT NULL ,
+	id            INT  NOT NULL  ,
+	CONSTRAINT participe_PK PRIMARY KEY (nom_matiere,id)
+
+	,CONSTRAINT participe_cours_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere)
+	,CONSTRAINT participe_etudiant0_FK FOREIGN KEY (id) REFERENCES public.etudiant(id)
+)WITHOUT OIDS;
+
+
+------------------------------------------------------------
+-- Table: fait_epreuve
+------------------------------------------------------------
+CREATE TABLE public.fait_epreuve(
+	id            INT  NOT NULL ,
+	id_etudiant   INT  NOT NULL ,
+	note          FLOAT  NOT NULL  ,
+	CONSTRAINT fait_epreuve_PK PRIMARY KEY (id,id_etudiant)
+
+	,CONSTRAINT fait_epreuve_epreuve_FK FOREIGN KEY (id) REFERENCES public.epreuve(id)
+	,CONSTRAINT fait_epreuve_etudiant0_FK FOREIGN KEY (id_etudiant) REFERENCES public.etudiant(id)
 )WITHOUT OIDS;
 
 

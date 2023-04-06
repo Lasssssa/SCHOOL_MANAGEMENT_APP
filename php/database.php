@@ -1,5 +1,6 @@
 <?php 
-
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
     require_once("constants.php");
     
     function dbConnect(){
@@ -16,9 +17,8 @@
 
     function isValidUser($email, $dbConnection,$table){
         try{
-            $query = 'SELECT * FROM :tableUser WHERE email = :email';
+            $query = 'SELECT * FROM '.$table.' WHERE mail = :email';
             $statement = $dbConnection->prepare($query);
-            $statement->bindParam(':tableUser', $table);
             $statement->bindParam(':email', $email);
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -34,9 +34,8 @@
 
     function getEncryptedPassword($email,$dbConnection,$table){
         try{
-            $query = 'SELECT * FROM :tableUser WHERE email = :email';
+            $query = 'SELECT * FROM '.$table.' WHERE mail = :email';
             $statement = $dbConnection->prepare($query);
-            $statement->bindParam(':tableUser', $table);
             $statement->bindParam(':email', $email);
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -47,9 +46,8 @@
     }
     function getUser($email, $dbConnection,$table){
         try{
-            $query = 'SELECT * FROM :tableUser WHERE email = :email';
+            $query = 'SELECT * FROM '.$table.' WHERE mail = :email';
             $statement = $dbConnection->prepare($query);
-            $statement->bindParam(':tableUser', $table);
             $statement->bindParam(':email', $email);
             $statement->execute();
             $result = $statement->fetch(PDO::FETCH_ASSOC);
@@ -58,5 +56,4 @@
             echo $e->getMessage();
         }
     }
-
 ?>

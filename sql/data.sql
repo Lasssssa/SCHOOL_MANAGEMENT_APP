@@ -1,18 +1,36 @@
-
+/*
 DELETE FROM Commande;
 DELETE FROM client;
 DELETE FROM Produit;
 DELETE FROM Est_Constitue;
+*/
 
--- --- Populate auteur table ------------
-INSERT INTO client (nom, prenom, email, passwordUser, adresse_ville, code_postale) VALUES
-('Porodo', 'Theo','theoporodo@gmail.com','$2y$10$HG4aZMy3lk0nSWweFN.UKOv4XkTfNDs0VfFKzhba3/CIFfx6oz2m2','16 rue de la Métairie',44700);
+DELETE FROM administrateur;
+DELETE FROM enseignant;
+DELETE FROM etudiant;
+DELETE FROM cycle;
 
--- --- Populate siecle table ------------
-INSERT INTO Produit (reference,prix,designatiion,quantite_stock,tva) VALUES
-(123456,100,'Jambon Beurre',150,0.25),
-(789456,4,'Tomate Oignons',200,0.25),
-(147852,6,'Rosette Cornichons',250,0.25),
-(369852,10000,'Jambon Ketchup',10,0.25),
-(123789,5,'Poulet fri',20,0.25);
+INSERT INTO annee (numero) VALUES (2020),(2021),(2022),(2023);
+INSERT INTO semestre (numero,id_annee) VALUES (1,3),(2,3);
+
+INSERT INTO administrateur (nom,prenom,telephone,mail,passworduser) VALUES 
+('Porodo','Theo','0781908419','theo.porodo@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW');
+INSERT INTO enseignant (nom,prenom,telephone,passworduser,mail) VALUES 
+('karine','ayoub','0675859647','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW','ayoub.karine@isen-ouest.yncrea.fr'),
+('meuneu','Jean Jack','0675859647','mdpJean','jean-jack.meuneu@isen-ouest.yncrea.fr');
+
+INSERT INTO cycle(nom_cycle) VALUES 
+('CIR'),
+('CEST'),
+('CGSI'),
+('CENT'),
+('BIOST'),
+('BIAST');
+
+INSERT INTO etudiant (nom,prenom,mail,passworduser,annee_cursus,nom_cycle) VALUES 
+('croguy','romain','romain@gmail.com','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',2,'CIR'),
+('Pajdak','antoine','antoine@gmail.com','mdpAntoine',2,'CGSI'),
+('fanjul','esteban','esteban@gmail.com','mdpEsteb',2,'CENT'),
+('legoff','quentin','quentin@gmail.com','mdpQuentin',2,'CEST')
+;
 

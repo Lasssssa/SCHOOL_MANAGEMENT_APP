@@ -14,6 +14,35 @@
         <script src="script.js"></script>
     </head>   
     <body>
+
+        <?php
+            ini_set('display_errors', 1);
+            error_reporting(E_ALL);
+            require_once("database.php");
+            $dbConnection = dbConnect();
+            if(isset($_POST['envoyer']) && isset($_POST['email']) && isset($_POST['password'])){
+            $email = $_POST['email'];
+            $table = "enseignant";
+            
+            if(isValidUser($email, $dbConnection,$table)){
+                    $encryptedPassword = getEncryptedPassword($email, $dbConnection,$table);
+                    if(password_verify($_POST['password'], $encryptedPassword)){
+                        $user = getUser($email, $dbConnection,$table);
+                        $_SESSION['email'] = $user['mail'];
+                        $_SESSION['nom'] = $user['nom'];
+                        $_SESSION['prenom'] = $user['prenom'];
+                        $_SESSION['telephone'] = $user['telephone'];
+                        $_SESSION['identified'] = true;
+                        header("Location: persoAdmin.php");
+                        exit;
+                    }else{
+                        $_SESSION['erreurIdentificationEnseignant'] = true;
+                    } 
+                }else{
+                    $_SESSION['erreurIdentificationEnseignant'] = true;
+                }
+            }
+        ?>
         <div id="bodyLogin">
             <div id="leftLogin">
                 <img src="images/logoIsen.png" width="220px">
@@ -60,6 +89,13 @@
                             </div>
                         </form>
                     </div>
+                    <?php
+                        if(isset($_SESSION['erreurIdentificationEnseignant'])){
+                            if($_SESSION['erreurIdentificationEnseignant']){
+                                echo '<p id="erreurParagraphe">Erreur d\'authentification</p>';
+                            }
+                        }
+                    ?>
                 </div>
             </div>
             <div id="rightLogin">
