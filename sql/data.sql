@@ -10,8 +10,8 @@ DELETE FROM enseignant;
 DELETE FROM etudiant;
 DELETE FROM cycle;
 
-INSERT INTO annee (numero) VALUES (2020),(2021),(2022),(2023);
-INSERT INTO semestre (numero,id_annee) VALUES (1,3),(2,3);
+INSERT INTO annee (numero_annee) VALUES (2020),(2021),(2022),(2023);
+INSERT INTO semestre (numero_semestre,id_annee) VALUES (1,3),(2,3);
 
 INSERT INTO administrateur (nom,prenom,telephone,mail,passworduser) VALUES 
 ('Porodo','Theo','0781908419','theo.porodo@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW');

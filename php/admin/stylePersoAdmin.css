@@ -1,0 +1,56 @@
+#header{
+    padding-left: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 4fr 1fr 0.5fr;
+    grid-template-rows: 100px 1fr;
+    background: linear-gradient(.25turn, #1E559C, #478AF7);
+    text-align: center;
+    align-items: center;
+}
+#header a:link{
+    text-decoration: none;
+    padding-left: 10px;
+    padding-top: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    color: white;
+}
+#header a:visited{
+    color: white;
+}
+#account a:link{
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 23px;
+    padding-top: 10px;
+    text-align: center;
+    align-items: center;
+}
+
+
+#recap{
+    margin: 2%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    grid-template-rows: 100%;
+    text-align: center;
+}
+#recap h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    color: #478AF7;
+    padding: 10px;
+    margin: 0;
+}
+#bouton{
+    padding: 10px;
+    margin: 10px;
+}
+#afficher{
+    border: solid 1px #478AF7;
+    border-radius: 10px;
+    margin: 5px;
+}
+#header a:hover{
+    color: black;
+}

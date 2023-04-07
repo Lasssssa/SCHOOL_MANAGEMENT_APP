@@ -63,7 +63,7 @@ CREATE TABLE public.enseignant(
 ------------------------------------------------------------
 CREATE TABLE public.annee(
 	id_annee   SERIAL NOT NULL ,
-	numero     INT  NOT NULL  ,
+	numero_annee     INT  NOT NULL  ,
 	CONSTRAINT annee_PK PRIMARY KEY (id_annee)
 )WITHOUT OIDS;
 
@@ -73,7 +73,7 @@ CREATE TABLE public.annee(
 ------------------------------------------------------------
 CREATE TABLE public.semestre(
 	id_semestre   SERIAL NOT NULL ,
-	numero        INT  NOT NULL ,
+	numero_semestre        INT  NOT NULL ,
 	id_annee      INT  NOT NULL  ,
 	CONSTRAINT semestre_PK PRIMARY KEY (id_semestre)
 

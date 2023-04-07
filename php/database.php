@@ -56,4 +56,31 @@
             echo $e->getMessage();
         }
     }
+
+    function getAllProfessors($dbConnection){
+        try{
+            $query = 'SELECT * FROM enseignant';
+            $statement = $dbConnection->prepare($query);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }	
+
+    function getAllStudents($dbConnection){
+        try{
+            $query = 'SELECT * FROM etudiant';
+            $statement = $dbConnection->prepare($query);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+    function getAllCourses($dbConnection){
+        
+    }
 ?>
