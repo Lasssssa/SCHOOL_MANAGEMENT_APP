@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS cours CASCADE;
 DROP TABLE IF EXISTS epreuve CASCADE;
 DROP TABLE IF EXISTS appreciation CASCADE;
 DROP TABLE IF EXISTS fait_epreuve CASCADE;
+DROP TABLE IF EXISTS recoit_appreciation CASCADE;
 ------------------------------------------------------------
 --        Script Postgre 
 ------------------------------------------------------------
