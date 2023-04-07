@@ -32,7 +32,6 @@
            $table = "administrateur";
            
            if(isValidUser($email, $dbConnection,$table)){
-                echo "test";
                 $encryptedPassword = getEncryptedPassword($email, $dbConnection,$table);
                 if(password_verify($_POST['password'], $encryptedPassword)){
                     $user = getUser($email, $dbConnection,$table);
