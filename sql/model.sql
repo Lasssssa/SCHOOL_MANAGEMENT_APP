@@ -1,7 +1,7 @@
 
 ------------------------------------------------------------
 --        A ADAPTER AVEC NOTRE BASE DE DONNEES
-------------------------------------------------------------
+------------------------²------------------------------------
 /*
 DROP TABLE IF EXISTS client CASCADE;
 DROP TABLE IF EXISTS Produit CASCADE;
@@ -114,6 +114,21 @@ CREATE TABLE public.epreuve(
 
 
 ------------------------------------------------------------
+-- Table: appreciation
+------------------------------------------------------------
+CREATE TABLE public.appreciation(
+	id            SERIAL NOT NULL ,
+	phrase        VARCHAR (50) NOT NULL ,
+	id_semestre   INT  NOT NULL ,
+	nom_matiere   VARCHAR (50) NOT NULL  ,
+	CONSTRAINT appreciation_PK PRIMARY KEY (id)
+
+	,CONSTRAINT appreciation_semestre_FK FOREIGN KEY (id_semestre) REFERENCES public.semestre(id_semestre)
+	,CONSTRAINT appreciation_cours0_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere)
+)WITHOUT OIDS;
+
+
+------------------------------------------------------------
 -- Table: cycle
 ------------------------------------------------------------
 CREATE TABLE public.cycle(
@@ -136,23 +151,6 @@ CREATE TABLE public.etudiant(
 	CONSTRAINT etudiant_PK PRIMARY KEY (id)
 
 	,CONSTRAINT etudiant_cycle_FK FOREIGN KEY (nom_cycle) REFERENCES public.cycle(nom_cycle)
-)WITHOUT OIDS;
-
-
-------------------------------------------------------------
--- Table: appreciation
-------------------------------------------------------------
-CREATE TABLE public.appreciation(
-	id            SERIAL NOT NULL ,
-	phrase        VARCHAR (50) NOT NULL ,
-	id_etudiant   INT  NOT NULL ,
-	id_semestre   INT  NOT NULL ,
-	nom_matiere   VARCHAR (50) NOT NULL  ,
-	CONSTRAINT appreciation_PK PRIMARY KEY (id)
-
-	,CONSTRAINT appreciation_etudiant_FK FOREIGN KEY (id_etudiant) REFERENCES public.etudiant(id)
-	,CONSTRAINT appreciation_semestre0_FK FOREIGN KEY (id_semestre) REFERENCES public.semestre(id_semestre)
-	,CONSTRAINT appreciation_cours1_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere)
 )WITHOUT OIDS;
 
 
@@ -181,6 +179,19 @@ CREATE TABLE public.fait_epreuve(
 
 	,CONSTRAINT fait_epreuve_epreuve_FK FOREIGN KEY (id) REFERENCES public.epreuve(id)
 	,CONSTRAINT fait_epreuve_etudiant0_FK FOREIGN KEY (id_etudiant) REFERENCES public.etudiant(id)
+)WITHOUT OIDS;
+
+
+------------------------------------------------------------
+-- Table: recoit
+------------------------------------------------------------
+CREATE TABLE public.recoit_appreciation(
+	id            INT  NOT NULL ,
+	id_etudiant   INT  NOT NULL  ,
+	CONSTRAINT recoit_PK PRIMARY KEY (id,id_etudiant)
+
+	,CONSTRAINT recoit_appreciation_FK FOREIGN KEY (id) REFERENCES public.appreciation(id)
+	,CONSTRAINT recoit_etudiant0_FK FOREIGN KEY (id_etudiant) REFERENCES public.etudiant(id)
 )WITHOUT OIDS;
 
 
