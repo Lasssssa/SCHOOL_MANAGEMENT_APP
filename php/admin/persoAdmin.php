@@ -23,6 +23,8 @@
     <!-- A réadapter -->
 
     <body>
-        <h1>Connexion Administrateur</h1>
+        <div id="header">
+            
+        </div>
     </body>
 </html>
