@@ -1,14 +1,3 @@
-
-------------------------------------------------------------
---        A ADAPTER AVEC NOTRE BASE DE DONNEES
-------------------------²------------------------------------
-/*
-DROP TABLE IF EXISTS client CASCADE;
-DROP TABLE IF EXISTS Produit CASCADE;
-DROP TABLE IF EXISTS Commande CASCADE;
-DROP TABLE IF EXISTS Est_Constitue CASCADE;
-*/
-
 ------------------------------------------------------------
 --        Script Postgre 
 ------------------------------------------------------------
@@ -34,13 +23,13 @@ DROP TABLE IF EXISTS recoit_appreciation CASCADE;
 -- Table: administrateur
 ------------------------------------------------------------
 CREATE TABLE public.administrateur(
-	id             SERIAL NOT NULL ,
-	nom            VARCHAR (50) NOT NULL ,
-	prenom         VARCHAR (50) NOT NULL ,
-	telephone      VARCHAR (25) NOT NULL ,
-	mail           VARCHAR (60) NOT NULL ,
-	passworduser   VARCHAR (60) NOT NULL  ,
-	CONSTRAINT administrateur_PK PRIMARY KEY (id)
+	id_admin          SERIAL NOT NULL ,
+	nom_admin         VARCHAR (50) NOT NULL ,
+	prenom_admin      VARCHAR (50) NOT NULL ,
+	telephone_admin   VARCHAR (25) NOT NULL ,
+	mail_admin        VARCHAR (60) NOT NULL ,
+	password_admin    VARCHAR (60) NOT NULL  ,
+	CONSTRAINT administrateur_PK PRIMARY KEY (id_admin)
 )WITHOUT OIDS;
 
 
@@ -48,13 +37,13 @@ CREATE TABLE public.administrateur(
 -- Table: enseignant
 ------------------------------------------------------------
 CREATE TABLE public.enseignant(
-	id             SERIAL NOT NULL ,
-	nom            VARCHAR (50) NOT NULL ,
-	prenom         VARCHAR (50) NOT NULL ,
-	telephone      VARCHAR (25) NOT NULL ,
-	passworduser   VARCHAR (60) NOT NULL ,
-	mail           VARCHAR (50) NOT NULL  ,
-	CONSTRAINT enseignant_PK PRIMARY KEY (id)
+	id_prof          SERIAL NOT NULL ,
+	nom_prof         VARCHAR (50) NOT NULL ,
+	prenom_prof      VARCHAR (50) NOT NULL ,
+	telephone_prof   VARCHAR (25) NOT NULL ,
+	password_prof    VARCHAR (60) NOT NULL ,
+	mail_prof        VARCHAR (50) NOT NULL  ,
+	CONSTRAINT enseignant_PK PRIMARY KEY (id_prof)
 )WITHOUT OIDS;
 
 
@@ -62,8 +51,8 @@ CREATE TABLE public.enseignant(
 -- Table: annee
 ------------------------------------------------------------
 CREATE TABLE public.annee(
-	id_annee   SERIAL NOT NULL ,
-	numero_annee     INT  NOT NULL  ,
+	id_annee       SERIAL NOT NULL ,
+	numero_annee   INT  NOT NULL  ,
 	CONSTRAINT annee_PK PRIMARY KEY (id_annee)
 )WITHOUT OIDS;
 
@@ -72,9 +61,9 @@ CREATE TABLE public.annee(
 -- Table: semestre
 ------------------------------------------------------------
 CREATE TABLE public.semestre(
-	id_semestre   SERIAL NOT NULL ,
-	numero_semestre        INT  NOT NULL ,
-	id_annee      INT  NOT NULL  ,
+	id_semestre       SERIAL NOT NULL ,
+	numero_semestre   INT  NOT NULL ,
+	id_annee          INT  NOT NULL  ,
 	CONSTRAINT semestre_PK PRIMARY KEY (id_semestre)
 
 	,CONSTRAINT semestre_annee_FK FOREIGN KEY (id_annee) REFERENCES public.annee(id_annee)
@@ -87,12 +76,12 @@ CREATE TABLE public.semestre(
 CREATE TABLE public.cours(
 	nom_matiere   VARCHAR (50) NOT NULL ,
 	duree         INT  NOT NULL ,
-	id            INT  NOT NULL ,
+	id_prof       INT  NOT NULL ,
 	id_annee      INT  NOT NULL ,
 	id_semestre   INT  NOT NULL  ,
 	CONSTRAINT cours_PK PRIMARY KEY (nom_matiere)
 
-	,CONSTRAINT cours_enseignant_FK FOREIGN KEY (id) REFERENCES public.enseignant(id)
+	,CONSTRAINT cours_enseignant_FK FOREIGN KEY (id_prof) REFERENCES public.enseignant(id_prof)
 	,CONSTRAINT cours_annee0_FK FOREIGN KEY (id_annee) REFERENCES public.annee(id_annee)
 	,CONSTRAINT cours_semestre1_FK FOREIGN KEY (id_semestre) REFERENCES public.semestre(id_semestre)
 )WITHOUT OIDS;
@@ -102,14 +91,14 @@ CREATE TABLE public.cours(
 -- Table: epreuve
 ------------------------------------------------------------
 CREATE TABLE public.epreuve(
-	id              SERIAL NOT NULL ,
-	nom             VARCHAR (50) NOT NULL ,
-	coefficient     FLOAT  NOT NULL ,
-	id_enseignant   INT  NOT NULL ,
-	nom_matiere     VARCHAR (50) NOT NULL  ,
-	CONSTRAINT epreuve_PK PRIMARY KEY (id)
+	id_epreuve    SERIAL NOT NULL ,
+	nom_epreuve   VARCHAR (50) NOT NULL ,
+	coefficient   FLOAT  NOT NULL ,
+	id_prof       INT  NOT NULL ,
+	nom_matiere   VARCHAR (50) NOT NULL  ,
+	CONSTRAINT epreuve_PK PRIMARY KEY (id_epreuve)
 
-	,CONSTRAINT epreuve_enseignant_FK FOREIGN KEY (id_enseignant) REFERENCES public.enseignant(id)
+	,CONSTRAINT epreuve_enseignant_FK FOREIGN KEY (id_prof) REFERENCES public.enseignant(id_prof)
 	,CONSTRAINT epreuve_cours0_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere)
 )WITHOUT OIDS;
 
@@ -118,11 +107,11 @@ CREATE TABLE public.epreuve(
 -- Table: appreciation
 ------------------------------------------------------------
 CREATE TABLE public.appreciation(
-	id            SERIAL NOT NULL ,
-	phrase        VARCHAR (50) NOT NULL ,
-	id_semestre   INT  NOT NULL ,
-	nom_matiere   VARCHAR (50) NOT NULL  ,
-	CONSTRAINT appreciation_PK PRIMARY KEY (id)
+	id_appreciation   SERIAL NOT NULL ,
+	phrase            VARCHAR (50) NOT NULL ,
+	id_semestre       INT  NOT NULL ,
+	nom_matiere       VARCHAR (50) NOT NULL  ,
+	CONSTRAINT appreciation_PK PRIMARY KEY (id_appreciation)
 
 	,CONSTRAINT appreciation_semestre_FK FOREIGN KEY (id_semestre) REFERENCES public.semestre(id_semestre)
 	,CONSTRAINT appreciation_cours0_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere)
@@ -142,14 +131,14 @@ CREATE TABLE public.cycle(
 -- Table: etudiant
 ------------------------------------------------------------
 CREATE TABLE public.etudiant(
-	id             SERIAL NOT NULL ,
-	nom            VARCHAR (50) NOT NULL ,
-	prenom         VARCHAR (50) NOT NULL ,
-	mail           VARCHAR (50) NOT NULL ,
-	passworduser   VARCHAR (60) NOT NULL ,
+	id_etu         SERIAL NOT NULL ,
+	nom_etu        VARCHAR (50) NOT NULL ,
+	prenom_etu     VARCHAR (50) NOT NULL ,
+	mail_etu       VARCHAR (50) NOT NULL ,
+	password_etu   VARCHAR (60) NOT NULL ,
 	annee_cursus   INT  NOT NULL ,
 	nom_cycle      VARCHAR (20) NOT NULL  ,
-	CONSTRAINT etudiant_PK PRIMARY KEY (id)
+	CONSTRAINT etudiant_PK PRIMARY KEY (id_etu)
 
 	,CONSTRAINT etudiant_cycle_FK FOREIGN KEY (nom_cycle) REFERENCES public.cycle(nom_cycle)
 )WITHOUT OIDS;
@@ -160,11 +149,11 @@ CREATE TABLE public.etudiant(
 ------------------------------------------------------------
 CREATE TABLE public.participe(
 	nom_matiere   VARCHAR (50) NOT NULL ,
-	id            INT  NOT NULL  ,
-	CONSTRAINT participe_PK PRIMARY KEY (nom_matiere,id)
+	id_etu        INT  NOT NULL  ,
+	CONSTRAINT participe_PK PRIMARY KEY (nom_matiere,id_etu)
 
 	,CONSTRAINT participe_cours_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere)
-	,CONSTRAINT participe_etudiant0_FK FOREIGN KEY (id) REFERENCES public.etudiant(id)
+	,CONSTRAINT participe_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
 )WITHOUT OIDS;
 
 
@@ -172,27 +161,27 @@ CREATE TABLE public.participe(
 -- Table: fait_epreuve
 ------------------------------------------------------------
 CREATE TABLE public.fait_epreuve(
-	id            INT  NOT NULL ,
-	id_etudiant   INT  NOT NULL ,
-	note          FLOAT  NOT NULL ,
-	est_note      BOOL  NOT NULL  ,
-	CONSTRAINT fait_epreuve_PK PRIMARY KEY (id,id_etudiant)
+	id_epreuve   INT  NOT NULL ,
+	id_etu       INT  NOT NULL ,
+	note         FLOAT  NOT NULL ,
+	est_note     BOOL  NOT NULL  ,
+	CONSTRAINT fait_epreuve_PK PRIMARY KEY (id_epreuve,id_etu)
 
-	,CONSTRAINT fait_epreuve_epreuve_FK FOREIGN KEY (id) REFERENCES public.epreuve(id)
-	,CONSTRAINT fait_epreuve_etudiant0_FK FOREIGN KEY (id_etudiant) REFERENCES public.etudiant(id)
+	,CONSTRAINT fait_epreuve_epreuve_FK FOREIGN KEY (id_epreuve) REFERENCES public.epreuve(id_epreuve)
+	,CONSTRAINT fait_epreuve_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
 )WITHOUT OIDS;
 
 
 ------------------------------------------------------------
--- Table: recoit
+-- Table: recoit_appreciation
 ------------------------------------------------------------
 CREATE TABLE public.recoit_appreciation(
-	id            INT  NOT NULL ,
-	id_etudiant   INT  NOT NULL  ,
-	CONSTRAINT recoit_PK PRIMARY KEY (id,id_etudiant)
+	id_appreciation   INT  NOT NULL ,
+	id_etu            INT  NOT NULL  ,
+	CONSTRAINT recoit_appreciation_PK PRIMARY KEY (id_appreciation,id_etu)
 
-	,CONSTRAINT recoit_appreciation_FK FOREIGN KEY (id) REFERENCES public.appreciation(id)
-	,CONSTRAINT recoit_etudiant0_FK FOREIGN KEY (id_etudiant) REFERENCES public.etudiant(id)
+	,CONSTRAINT recoit_appreciation_appreciation_FK FOREIGN KEY (id_appreciation) REFERENCES public.appreciation(id_appreciation)
+	,CONSTRAINT recoit_appreciation_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
 )WITHOUT OIDS;
 
 

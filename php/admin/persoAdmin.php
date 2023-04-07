@@ -20,7 +20,7 @@
         <script src="../script.js"></script>
     </head>
     
-    <!-- A réadapter -->
+    <!-- A voir pour plutot avoir un récapitulatif en fonction de ce que l'on demande -->
 
     <body>
         <div id="header">
@@ -72,7 +72,7 @@
                             echo '<table class="table table-striped">';
                             echo '<tr><th>Nom</th><th>Prénom</th><th>Mail</th><th>Numéro de téléphone</th></tr>';
                             foreach($allProfessors as $enseignant){
-                                echo '<tr><td>'.$enseignant['nom'].'</td><td>'.$enseignant['prenom'].'</td><td>'.$enseignant['mail'].'</td><td>'.$enseignant['telephone'].'</td></tr>';
+                                echo '<tr><td>'.$enseignant['nom_prof'].'</td><td>'.$enseignant['prenom_prof'].'</td><td>'.$enseignant['mail_prof'].'</td><td>'.$enseignant['telephone_prof'].'</td></tr>';
                             }
                             echo '</table>';
                         echo '</div>';
@@ -105,7 +105,7 @@
                             echo '<table class="table table-striped">';
                             echo '<tr><th>Nom</th><th>Prénom</th><th>Mail</th><th>Année</th><th>Cycle</th></tr>';
                             foreach($allStudents as $etudiant){
-                                echo '<tr><td>'.$etudiant['nom'].'</td><td>'.$etudiant['prenom'].'</td><td>'.$etudiant['mail'].'</td><td>'.$etudiant['annee_cursus'].'</td><td>'.$etudiant['nom_cycle'].'</td></tr>';
+                                echo '<tr><td>'.$etudiant['nom_etu'].'</td><td>'.$etudiant['prenom_etu'].'</td><td>'.$etudiant['mail_etu'].'</td><td>'.$etudiant['annee_cursus'].'</td><td>'.$etudiant['nom_cycle'].'</td></tr>';
                             }
                             echo '</table>';
                         echo '</div>';
@@ -138,7 +138,7 @@
                             echo '<table class="table table-striped">';
                             echo '<tr><th>Matière</th><th>Durée</th><th>Professeur</th><th>Semestre</th><th>Année</th></tr>';
                             foreach($allCourses as $course){   
-                                echo '<tr><td>'.$course['nom_matiere'].'</td><td>'.$course['duree'].'</td><td>'.$course['nom'].'</td><td>'.$course['numero_semestre'].'</td><td>'.$course['numero_annee'].'</td></tr>';
+                                echo '<tr><td>'.$course['nom_matiere'].'</td><td>'.$course['duree'].'</td><td>'.$course['prenom_prof'].' '.$course['nom_prof'].'</td><td>'.$course['numero_semestre'].'</td><td>'.$course['numero_annee'].'</td></tr>';
                             }
                             echo '</table>';
                         echo '</div>';

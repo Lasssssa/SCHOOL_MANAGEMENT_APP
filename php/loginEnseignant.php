@@ -35,11 +35,11 @@
                     $encryptedPassword = getEncryptedPassword($email, $dbConnection,$table);
                     if(password_verify($_POST['password'], $encryptedPassword)){
                         $user = getUser($email, $dbConnection,$table);
-                        $_SESSION['email'] = $user['mail'];
-                        $_SESSION['nom'] = $user['nom'];
-                        $_SESSION['prenom'] = $user['prenom'];
-                        $_SESSION['telephone'] = $user['telephone'];
-                        $_SESSION['id'] = $user['id'];
+                        $_SESSION['email'] = $user['mail_prof'];
+                        $_SESSION['nom'] = $user['nom_prof'];
+                        $_SESSION['prenom'] = $user['prenom_prof'];
+                        $_SESSION['telephone'] = $user['telephone_prof'];
+                        $_SESSION['id'] = $user['id_prof'];
                         $_SESSION['identifiedEnseignant'] = true;
                         header("Location: enseignant/persoEnseignant.php");
                         exit;

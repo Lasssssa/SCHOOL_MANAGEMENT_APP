@@ -34,11 +34,12 @@
                         $encryptedPassword = getEncryptedPassword($email, $dbConnection,$table);
                         if(password_verify($_POST['password'], $encryptedPassword)){
                             $user = getUser($email, $dbConnection,$table);
-                            $_SESSION['email'] = $user['mail'];
-                            $_SESSION['nom'] = $user['nom'];
-                            $_SESSION['prenom'] = $user['prenom'];
-                            $_SESSION['telephone'] = $user['telephone'];
-                            $_SESSION['id'] = $user['id'];
+                            $_SESSION['email'] = $user['mail_etu'];
+                            $_SESSION['nom'] = $user['nom_etu'];
+                            $_SESSION['prenom'] = $user['prenom_etu'];
+                            $_SESSION['cycle'] = $user['nom_cycle'];
+                            $_SESSION['annee_cursus'] = $user['annee_cursus'];
+                            $_SESSION['id'] = $user['id_etu'];
                             $_SESSION['identifiedEtudiant'] = true;
                             header("Location: etudiant/persoEtudiant.php");
                             exit;

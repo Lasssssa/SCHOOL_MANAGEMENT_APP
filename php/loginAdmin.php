@@ -35,10 +35,10 @@
                 $encryptedPassword = getEncryptedPassword($email, $dbConnection,$table);
                 if(password_verify($_POST['password'], $encryptedPassword)){
                     $user = getUser($email, $dbConnection,$table);
-                    $_SESSION['email'] = $user['mail'];
-                    $_SESSION['nom'] = $user['nom'];
-                    $_SESSION['prenom'] = $user['prenom'];
-                    $_SESSION['telephone'] = $user['telephone'];
+                    $_SESSION['email'] = $user['mail_admin'];
+                    $_SESSION['nom'] = $user['nom_admin'];
+                    $_SESSION['prenom'] = $user['prenom_admin'];
+                    $_SESSION['telephone'] = $user['telephone_admin'];
                     $_SESSION['identifiedAdmin'] = true;
                     header("Location: admin/persoAdmin.php");
                     exit;
