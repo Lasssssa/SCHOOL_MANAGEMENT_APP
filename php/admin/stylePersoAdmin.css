@@ -51,6 +51,111 @@
     border-radius: 10px;
     margin: 5px;
 }
+
+#board{
+    text-align: center;
+    margin: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #478AF7;
+    border-radius: 10%;
+}
+#board2{
+    text-align: center;
+    margin: 15px;
+    display: grid;
+    background-color: #478AF7;
+    border-radius: 10%;
+}
+#board2 h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    color: white;
+    padding: 10px;
+    margin: 0;
+    text-decoration: underline;
+    /* background: linear-gradient(.25turn,#478AF7, #1E559C); */
+}
+#board h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    color: white;
+    padding: 10px;
+    margin: 0;
+    text-decoration: underline;
+    /* background: linear-gradient(.25turn,#478AF7, #1E559C); */
+}
+#board a:link{
+    text-decoration: none;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 23px;
+    padding-top: 10px;
+    text-align: center;
+    align-items: center;
+}
+#board a:visited{
+    color: white;
+}
+
+#modifyEnseignant{
+    text-align: center;
+    margin: 50px;
+}
+#modificationProf{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+#modif2{
+    background-color: #478AF7;
+    border-radius: 5%;
+    padding: 10px;
+    grid-column-start: 2;
+    grid-column-end: 2;
+}
+#deleteProf{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    text-align: center;
+}
+#delete2{
+    padding: 10px;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    align-items: center;
+    text-align: center;
+}
+
+#formAddingEnseignant{
+    grid-column-start: 2;
+    grid-column-end: 2;
+    margin: 20px;
+    padding: 5%;
+    border: solid 2px #478AF7;
+    border-radius: 3%;
+}
+#formAddingEnseignant h2{
+    font-family: 'Roboto', sans-serif;
+    font-size: 35px;
+    color: #1E559C;
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+}
+#formAddingEnseignant h4{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    color: #478AF7;
+    padding: 10px;
+    margin: 0;
+    text-decoration: underline;
+}
+#mainEnseignantAdmin{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 15px;
+}
 #header a:hover{
     color: black;
 }

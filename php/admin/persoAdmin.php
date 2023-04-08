@@ -46,6 +46,9 @@
                 <a href="../loginAdmin.php"><span class="material-symbols-outlined">logout</span></a>
             </div>
         </div>
+        <div id ="board2">
+            <h1>Tableau de bord général</h1>
+        </div>
         <div id="recap">
             <div id="recapEnseignant">
                 <h1>Enseignants</h1>

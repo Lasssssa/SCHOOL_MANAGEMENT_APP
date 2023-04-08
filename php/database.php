@@ -117,4 +117,70 @@
             echo $e->getMessage();
         }
     }
+
+    function modifyProfessor($dbConnection, $nom, $prenom, $mail, $telephone,$id){
+        try{
+            $query = 'UPDATE enseignant SET nom_prof = :nom, prenom_prof = :prenom, mail_prof = :mail, telephone_prof = :telephone WHERE id_prof = :id';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':nom', $nom);
+            $statement->bindParam(':prenom', $prenom);
+            $statement->bindParam(':mail', $mail);
+            $statement->bindParam(':telephone', $telephone);
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+    function addProfessor($dbConnection, $nom, $prenom, $mail, $password, $telephone){
+        $queryTest = 'SELECT * FROM enseignant WHERE mail_prof = :mail';
+        $statementTest = $dbConnection->prepare($queryTest);
+        $statementTest->bindParam(':mail', $mail);
+        $statementTest->execute();
+        $result = $statementTest->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) > 0){
+            return false;
+        }else{
+            try{
+                $query = 'INSERT INTO enseignant (nom_prof, prenom_prof, mail_prof, password_prof, telephone_prof) VALUES (:nom, :prenom, :mail, :passwordprof, :telephone)';
+                $statement = $dbConnection->prepare($query);
+                $statement->bindParam(':nom', $nom);
+                $statement->bindParam(':prenom', $prenom);
+                $statement->bindParam(':mail', $mail);
+                $statement->bindParam(':passwordprof', $password);
+                $statement->bindParam(':telephone', $telephone);
+                $statement->execute();
+                return true;
+            }catch(Exception $e){
+                echo $e->getMessage();
+            }
+        }
+    }
+
+    function deleteProfessor($dbConnection, $id){
+        try{
+            $query = 'DELETE FROM enseignant WHERE id_prof = :id';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+    function cantDeleteProfessor($dbConnection, $id){
+        try{
+            $query = 'SELECT * FROM cours WHERE id_prof = :id';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if(count($result) > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
 ?>
