@@ -19,8 +19,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
         <script src="../script.js"></script>
     </head>
-    
-    <!-- A réadapter -->
 
     <body>
         <div id="header">
@@ -44,6 +42,84 @@
             </div>
             <div id="deconnexion">
                 <a href="../loginAdmin.php"><span class="material-symbols-outlined">logout</span></a>
+            </div>
+        </div>
+        <div id ="board">
+            <a href="addingCours.php">Ajout</a>
+            <a href="modifyCourses.php">Modification</a>
+        </div>
+
+        <?php
+            if(isset($_POST['envoyer']) && isset($_POST['nom_matiere']) && isset($_POST['duree']) && isset($_POST['enseignant']) && isset($_POST['semestre']) && $_POST['enseignant'] != "impossible" && $_POST['semestre'] != "impossible"){
+                require_once('../database.php');
+                $db = dbConnect();
+                $cours = addCours($db, $_POST['nom_matiere'], $_POST['duree'], $_POST['enseignant'], $_POST['semestre']);
+                if($cours){
+                    echo '<div class="alert alert-success" role="alert">
+                            Le cours a bien été ajouté !
+                            </div>';
+                }
+                else{
+                    echo '<div class="alert alert-danger" role="alert">
+                            Le cours n\'a pas pu être ajouté !
+                            </div>';
+                }
+            }
+            else{
+                echo '<div class="alert alert-danger" role="alert">
+                        Le cours n\'a pas pu être ajouté !
+                        </div>';
+            }
+        ?>
+
+        <div id="mainAdding">
+            <div id="formAdding">
+                <h2>Ajout d'un cours</h2>
+                <form action="addingCours.php" method="post">
+                    <div class="form-group">
+                        <h4>Nom de la matière</h4>
+                        <input type="text" class="form-control" name ="nom_matiere">
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <h4>Nombre d'heures de cours</h4>
+                            <input type="number" class="form-control" name = "duree">
+                        </div>
+                    </div>
+                    <?php
+                        require_once('../database.php');
+                        $db = dbConnect();
+                        $professors = getAllProfessors($db);
+                        if($professors){
+                            echo '<div class="form-group">
+                            <h4>Enseignant responsable</h4>
+                            <select class="form-control" name="enseignant">';
+                            echo '<option value="impossible">Choisir un enseignant</option>';
+                            foreach($professors as $professor){
+                                echo '<option value="'.$professor['id_prof'].'">'.$professor['prenom_prof'].' '.$professor['nom_prof'].'</option>';
+                            }
+                            echo '</select>
+                            </div>';
+                        }    
+                        echo "<br>";
+                        $dateOfTheCours = getAllSemesters($db);
+                        if($dateOfTheCours){
+                            echo '<div class="form-group">
+                            <h4>Semestre</h4>
+                            <select class="form-control" name="semestre">';
+                            echo '<option value="impossible">Choisir un semestre</option>';
+                            foreach($dateOfTheCours as $date){
+                                echo '<option value="'.$date['id_semestre'].'">Semestre : '.$date['numero_semestre'].' Année : '.$date['numero_annee'].'</option>';
+                            }
+                            echo '</select>
+                            </div>';
+                        }
+
+                    ?>
+                    <br>
+                    <button type="submit" class="btn btn-primary" name ="envoyer">Créer un nouveau cours</button>
+                </form>
             </div>
         </div>
     </body>
