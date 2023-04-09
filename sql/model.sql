@@ -74,16 +74,15 @@ CREATE TABLE public.semestre(
 -- Table: cours
 ------------------------------------------------------------
 CREATE TABLE public.cours(
+	id_matiere    SERIAL NOT NULL ,
 	nom_matiere   VARCHAR (50) NOT NULL ,
 	duree         INT  NOT NULL ,
 	id_prof       INT  NOT NULL ,
-	id_annee      INT  NOT NULL ,
 	id_semestre   INT  NOT NULL  ,
-	CONSTRAINT cours_PK PRIMARY KEY (nom_matiere)
+	CONSTRAINT cours_PK PRIMARY KEY (id_matiere)
 
 	,CONSTRAINT cours_enseignant_FK FOREIGN KEY (id_prof) REFERENCES public.enseignant(id_prof)
-	,CONSTRAINT cours_annee0_FK FOREIGN KEY (id_annee) REFERENCES public.annee(id_annee)
-	,CONSTRAINT cours_semestre1_FK FOREIGN KEY (id_semestre) REFERENCES public.semestre(id_semestre)
+	,CONSTRAINT cours_semestre0_FK FOREIGN KEY (id_semestre) REFERENCES public.semestre(id_semestre)
 )WITHOUT OIDS;
 
 
@@ -94,12 +93,10 @@ CREATE TABLE public.epreuve(
 	id_epreuve    SERIAL NOT NULL ,
 	nom_epreuve   VARCHAR (50) NOT NULL ,
 	coefficient   FLOAT  NOT NULL ,
-	id_prof       INT  NOT NULL ,
-	nom_matiere   VARCHAR (50) NOT NULL  ,
+	id_matiere    INT  NOT NULL  ,
 	CONSTRAINT epreuve_PK PRIMARY KEY (id_epreuve)
 
-	,CONSTRAINT epreuve_enseignant_FK FOREIGN KEY (id_prof) REFERENCES public.enseignant(id_prof)
-	,CONSTRAINT epreuve_cours0_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere) ON DELETE CASCADE
+	,CONSTRAINT epreuve_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere)
 )WITHOUT OIDS;
 
 
@@ -109,12 +106,10 @@ CREATE TABLE public.epreuve(
 CREATE TABLE public.appreciation(
 	id_appreciation   SERIAL NOT NULL ,
 	phrase            VARCHAR (50) NOT NULL ,
-	id_semestre       INT  NOT NULL ,
-	nom_matiere       VARCHAR (50) NOT NULL  ,
+	id_matiere        INT  NOT NULL  ,
 	CONSTRAINT appreciation_PK PRIMARY KEY (id_appreciation)
 
-	,CONSTRAINT appreciation_semestre_FK FOREIGN KEY (id_semestre) REFERENCES public.semestre(id_semestre)
-	,CONSTRAINT appreciation_cours0_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere)
+	,CONSTRAINT appreciation_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere)
 )WITHOUT OIDS;
 
 
@@ -148,12 +143,12 @@ CREATE TABLE public.etudiant(
 -- Table: participe
 ------------------------------------------------------------
 CREATE TABLE public.participe(
-	nom_matiere   VARCHAR (50) NOT NULL ,
-	id_etu        INT  NOT NULL  ,
-	CONSTRAINT participe_PK PRIMARY KEY (nom_matiere,id_etu)
+	id_matiere   INT  NOT NULL ,
+	id_etu       INT  NOT NULL  ,
+	CONSTRAINT participe_PK PRIMARY KEY (id_matiere,id_etu)
 
-	,CONSTRAINT participe_cours_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere)
-	,CONSTRAINT participe_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu) ON DELETE CASCADE
+	,CONSTRAINT participe_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere)
+	,CONSTRAINT participe_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
 )WITHOUT OIDS;
 
 
@@ -168,7 +163,7 @@ CREATE TABLE public.fait_epreuve(
 	CONSTRAINT fait_epreuve_PK PRIMARY KEY (id_epreuve,id_etu)
 
 	,CONSTRAINT fait_epreuve_epreuve_FK FOREIGN KEY (id_epreuve) REFERENCES public.epreuve(id_epreuve)
-	,CONSTRAINT fait_epreuve_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu) ON DELETE CASCADE
+	,CONSTRAINT fait_epreuve_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
 )WITHOUT OIDS;
 
 
@@ -181,7 +176,7 @@ CREATE TABLE public.recoit_appreciation(
 	CONSTRAINT recoit_appreciation_PK PRIMARY KEY (id_appreciation,id_etu)
 
 	,CONSTRAINT recoit_appreciation_appreciation_FK FOREIGN KEY (id_appreciation) REFERENCES public.appreciation(id_appreciation)
-	,CONSTRAINT recoit_appreciation_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu) ON DELETE CASCADE
+	,CONSTRAINT recoit_appreciation_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
 )WITHOUT OIDS;
 
 

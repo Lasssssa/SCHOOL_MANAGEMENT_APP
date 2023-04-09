@@ -65,7 +65,7 @@
                             </div>';
                 }
             }
-            else{
+            else if(isset($_POST['envoyer'])){
                 echo '<div class="alert alert-danger" role="alert">
                         Le cours n\'a pas pu être ajouté !
                         </div>';
