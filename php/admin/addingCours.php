@@ -53,6 +53,7 @@
             if(isset($_POST['envoyer']) && isset($_POST['nom_matiere']) && isset($_POST['duree']) && isset($_POST['enseignant']) && isset($_POST['semestre']) && $_POST['enseignant'] != "impossible" && $_POST['semestre'] != "impossible"){
                 require_once('../database.php');
                 $db = dbConnect();
+                //echo $_POST['nom_matiere']." ".$_POST['duree']." ".$_POST['enseignant']." ".$_POST['semestre'];
                 $cours = addCours($db, $_POST['nom_matiere'], $_POST['duree'], $_POST['enseignant'], $_POST['semestre']);
                 if($cours){
                     echo '<div class="alert alert-success" role="alert">

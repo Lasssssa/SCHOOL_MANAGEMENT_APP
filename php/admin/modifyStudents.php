@@ -83,7 +83,8 @@
                         <div id="delete2">
                             <p>Êtes-vous sûr de vouloir supprimer cet élève ?</p>
                             <form action="modifyStudents.php" method="post">
-                                <button type="submit" class="btn btn-danger" name="supprimer">Supprimer</button>
+                                <button type="submit" class="btn btn-success" name="supprimer">Supprimer</button>
+                                <button type="submit" class="btn btn-danger" name="retour">Retour</button>
                                 <input type="hidden" name="id_etu" value="'.$student['id_etu'].'">
                             </form>
                         </div>
@@ -172,13 +173,15 @@
                     else{
                         $allStudents = getAllStudents($dbConnection);
                     }
-                    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Mail</th><th>Année</th><th>Cycle</th><th>Modification</th><td>Supprimer</td></tr>';
+                    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Mail</th><th>Année</th><th>Cycle</th><th>Modification</th><th>Supression</th></tr>';
                     foreach($allStudents as $student){
                         echo '<tr><td>'.$student['id_etu'].'</td><td>'.$student['nom_etu'].'</td><td>'.$student['prenom_etu'].'</td><td>'.
                         $student['mail_etu'].'</td><td>'.$student['annee_cursus'].'</td><td>'.$student['nom_cycle'].'</td>
                         <td>
-                        <form action="modifyStudents.php" method="post"><button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" name="'.$student['id_etu'].'">
-                        Modifier</button></form></td>
+                            <form action="modifyStudents.php" method="post">
+                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" name="'.$student['id_etu'].'">Modifier</button>
+                            </form>
+                        </td>
                         <td>
                             <form action="modifyStudents.php" method="post">
                             <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" name="supp_'.$student['id_etu'].'">Supprimer</button></form>

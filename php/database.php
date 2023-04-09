@@ -308,4 +308,126 @@
             echo $e->getMessage();
         }
     }
+    function addCours($dbConnection, $nom, $duree, $id_prof, $id_semestre){
+        $queryTest = 'SELECT * FROM cours WHERE nom_matiere = :nom AND id_prof = :id_prof AND id_semestre = :id_semestre';
+        $statementTest = $dbConnection->prepare($queryTest);
+        $statementTest->bindParam(':nom', $nom);
+        $statementTest->bindParam(':id_prof', $id_prof);
+        $statementTest->bindParam(':id_semestre', $id_semestre);
+        $statementTest->execute();
+        $result = $statementTest->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) > 0){
+            return false;
+        }else{
+            try{
+                $query = 'INSERT INTO cours (nom_matiere, duree, id_prof, id_semestre) VALUES (:nom, :duree, :id_prof, :id_semestre)';
+                $statement = $dbConnection->prepare($query);
+                $statement->bindParam(':nom', $nom);
+                $statement->bindParam(':duree', $duree);
+                $statement->bindParam(':id_prof', $id_prof);
+                $statement->bindParam(':id_semestre', $id_semestre);
+                $statement->execute();
+                return true;
+            }catch(Exception $e){
+                echo $e->getMessage();
+            }
+        }
+    }
+    function deleteCours($dbConnection, $id){
+        try{
+            $query = 'DELETE FROM cours WHERE id_matiere = :id';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+    function updateCours($dbConnection, $id, $nom, $duree, $id_prof, $id_semestre){
+        $queryTest = 'SELECT * FROM cours WHERE nom_matiere = :nom AND id_prof = :id_prof AND id_semestre = :id_semestre';
+        $statementTest = $dbConnection->prepare($queryTest);
+        $statementTest->bindParam(':nom', $nom);
+        $statementTest->bindParam(':id_prof', $id_prof);
+        $statementTest->bindParam(':id_semestre', $id_semestre);
+        $statementTest->execute();
+        $result = $statementTest->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) > 0){
+            return false;
+        }else{
+            try{
+                $query = 'UPDATE cours SET nom_matiere = :nom, duree = :duree, id_prof = :id_prof, id_semestre = :id_semestre WHERE id_matiere = :id';
+                $statement = $dbConnection->prepare($query);
+                $statement->bindParam(':nom', $nom);
+                $statement->bindParam(':duree', $duree);
+                $statement->bindParam(':id_prof', $id_prof);
+                $statement->bindParam(':id_semestre', $id_semestre);
+                $statement->bindParam(':id', $id);
+                $statement->execute();
+                return true;
+            }catch(Exception $e){
+                echo $e->getMessage();
+            }
+        }
+    }
+    function getCoursWithId($dbConnection, $id){
+        try{
+            $query = 'SELECT * FROM cours c JOIN enseignant e ON c.id_prof = e.id_prof JOIN semestre s ON c.id_semestre = s.id_semestre JOIN annee a ON s.id_annee = a.id_annee WHERE id_matiere = :id';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    function getStudentsInCourse($dbConnection, $id){
+        try{
+            $query = 'SELECT * FROM participe p JOIN etudiant e ON e.id_etu = p.id_etu JOIN cours c ON c.id_matiere = p.id_matiere WHERE p.id_matiere = :id';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+    function getStudentsNotInCourse($dbConnection, $id){
+        try{
+            $query = 'SELECT * FROM etudiant WHERE id_etu NOT IN (SELECT id_etu FROM participe WHERE id_matiere = :id)';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    function addStudentToCourse($dbConnection, $id_etu, $id_matiere){
+        try{
+            $query = 'INSERT INTO participe (id_etu, id_matiere) VALUES (:id_etu, :id_matiere)';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id_etu', $id_etu);
+            $statement->bindParam(':id_matiere', $id_matiere);
+            $statement->execute();
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    function deleteStudentFromCourse($dbConnection, $id_etu, $id_matiere){
+        try{
+            $query = 'DELETE FROM participe WHERE id_etu = :id_etu AND id_matiere = :id_matiere';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id_etu', $id_etu);
+            $statement->bindParam(':id_matiere', $id_matiere);
+            $statement->execute();
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
 ?>

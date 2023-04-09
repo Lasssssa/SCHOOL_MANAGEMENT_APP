@@ -96,7 +96,7 @@ CREATE TABLE public.epreuve(
 	id_matiere    INT  NOT NULL  ,
 	CONSTRAINT epreuve_PK PRIMARY KEY (id_epreuve)
 
-	,CONSTRAINT epreuve_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere)
+	,CONSTRAINT epreuve_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere) ON DELETE CASCADE
 )WITHOUT OIDS;
 
 
@@ -109,7 +109,7 @@ CREATE TABLE public.appreciation(
 	id_matiere        INT  NOT NULL  ,
 	CONSTRAINT appreciation_PK PRIMARY KEY (id_appreciation)
 
-	,CONSTRAINT appreciation_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere)
+	,CONSTRAINT appreciation_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere) ON DELETE CASCADE
 )WITHOUT OIDS;
 
 
@@ -147,8 +147,8 @@ CREATE TABLE public.participe(
 	id_etu       INT  NOT NULL  ,
 	CONSTRAINT participe_PK PRIMARY KEY (id_matiere,id_etu)
 
-	,CONSTRAINT participe_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere)
-	,CONSTRAINT participe_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
+	,CONSTRAINT participe_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere) ON DELETE CASCADE
+	,CONSTRAINT participe_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu) ON DELETE CASCADE
 )WITHOUT OIDS;
 
 
@@ -164,7 +164,7 @@ CREATE TABLE public.fait_epreuve(
 
 	,CONSTRAINT fait_epreuve_epreuve_FK FOREIGN KEY (id_epreuve) REFERENCES public.epreuve(id_epreuve)
 	,CONSTRAINT fait_epreuve_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
-)WITHOUT OIDS;
+)WITHOUT OIDS; 
 
 
 ------------------------------------------------------------
@@ -175,7 +175,7 @@ CREATE TABLE public.recoit_appreciation(
 	id_etu            INT  NOT NULL  ,
 	CONSTRAINT recoit_appreciation_PK PRIMARY KEY (id_appreciation,id_etu)
 
-	,CONSTRAINT recoit_appreciation_appreciation_FK FOREIGN KEY (id_appreciation) REFERENCES public.appreciation(id_appreciation)
+	,CONSTRAINT recoit_appreciation_appreciation_FK FOREIGN KEY (id_appreciation) REFERENCES public.appreciation(id_appreciation) 
 	,CONSTRAINT recoit_appreciation_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
 )WITHOUT OIDS;
 
