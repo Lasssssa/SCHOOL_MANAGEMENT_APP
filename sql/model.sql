@@ -99,7 +99,7 @@ CREATE TABLE public.epreuve(
 	CONSTRAINT epreuve_PK PRIMARY KEY (id_epreuve)
 
 	,CONSTRAINT epreuve_enseignant_FK FOREIGN KEY (id_prof) REFERENCES public.enseignant(id_prof)
-	,CONSTRAINT epreuve_cours0_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere)
+	,CONSTRAINT epreuve_cours0_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere) ON DELETE CASCADE
 )WITHOUT OIDS;
 
 
@@ -153,7 +153,7 @@ CREATE TABLE public.participe(
 	CONSTRAINT participe_PK PRIMARY KEY (nom_matiere,id_etu)
 
 	,CONSTRAINT participe_cours_FK FOREIGN KEY (nom_matiere) REFERENCES public.cours(nom_matiere)
-	,CONSTRAINT participe_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
+	,CONSTRAINT participe_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu) ON DELETE CASCADE
 )WITHOUT OIDS;
 
 
@@ -168,7 +168,7 @@ CREATE TABLE public.fait_epreuve(
 	CONSTRAINT fait_epreuve_PK PRIMARY KEY (id_epreuve,id_etu)
 
 	,CONSTRAINT fait_epreuve_epreuve_FK FOREIGN KEY (id_epreuve) REFERENCES public.epreuve(id_epreuve)
-	,CONSTRAINT fait_epreuve_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
+	,CONSTRAINT fait_epreuve_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu) ON DELETE CASCADE
 )WITHOUT OIDS;
 
 
@@ -181,7 +181,7 @@ CREATE TABLE public.recoit_appreciation(
 	CONSTRAINT recoit_appreciation_PK PRIMARY KEY (id_appreciation,id_etu)
 
 	,CONSTRAINT recoit_appreciation_appreciation_FK FOREIGN KEY (id_appreciation) REFERENCES public.appreciation(id_appreciation)
-	,CONSTRAINT recoit_appreciation_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
+	,CONSTRAINT recoit_appreciation_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu) ON DELETE CASCADE
 )WITHOUT OIDS;
 
 

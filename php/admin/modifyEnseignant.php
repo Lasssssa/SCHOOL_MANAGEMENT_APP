@@ -45,18 +45,23 @@
                 <a href="../loginAdmin.php"><span class="material-symbols-outlined">logout</span></a>
             </div>
         </div>
+        <div id ="board">
+            <a href="addingEnseignant.php">Ajout</a>
+            <a href="modifyEnseignant.php">Modification</a>
+        </div>
+
         <?php 
             if(isset($_POST['modifier'])){
                 require_once('../database.php');
                 $dbConnection = dbConnect();
                 modifyProfessor($dbConnection, $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['id_prof']);
+                echo '<div class="alert alert-success" role="alert">
+                        L\'enseignant a bien été modifié.
+                        </div>';
             }
 
         ?>
-        <div id ="board">
-            <a href="addingEnseignant.php">Ajout</a>
-            <a href="modifyEnseignant.php">Modification</a>
-        </div>
+        
         <?php
             require_once('../database.php');
             $dbConnection = dbConnect();

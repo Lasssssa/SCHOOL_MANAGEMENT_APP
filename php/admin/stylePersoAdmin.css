@@ -127,7 +127,7 @@
     text-align: center;
 }
 
-#formAddingEnseignant{
+#formAdding{
     grid-column-start: 2;
     grid-column-end: 2;
     margin: 20px;
@@ -135,7 +135,7 @@
     border: solid 2px #478AF7;
     border-radius: 3%;
 }
-#formAddingEnseignant h2{
+#formAdding h2{
     font-family: 'Roboto', sans-serif;
     font-size: 35px;
     color: #1E559C;
@@ -143,7 +143,7 @@
     margin: 0;
     text-align: center;
 }
-#formAddingEnseignant h4{
+#formAdding h4{
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
     color: #478AF7;
@@ -151,10 +151,50 @@
     margin: 0;
     text-decoration: underline;
 }
-#mainEnseignantAdmin{
+#mainAdding{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin: 15px;
+}
+
+#formCycle{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+}
+#titleChoice{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    color: #478AF7;
+    text-align: center;
+}
+
+#choiceCycleSelect{
+    grid-column-start: 1;
+    grid-column-end: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#choiceAnnee{
+    grid-column-start: 2;
+    grid-column-end: 2;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#choiceSubmit{
+    grid-column-start: 3;
+    grid-column-end: 3;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#choiceStudent h2{
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    padding: 10px;
+    margin: 0;
+    text-align: center;
 }
 #header a:hover{
     color: black;

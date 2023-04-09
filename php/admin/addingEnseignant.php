@@ -86,8 +86,8 @@
             }
         ?>
 
-        <div id="mainEnseignantAdmin">
-            <div id="formAddingEnseignant">
+        <div id="mainAdding">
+            <div id="formAdding">
                 <h2>Ajout d'un enseignant</h2>
                 <form action="addingEnseignant.php" method="post">
                     <div class="row">

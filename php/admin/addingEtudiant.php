@@ -46,5 +46,111 @@
                 <a href="../loginAdmin.php"><span class="material-symbols-outlined">logout</span></a>
             </div>
         </div>
+        <div id ="board">
+            <a href="addingEtudiant.php">Ajout</a>
+            <a href="modifyStudents.php">Modification</a>
+        </div>
+
+        <?php
+            if(isset($_POST['envoyer']) && isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['email']) && isset($_POST['emailConfirmed']) && isset($_POST['password']) && isset($_POST['passwordConfirmed']) && isset($_POST['annee']) && isset($_POST['cycle'])){
+                if($_POST['email']!= $_POST['emailConfirmed']){
+                    echo '<div class="alert alert-danger" role="alert">
+                    Les emails ne correspondent pas
+                    </div>';
+                }
+                else if($_POST['password']!= $_POST['passwordConfirmed']){
+                    echo '<div class="alert alert-danger" role="alert">
+                    Les mots de passe ne correspondent pas
+                    </div>';
+                }
+                else{
+                    $prenom = $_POST['prenom'];
+                    $nom = $_POST['nom'];
+                    $email = $_POST['email'];
+                    $annee = $_POST['annee'];
+                    $cycle = $_POST['cycle'];
+                    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    require_once('../database.php');
+                    $db = dbConnect();
+                    $isAddedStudent = addStudent($db, $prenom, $nom, $email, $password, $annee, $cycle);
+                    if($isAddedStudent){
+                        echo '<div class="alert alert-success" role="alert">
+                        L\'élève a bien été ajouté
+                        </div>';
+                    }
+                    else{
+                        echo '<div class="alert alert-danger" role="alert">
+                        L\'élève n\'a pas été ajouté car il existe déjà ou il y a eu une erreur
+                        </div>';
+                    }
+                }
+            }
+        ?>
+
+        <div id="mainAdding">
+            <div id="formAdding">
+                <h2>Ajout d'un élève</h2>
+                <form action="addingEtudiant.php" method="post">
+                    <div class="row">
+                        <div class="col">
+                            <h4>Prénom</h4>
+                            <input type="text" class="form-control" name ="prenom">
+                        </div>
+                        <div class="col">
+                            <h4>Nom</h4>
+                            <input type="text" class="form-control" name ="nom">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <h4>Email</h4>
+                            <input type="email" class="form-control" id="inputEmail4" name ="email">
+                            <h4>Confirmation email</h4>
+                            <input type="email" class="form-control" id="inputEmail4" name ="emailConfirmed">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <h4>Mot de passe</h4>
+                            <input type="password" class="form-control" id="password" name="password">
+                            <div class="form-check form-switch" id="ecarted">
+                                <input class="form-check-input" type="checkbox" role="switch" id="showPassword" onchange="togglePassword()">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Afficher votre mot de passe</label>
+                            </div>
+                            <h4>Confirmation mot de passe</h4>
+                            <input type="password" class="form-control" id="password2" name="passwordConfirmed">
+                            <div class="form-check form-switch" id="ecarted">
+                                <input class="form-check-input" type="checkbox" role="switch" id="showPassword2" onchange="togglePassword2()">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Afficher votre mot de passe</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <h4>Année</h4>
+                            <input type="number" class="form-control" name = "annee">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h4>Cycle</h4>
+                            <?php
+                                require_once('../database.php');
+                                $db = dbConnect();
+                                $cycles = getCycles($db);
+                                echo '<select class="form-select" aria-label="Default select example" name="cycle">';
+                                foreach($cycles as $cycle){
+                                    echo '<option value="'.$cycle['nom_cycle'].'">'.$cycle['nom_cycle'].'</option>';
+                                }
+                                echo '</select>';
+                            ?>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary" name ="envoyer">Inscrire un nouvel élève</button>
+                </form>
+            </div>
+        </div>
     </body>
 </html>

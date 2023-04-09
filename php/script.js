@@ -1,3 +1,7 @@
+function submitCycle() {
+    let form = document.getElementById("formCycle");
+    form.submit();
+}
 function togglePassword() {
     let x = document.getElementById("password");
     let y = document.getElementById("showPassword");

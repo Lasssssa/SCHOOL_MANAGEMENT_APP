@@ -44,5 +44,7 @@
                 <a href="../loginAdmin.php"><span class="material-symbols-outlined">logout</span></a>
             </div>
         </div>
+
+        <h1>Informations de l'administrateur</h1>
     </body>
 </html>
