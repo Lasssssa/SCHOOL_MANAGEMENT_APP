@@ -4,7 +4,6 @@
 DROP TABLE IF EXISTS administrateur CASCADE;
 DROP TABLE IF EXISTS enseignant CASCADE;
 DROP TABLE IF EXISTS annee CASCADE;
-DROP TABLE IF EXISTS participe CASCADE;
 DROP TABLE IF EXISTS cycle CASCADE;
 DROP TABLE IF EXISTS semestre CASCADE;
 DROP TABLE IF EXISTS etudiant CASCADE;
@@ -13,6 +12,7 @@ DROP TABLE IF EXISTS epreuve CASCADE;
 DROP TABLE IF EXISTS appreciation CASCADE;
 DROP TABLE IF EXISTS fait_epreuve CASCADE;
 DROP TABLE IF EXISTS recoit_appreciation CASCADE;
+DROP TABLE IF EXISTS classe CASCADE;
 ------------------------------------------------------------
 --        Script Postgre 
 ------------------------------------------------------------
@@ -71,6 +71,44 @@ CREATE TABLE public.semestre(
 
 
 ------------------------------------------------------------
+-- Table: cycle
+------------------------------------------------------------
+CREATE TABLE public.cycle(
+	nom_cycle   VARCHAR (20) NOT NULL  ,
+	CONSTRAINT cycle_PK PRIMARY KEY (nom_cycle)
+)WITHOUT OIDS;
+
+
+------------------------------------------------------------
+-- Table: classe
+------------------------------------------------------------
+CREATE TABLE public.classe(
+	id_classe      SERIAL NOT NULL ,
+	annee_cursus   INT  NOT NULL ,
+	nom_cycle      VARCHAR (20) NOT NULL  ,
+	CONSTRAINT classe_PK PRIMARY KEY (id_classe)
+
+	,CONSTRAINT classe_cycle_FK FOREIGN KEY (nom_cycle) REFERENCES public.cycle(nom_cycle)
+)WITHOUT OIDS;
+
+
+------------------------------------------------------------
+-- Table: etudiant
+------------------------------------------------------------
+CREATE TABLE public.etudiant(
+	id_etu         SERIAL NOT NULL ,
+	nom_etu        VARCHAR (50) NOT NULL ,
+	prenom_etu     VARCHAR (50) NOT NULL ,
+	mail_etu       VARCHAR (50) NOT NULL ,
+	password_etu   VARCHAR (60) NOT NULL ,
+	id_classe      INT  NOT NULL  ,
+	CONSTRAINT etudiant_PK PRIMARY KEY (id_etu)
+
+	,CONSTRAINT etudiant_classe_FK FOREIGN KEY (id_classe) REFERENCES public.classe(id_classe)
+)WITHOUT OIDS;
+
+
+------------------------------------------------------------
 -- Table: cours
 ------------------------------------------------------------
 CREATE TABLE public.cours(
@@ -78,11 +116,13 @@ CREATE TABLE public.cours(
 	nom_matiere   VARCHAR (50) NOT NULL ,
 	duree         INT  NOT NULL ,
 	id_prof       INT  NOT NULL ,
-	id_semestre   INT  NOT NULL  ,
+	id_semestre   INT  NOT NULL ,
+	id_classe     INT  NOT NULL  ,
 	CONSTRAINT cours_PK PRIMARY KEY (id_matiere)
 
 	,CONSTRAINT cours_enseignant_FK FOREIGN KEY (id_prof) REFERENCES public.enseignant(id_prof)
 	,CONSTRAINT cours_semestre0_FK FOREIGN KEY (id_semestre) REFERENCES public.semestre(id_semestre)
+	,CONSTRAINT cours_classe1_FK FOREIGN KEY (id_classe) REFERENCES public.classe(id_classe)
 )WITHOUT OIDS;
 
 
@@ -96,7 +136,7 @@ CREATE TABLE public.epreuve(
 	id_matiere    INT  NOT NULL  ,
 	CONSTRAINT epreuve_PK PRIMARY KEY (id_epreuve)
 
-	,CONSTRAINT epreuve_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere)
+	,CONSTRAINT epreuve_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere) ON DELETE CASCADE
 )WITHOUT OIDS;
 
 
@@ -109,46 +149,7 @@ CREATE TABLE public.appreciation(
 	id_matiere        INT  NOT NULL  ,
 	CONSTRAINT appreciation_PK PRIMARY KEY (id_appreciation)
 
-	,CONSTRAINT appreciation_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere)
-)WITHOUT OIDS;
-
-
-------------------------------------------------------------
--- Table: cycle
-------------------------------------------------------------
-CREATE TABLE public.cycle(
-	nom_cycle   VARCHAR (20) NOT NULL  ,
-	CONSTRAINT cycle_PK PRIMARY KEY (nom_cycle)
-)WITHOUT OIDS;
-
-
-------------------------------------------------------------
--- Table: etudiant
-------------------------------------------------------------
-CREATE TABLE public.etudiant(
-	id_etu         SERIAL NOT NULL ,
-	nom_etu        VARCHAR (50) NOT NULL ,
-	prenom_etu     VARCHAR (50) NOT NULL ,
-	mail_etu       VARCHAR (50) NOT NULL ,
-	password_etu   VARCHAR (60) NOT NULL ,
-	annee_cursus   INT  NOT NULL ,
-	nom_cycle      VARCHAR (20) NOT NULL  ,
-	CONSTRAINT etudiant_PK PRIMARY KEY (id_etu)
-
-	,CONSTRAINT etudiant_cycle_FK FOREIGN KEY (nom_cycle) REFERENCES public.cycle(nom_cycle)
-)WITHOUT OIDS;
-
-
-------------------------------------------------------------
--- Table: participe
-------------------------------------------------------------
-CREATE TABLE public.participe(
-	id_matiere   INT  NOT NULL ,
-	id_etu       INT  NOT NULL  ,
-	CONSTRAINT participe_PK PRIMARY KEY (id_matiere,id_etu)
-
-	,CONSTRAINT participe_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere)
-	,CONSTRAINT participe_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
+	,CONSTRAINT appreciation_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere) ON DELETE CASCADE
 )WITHOUT OIDS;
 
 
