@@ -24,11 +24,35 @@ INSERT INTO cycle(nom_cycle) VALUES
 ('MECA'),
 ('BIAST');
 
-INSERT INTO etudiant (nom_etu,prenom_etu,mail_etu,password_etu,annee_cursus,nom_cycle) VALUES 
-('Croguennoc','Romain','romain.croguennoc@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',2,'CIR'),
-('Sibylle','Rimbert','sibylle.rimbert@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',2,'CGSI'),
-('Pajdak','Antoine','antoine.pajdak@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',2,'CIR'),
-('Maret','Julien','julien.maret@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',1,'CIR'),
-('Dubois','Jeanne','jeanne.dubois@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',1,'CENT'),
-('Dupont','Titouan','titouan.dupont@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',3,'CEST');
+INSERT INTO classe(annee_cursus,nom_cycle) VALUES
+(1,'CIR'),
+(1,'CEST'),
+(1,'CGSI'),
+(1,'CENT'),
+(1,'BIOST'),
+(1,'MECA'),
+(1,'BIAST'),
+(2,'CIR'),
+(2,'CEST'),
+(2,'CGSI'),
+(2,'CENT'),
+(2,'BIOST'),
+(2,'MECA'),
+(2,'BIAST'),
+(3,'CIR'),
+(3,'CEST'),
+(3,'CGSI'),
+(3,'CENT'),
+(3,'BIOST'),
+(3,'MECA'),
+(3,'BIAST');
+
+INSERT INTO etudiant (nom_etu,prenom_etu,mail_etu,password_etu,id_classe) VALUES 
+('Croguennoc','Romain','romain.croguennoc@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',1),
+('Sibylle','Rimbert','sibylle.rimbert@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',7),
+('Pajdak','Antoine','antoine.pajdak@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',3),
+('Maret','Julien','julien.maret@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',8),
+('Dubois','Jeanne','jeanne.dubois@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',9),
+('Dupont','Titouan','titouan.dupont@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',6);
+
 
