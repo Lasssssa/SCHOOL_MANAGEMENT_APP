@@ -116,7 +116,7 @@
     
     function getAllCourses($dbConnection){
         try{
-            $query = 'SELECT * FROM cours c JOIN enseignant e ON c.id_prof = e.id_prof JOIN semestre s ON c.id_semestre = s.id_semestre JOIN annee a ON s.id_annee = a.id_annee';
+            $query = 'SELECT * FROM cours c JOIN enseignant e ON c.id_prof = e.id_prof JOIN semestre s ON c.id_semestre = s.id_semestre JOIN annee a ON s.id_annee = a.id_annee JOIN classe cl ON c.id_classe = cl.id_classe';
             $statement = $dbConnection->prepare($query);
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -319,24 +319,26 @@
             echo $e->getMessage();
         }
     }
-    function addCours($dbConnection, $nom, $duree, $id_prof, $id_semestre){
-        $queryTest = 'SELECT * FROM cours WHERE nom_matiere = :nom AND id_prof = :id_prof AND id_semestre = :id_semestre';
+    function addCours($dbConnection, $nom, $duree, $id_prof, $id_semestre, $id_classe){
+        $queryTest = 'SELECT * FROM cours WHERE nom_matiere = :nom AND id_prof = :id_prof AND id_semestre = :id_semestre AND id_classe = :id_classe';
         $statementTest = $dbConnection->prepare($queryTest);
         $statementTest->bindParam(':nom', $nom);
         $statementTest->bindParam(':id_prof', $id_prof);
         $statementTest->bindParam(':id_semestre', $id_semestre);
+        $statementTest->bindParam(':id_classe', $id_classe);
         $statementTest->execute();
         $result = $statementTest->fetchAll(PDO::FETCH_ASSOC);
         if(count($result) > 0){
             return false;
         }else{
             try{
-                $query = 'INSERT INTO cours (nom_matiere, duree, id_prof, id_semestre) VALUES (:nom, :duree, :id_prof, :id_semestre)';
+                $query = 'INSERT INTO cours (nom_matiere, duree, id_prof, id_semestre,id_classe) VALUES (:nom, :duree, :id_prof, :id_semestre, :id_classe)';
                 $statement = $dbConnection->prepare($query);
                 $statement->bindParam(':nom', $nom);
                 $statement->bindParam(':duree', $duree);
                 $statement->bindParam(':id_prof', $id_prof);
                 $statement->bindParam(':id_semestre', $id_semestre);
+                $statement->bindParam(':id_classe', $id_classe);
                 $statement->execute();
                 return true;
             }catch(Exception $e){
@@ -354,24 +356,26 @@
             echo $e->getMessage();
         }
     }
-    function updateCours($dbConnection, $id, $nom, $duree, $id_prof, $id_semestre){
-        $queryTest = 'SELECT * FROM cours WHERE nom_matiere = :nom AND id_prof = :id_prof AND id_semestre = :id_semestre';
+    function updateCours($dbConnection, $id, $nom, $duree, $id_prof, $id_semestre, $id_classe){
+        $queryTest = 'SELECT * FROM cours WHERE nom_matiere = :nom AND id_prof = :id_prof AND id_semestre = :id_semestre AND id_classe = :id';
         $statementTest = $dbConnection->prepare($queryTest);
         $statementTest->bindParam(':nom', $nom);
         $statementTest->bindParam(':id_prof', $id_prof);
         $statementTest->bindParam(':id_semestre', $id_semestre);
+        $statementTest->bindParam(':id', $id_classe);
         $statementTest->execute();
         $result = $statementTest->fetchAll(PDO::FETCH_ASSOC);
         if(count($result) > 0){
             return false;
         }else{
             try{
-                $query = 'UPDATE cours SET nom_matiere = :nom, duree = :duree, id_prof = :id_prof, id_semestre = :id_semestre WHERE id_matiere = :id';
+                $query = 'UPDATE cours SET nom_matiere = :nom, duree = :duree, id_prof = :id_prof, id_semestre = :id_semestre , id_classe = :id_classe WHERE id_matiere = :id';
                 $statement = $dbConnection->prepare($query);
                 $statement->bindParam(':nom', $nom);
                 $statement->bindParam(':duree', $duree);
                 $statement->bindParam(':id_prof', $id_prof);
                 $statement->bindParam(':id_semestre', $id_semestre);
+                $statement->bindParam(':id_classe', $id_classe);
                 $statement->bindParam(':id', $id);
                 $statement->execute();
                 return true;

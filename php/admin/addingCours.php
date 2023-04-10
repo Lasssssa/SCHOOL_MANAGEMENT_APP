@@ -50,11 +50,11 @@
         </div>
 
         <?php
-            if(isset($_POST['envoyer']) && isset($_POST['nom_matiere']) && isset($_POST['duree']) && isset($_POST['enseignant']) && isset($_POST['semestre']) && $_POST['enseignant'] != "impossible" && $_POST['semestre'] != "impossible"){
+            if(isset($_POST['envoyer']) && isset($_POST['nom_matiere']) && isset($_POST['duree']) && isset($_POST['enseignant']) && isset($_POST['semestre']) && isset($_POST['annee']) && $_POST['annee']!= "impossible" && isset($_POST['cycle']) && $_POST['cycle'] != "impossible" && $_POST['enseignant'] != "impossible" && $_POST['semestre'] != "impossible"){
                 require_once('../database.php');
                 $db = dbConnect();
-                //echo $_POST['nom_matiere']." ".$_POST['duree']." ".$_POST['enseignant']." ".$_POST['semestre'];
-                $cours = addCours($db, $_POST['nom_matiere'], $_POST['duree'], $_POST['enseignant'], $_POST['semestre']);
+                $id_classe = getIdClassWithYearAndCycle($db, $_POST['annee'], $_POST['cycle']);
+                $cours = addCours($db, $_POST['nom_matiere'], $_POST['duree'], $_POST['enseignant'], $_POST['semestre'], $id_classe);
                 if($cours){
                     echo '<div class="alert alert-success" role="alert">
                             Le cours a bien été ajouté !
@@ -116,6 +116,35 @@
                             echo '</select>
                             </div>';
                         }
+                        echo "<br>";
+                        echo '
+                        <div class="row">
+                            <div class="col">';
+                        echo '
+                                <label for="mail" class="form-label">Année du cursus</label>';
+                        echo '      <select class="form-select" aria-label="Default select example" name="annee">';
+                                echo '<option value="impossible">Choisir une année</option>';
+                                for ($i = 1; $i <= 5; $i++) {
+                                    {
+                                        echo '<option value="'.$i.'">'.$i.'</option>';
+                                    }
+                                }
+                                echo '
+                            </select>
+                        </div>
+                    </div>';
+                    echo '<br>';
+                    echo '<label for="mail" class="form-label">Cycle</label>';
+                    $cycles = getCycles($db);
+                    echo '<div><select class="form-select" aria-label="Default select example" name="cycle">';
+                    echo '<option value="impossible">Choisir un cycle</option>';
+                    foreach($cycles as $cycle){
+                        if($cycle['nom_cycle'] != $student['nom_cycle'])
+                        {
+                            echo '<option value="'.$cycle['nom_cycle'].'">'.$cycle['nom_cycle'].'</option>';
+                        }
+                    }
+                    echo '</select></div><br>';
 
                     ?>
                     <br>

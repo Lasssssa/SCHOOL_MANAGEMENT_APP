@@ -54,13 +54,19 @@
         <?php
             require_once('../database.php');
             $dbConnection = dbConnect();
-            if(isset($_POST['modifier']) && $_POST['id_prof'] != 'impossible' && $_POST['id_semestre'] != 'impossible'){
-                updateCours($dbConnection, $_POST['id_matiere'], $_POST['nom'], $_POST['duree'], $_POST['id_prof'], $_POST['id_semestre']);
+            if(isset($_POST['modifier']) && $_POST['id_prof'] != 'impossible' && $_POST['id_semestre'] != 'impossible' && isset($_POST['annee']) && $_POST['annee'] != 'impossible' && isset($_POST['cycle']) && $_POST['cycle'] != 'impossible'){
+                $id_classe = getIdClassWithYearAndCycle($dbConnection, $_POST['annee'], $_POST['cycle']);
+                updateCours($dbConnection, $_POST['id_matiere'], $_POST['nom'], $_POST['duree'], $_POST['id_prof'], $_POST['id_semestre'], $id_classe);
                 echo '
                 <div class="alert alert-success" role="alert">
                     Le cours a bien été modifié.
                 </div>';
                 unset($_POST['modifier']);
+            }else if(isset($_POST['modifier'])){
+                echo '
+                <div class="alert alert-danger" role="alert">
+                    Veuillez remplir tous les champs.
+                </div>';
             }
         ?>
 
@@ -119,6 +125,34 @@
                                         </select>
                                     </div>';
                                 }
+                                echo '
+                        <div class="row">
+                            <div class="col">';
+                        echo '
+                                <label for="mail" class="form-label">Année du cursus</label>';
+                        echo '      <select class="form-select" aria-label="Default select example" name="annee">';
+                                echo '<option value="impossible">Choisir une année</option>';
+                                for ($i = 1; $i <= 5; $i++) {
+                                    {
+                                        echo '<option value="'.$i.'">'.$i.'</option>';
+                                    }
+                                }
+                                echo '
+                            </select>
+                        </div>
+                    </div>';
+                    echo '<br>';
+                    echo '<label for="mail" class="form-label">Cycle</label>';
+                    $cycles = getCycles($dbConnection);
+                    echo '<div><select class="form-select" aria-label="Default select example" name="cycle">';
+                    echo '<option value="impossible">Choisir un cycle</option>';
+                    foreach($cycles as $cycle){
+                        if($cycle['nom_cycle'] != $student['nom_cycle'])
+                        {
+                            echo '<option value="'.$cycle['nom_cycle'].'">'.$cycle['nom_cycle'].'</option>';
+                        }
+                    }
+                    echo '</select></div><br>';
                                     echo '<button type="submit" class="btn btn-primary" name="modifier">Modifier</button>
                                     <input type="hidden" name="id_matiere" value="'.$cours['id_matiere'].'" name="id_matiere">
                                 </form>
@@ -139,8 +173,6 @@
                 
                 }else if(isset($_POST['ajout_ds_'.$cours['id_matiere']])){
                     echo "coucou";
-                }else if(isset($_POST['ajout_eleve_'.$cours['id_matiere']])){
-                    
                 }
             }
 
@@ -151,16 +183,12 @@
                     require_once('../database.php');
                     $dbConnection = dbConnect();
                     $allCourses = getAllCourses($dbConnection);
-                    echo '<tr><th>ID</th><th>Matière</th><th>Durée</th><th>Professeur</th><th>Semestre</th><th>Année</th><th>Ajouter des participants</th><th>Ajouter des épreuves</th><th>Modification</th><th>Supression</th></tr>';
+                    echo '<tr><th>ID</th><th>Matière</th><th>Durée</th><th>Professeur</th><th>Classe</th><th>Semestre</th><th>Année</th><th>Ajouter des épreuves</th><th>Modification</th><th>Supression</th></tr>';
                     foreach($allCourses as $cours){
                         echo '<tr><td>'.$cours['id_matiere'].'</td><td>'.$cours['nom_matiere'].'</td><td>'.$cours['duree'].'</td><td>'.
-                        $cours['prenom_prof'].' '.$cours['nom_prof'].'</td><td>'.$cours['numero_semestre'].'</td><td>'.$cours['numero_annee'].'</td>
-                        <td>
-                            <form action="addStudentsToCourses.php" method="post">
-                            <input type="hidden" name="id_matiere" value="'.$cours['id_matiere'].'">
-                            <button type="submit" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" name="ajout_eleve_'.$cours['id_matiere'].'">Ajouter</button>
-                            </form>
-                        </td>
+                        $cours['prenom_prof'].' '.$cours['nom_prof'].'</td>
+                        <td>'.$cours['nom_cycle'].$cours['annee_cursus'].'</td>
+                        <td>'.$cours['numero_semestre'].'</td><td>'.$cours['numero_annee'].'</td>
                         <td>
                             <form action="modifyCourses.php" method="post">
                             <button type="submit" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" name="ajout_ds_'.$cours['id_matiere'].'">Ajouter</button>
