@@ -165,7 +165,7 @@ CREATE TABLE public.fait_epreuve(
 
 	,CONSTRAINT fait_epreuve_epreuve_FK FOREIGN KEY (id_epreuve) REFERENCES public.epreuve(id_epreuve)
 	,CONSTRAINT fait_epreuve_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
-)WITHOUT OIDS;
+)WITHOUT OIDS; 
 
 
 ------------------------------------------------------------
@@ -176,7 +176,7 @@ CREATE TABLE public.recoit_appreciation(
 	id_etu            INT  NOT NULL  ,
 	CONSTRAINT recoit_appreciation_PK PRIMARY KEY (id_appreciation,id_etu)
 
-	,CONSTRAINT recoit_appreciation_appreciation_FK FOREIGN KEY (id_appreciation) REFERENCES public.appreciation(id_appreciation)
+	,CONSTRAINT recoit_appreciation_appreciation_FK FOREIGN KEY (id_appreciation) REFERENCES public.appreciation(id_appreciation) 
 	,CONSTRAINT recoit_appreciation_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
 )WITHOUT OIDS;
 

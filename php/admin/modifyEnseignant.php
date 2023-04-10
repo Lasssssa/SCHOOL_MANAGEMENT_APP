@@ -83,7 +83,8 @@
                     }else{
                         echo '<div id="deleteProf"><div id="delete2"><p>Êtes-vous sûr de vouloir supprimer cet enseignant ?</p>
                         <form action="modifyEnseignant.php" method="post">
-                        <button type="submit" class="btn btn-danger" name="supprimer">Supprimer</button>
+                        <button type="submit" class="btn btn-success" name="supprimer">Supprimer</button>
+                                <button type="submit" class="btn btn-danger" name="retour">Retour</button>
                         <input type="hidden" name="id_prof" value="'.$enseignant['id_prof'].'" name="id_prof">
                         </form></div></div>';
                     }
@@ -120,7 +121,7 @@
                     require_once('../database.php');
                     $dbConnection = dbConnect();
                     $allProfessors = getAllProfessors($dbConnection);
-                    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Mail</th><th>Numéro de téléphone</th><th>Modification</th><td>Supprimer</td></tr>';
+                    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Mail</th><th>Numéro de téléphone</th><th>Modification</th><th>Suppression</th></tr>';
                     foreach($allProfessors as $enseignant){
                         echo '<tr><td>'.$enseignant['id_prof'].'</td><td>'.$enseignant['nom_prof'].'</td><td>'.$enseignant['prenom_prof'].'</td><td>'.
                         $enseignant['mail_prof'].'</td><td>'.$enseignant['telephone_prof'].'</td><td>
