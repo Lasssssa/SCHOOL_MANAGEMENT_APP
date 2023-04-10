@@ -39,6 +39,7 @@
             echo $e->getMessage();
         }
     }
+    
 
     function getEncryptedPassword($email,$dbConnection,$table){
         if($table=="administrateur"){
@@ -61,6 +62,8 @@
             echo $e->getMessage();
         }
     }
+
+    
     function getUser($email, $dbConnection,$table){
         if($table=="administrateur"){
             $tableRaccourci = "admin";
@@ -82,6 +85,8 @@
         }
     }
 
+    
+
     function getAllProfessors($dbConnection){
         try{
             $query = 'SELECT * FROM enseignant';
@@ -94,9 +99,11 @@
         }
     }	
 
+    
+
     function getAllStudents($dbConnection){
         try{
-            $query = 'SELECT * FROM etudiant';
+            $query = 'SELECT * FROM etudiant JOIN classe c ON etudiant.id_classe = c.id_classe';
             $statement = $dbConnection->prepare($query);
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -105,6 +112,8 @@
             echo $e->getMessage();
         }
     }
+
+    
     function getAllCourses($dbConnection){
         try{
             $query = 'SELECT * FROM cours c JOIN enseignant e ON c.id_prof = e.id_prof JOIN semestre s ON c.id_semestre = s.id_semestre JOIN annee a ON s.id_annee = a.id_annee';
@@ -117,6 +126,7 @@
             echo $e->getMessage();
         }
     }
+    
 
     function modifyProfessor($dbConnection, $nom, $prenom, $mail, $telephone,$id){
         try{
@@ -133,21 +143,23 @@
         }
     }
 
-    function modifyStudent($dbConnection, $nom, $prenom, $mail, $annee,$id,$cycle){
+    
+    function modifyStudent($dbConnection, $nom, $prenom, $mail,$id,$id_classe){
         try{
-            $query = 'UPDATE etudiant SET nom_etu = :nom, prenom_etu = :prenom, mail_etu = :mail, annee_cursus = :annee, nom_cycle = :cycle WHERE id_etu = :id';
+            $query = 'UPDATE etudiant SET nom_etu = :nom, prenom_etu = :prenom, mail_etu = :mail, id_classe = :id_classe WHERE id_etu = :id';
             $statement = $dbConnection->prepare($query);
             $statement->bindParam(':nom', $nom);
             $statement->bindParam(':prenom', $prenom);
             $statement->bindParam(':mail', $mail);
-            $statement->bindParam(':annee', $annee);
-            $statement->bindParam(':cycle', $cycle);
+            $statement->bindParam(':id_classe', $id_classe);
             $statement->bindParam(':id', $id);
             $statement->execute();
         }catch(Exception $e){
             echo $e->getMessage();
         }
     }
+
+    
     function addProfessor($dbConnection, $nom, $prenom, $mail, $password, $telephone){
         $queryTest = 'SELECT * FROM enseignant WHERE mail_prof = :mail';
         $statementTest = $dbConnection->prepare($queryTest);
@@ -172,7 +184,7 @@
             }
         }
     }
-    function addStudent($dbConnection, $nom, $prenom, $mail, $password, $annee, $cycle){
+    function addStudent($dbConnection, $prenom, $nom, $mail, $password,$id_classe){
         $queryTest = 'SELECT * FROM etudiant WHERE mail_etu = :mail';
         $statementTest = $dbConnection->prepare($queryTest);
         $statementTest->bindParam(':mail', $mail);
@@ -182,14 +194,13 @@
             return false;
         }else{
             try{
-                $query = 'INSERT INTO etudiant (nom_etu, prenom_etu, mail_etu, password_etu, annee_cursus, nom_cycle) VALUES (:nom, :prenom, :mail, :passwordetu, :annee, :cycle)';
+                $query = 'INSERT INTO etudiant (nom_etu, prenom_etu, mail_etu, password_etu, id_classe) VALUES (:nom, :prenom, :mail, :passwordetu, :id_classe)';
                 $statement = $dbConnection->prepare($query);
                 $statement->bindParam(':nom', $nom);
                 $statement->bindParam(':prenom', $prenom);
                 $statement->bindParam(':mail', $mail);
                 $statement->bindParam(':passwordetu', $password);
-                $statement->bindParam(':annee', $annee);
-                $statement->bindParam(':cycle', $cycle);
+                $statement->bindParam(':id_classe', $id_classe);
                 $statement->execute();
                 return true;
             }catch(Exception $e){
@@ -250,7 +261,7 @@
 
     function getStudentsByCycle($dbConnection, $cycle){
         try{
-            $query = 'SELECT * FROM etudiant WHERE nom_cycle = :cycle';
+            $query = 'SELECT * FROM etudiant JOIN classe c ON etudiant.id_classe = c.id_classe WHERE c.nom_cycle = :cycle';
             $statement = $dbConnection->prepare($query);
             $statement->bindParam(':cycle', $cycle);
             $statement->execute();
@@ -262,9 +273,9 @@
     }
     function getStudentsByYear($dbConnection, $year){
         try{
-            $query = 'SELECT * FROM etudiant WHERE annee_cursus = :year';
+            $query = 'SELECT * FROM etudiant JOIN classe c ON etudiant.id_classe = c.id_classe WHERE c.annee_cursus = :years';
             $statement = $dbConnection->prepare($query);
-            $statement->bindParam(':year', $year);
+            $statement->bindParam(':years', $year);
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $result;
@@ -274,10 +285,10 @@
     }
     function getStudentsByCycleAndYear($dbConnection, $cycle, $year){
         try{
-            $query = 'SELECT * FROM etudiant WHERE nom_cycle = :cycle AND annee_cursus = :year';
+            $query = 'SELECT * FROM etudiant JOIN classe c ON etudiant.id_classe = c.id_classe WHERE c.nom_cycle = :cycle AND c.annee_cursus = :years';
             $statement = $dbConnection->prepare($query);
             $statement->bindParam(':cycle', $cycle);
-            $statement->bindParam(':year', $year);
+            $statement->bindParam(':years', $year);
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $result;
@@ -430,4 +441,31 @@
             echo $e->getMessage();
         }
     }
-?>
+
+    function getAllClass($dbConnection){
+        try{
+            $query = 'SELECT * FROM classe';
+            $statement = $dbConnection->prepare($query);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    function getIdClassWithYearAndCycle($db, $annee, $cycle){
+        try{
+            $query = 'SELECT id_classe FROM classe WHERE annee_cursus = :annee AND nom_cycle = :cycle';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':annee', $annee);
+            $statement->bindParam(':cycle', $cycle);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result['id_classe'];
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+    
+    ?>

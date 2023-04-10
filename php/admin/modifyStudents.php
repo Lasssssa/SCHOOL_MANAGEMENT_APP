@@ -55,7 +55,8 @@
             if(isset($_POST['modifier'])){
                 require_once('../database.php');
                 $dbConnection = dbConnect();
-                modifyStudent($dbConnection, $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['annee_cursus'], $_POST['id_etu'], $_POST['cycle']);
+                $id_classe = getIdClassWithYearAndCycle($dbConnection, $_POST['annee_cursus'], $_POST['cycle']);
+                modifyStudent($dbConnection, $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['id_etu'], $id_classe);
                 echo '<div class="alert alert-success" role="alert">
                         L\'étudiant a bien été modifié.
                         </div>';
@@ -64,6 +65,7 @@
         ?>
         
         <?php
+        
             require_once('../database.php');
             $dbConnection = dbConnect();
             $allStudents = getAllStudents($dbConnection);
@@ -107,32 +109,53 @@
                                         <label for="mail" class="form-label">Mail</label>
                                         <input type="text" class="form-control" id="mail" name="mail" value="'.$student['mail_etu'].'">
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="annee" class="form-label">Année de cursus</label>
-                                        <input type="number" class="form-control" id="annee_cursus" name="annee_cursus" value="'.$student['annee_cursus'].'">
+                                    <div class="row">
+                                        <div class="col">';
+                                        echo '<label for="mail" class="form-label">Année</label>';
+                                        echo '<select class="form-select" aria-label="Default select example" name="annee_cursus">';
+                                                echo '<option value="'.$student['annee_cursus'].'">'.$student['annee_cursus'].'</option>';
+                                                for ($i = 1; $i <= 5; $i++) {
+                                                    if($i != $student['annee_cursus'])
+                                                    {
+                                                        echo '<option value="'.$i.'">'.$i.'</option>';
+                                                    }
+                                                }
+                                                echo '
+                                            </select>
+                                        </div>
                                     </div>';
-                    $cycles = getCycles($dbConnection);
-                    echo '<div><select class="form-select" aria-label="Default select example" name="cycle">';
-                    foreach($cycles as $cycle){
-                        echo '<option value="'.$cycle['nom_cycle'].'">'.$cycle['nom_cycle'].'</option>';
-                    }
-                    echo '</select></div><br>';
-                    echo '<button type="submit" class="btn btn-primary" name="modifier">Modifier</button>
-                    <input type="hidden" name="id_etu" value="'.$student['id_etu'].'" name="id_etu">
-                    </form></div> </div>';
+                                    echo '<br>';
+                                    echo '<label for="mail" class="form-label">Cycle</label>';
+                                    $cycles = getCycles($dbConnection);
+                                    echo '<div><select class="form-select" aria-label="Default select example" name="cycle">';
+                                        echo '<option value="'.$student['nom_cycle'].'">'.$student['nom_cycle'].'</option>';
+                                    foreach($cycles as $cycle){
+                                        if($cycle['nom_cycle'] != $student['nom_cycle'])
+                                        {
+                                            echo '<option value="'.$cycle['nom_cycle'].'">'.$cycle['nom_cycle'].'</option>';
+                                        }
+                                    }
+                                    echo '</select></div><br>';
+                                    echo '<button type="submit" class="btn btn-primary" name="modifier">Modifier</button>
+                                    <input type="hidden" name="id_etu" value="'.$student['id_etu'].'" name="id_etu">
+                                </form>
+                            </div>
+                        </div>';
                 }
             }
+            
         ?>
+        
         <div id="middleChoiceStudents">
             <form action="modifyStudents.php" method ="post" id="formCycle">
                 <div id="titleChoice">
                     <h2>Filtre de tri</h2>
                 </div>
                 <div id="choiceCycleSelect">
-                    <?php
-                        require_once('../database.php');
+                <?php
                         $db = dbConnect();
                         $cycles = getCycles($db);
+                       
                         echo '<select class="form-select" aria-label="Default select example" name="choice_cycle">';
                         echo '<option value="all">Tous les cycles</option>';
                         foreach($cycles as $cycle){
@@ -173,10 +196,10 @@
                     else{
                         $allStudents = getAllStudents($dbConnection);
                     }
-                    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Mail</th><th>Année</th><th>Cycle</th><th>Modification</th><th>Supression</th></tr>';
+                    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Mail</th><th>Classe</th><th>Modification</th><th>Supression</th></tr>';
                     foreach($allStudents as $student){
                         echo '<tr><td>'.$student['id_etu'].'</td><td>'.$student['nom_etu'].'</td><td>'.$student['prenom_etu'].'</td><td>'.
-                        $student['mail_etu'].'</td><td>'.$student['annee_cursus'].'</td><td>'.$student['nom_cycle'].'</td>
+                        $student['mail_etu'].'</td><td>'.$student['nom_cycle'].' '.$student['annee_cursus'].'</td>
                         <td>
                             <form action="modifyStudents.php" method="post">
                             <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" name="'.$student['id_etu'].'">Modifier</button>

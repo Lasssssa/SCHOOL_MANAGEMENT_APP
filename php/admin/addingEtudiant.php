@@ -72,7 +72,8 @@
                     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
                     require_once('../database.php');
                     $db = dbConnect();
-                    $isAddedStudent = addStudent($db, $prenom, $nom, $email, $password, $annee, $cycle);
+                    $id_classe = getIdClassWithYearAndCycle($db, $annee, $cycle);
+                    $isAddedStudent = addStudent($db, $prenom, $nom, $email, $password,$id_classe);
                     if($isAddedStudent){
                         echo '<div class="alert alert-success" role="alert">
                         L\'élève a bien été ajouté
@@ -129,7 +130,13 @@
                     <div class="row">
                         <div class="col">
                             <h4>Année</h4>
-                            <input type="number" class="form-control" name = "annee">
+                            <select class="form-select" aria-label="Default select example" name="annee">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
