@@ -509,6 +509,30 @@
         catch(exception $e) {
             echo $e->getMessage();
         }
-}
+    }
+
+    function getEpreuves($dbConnection, $id_matiere){
+        try{
+            $query = 'SELECT * FROM epreuve e JOIN cours c ON c.id_matiere = e.id_matiere WHERE e.id_matiere = :id_matiere';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id_matiere', $id_matiere);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    function deleteEpreuve($dbConnection, $id_epreuve){
+        try{
+            $query = 'DELETE FROM epreuve WHERE id_epreuve = :id_epreuve';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id_epreuve', $id_epreuve);
+            $statement->execute();
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+    }
     
     ?>

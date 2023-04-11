@@ -60,6 +60,30 @@
     background-color: #478AF7;
     border-radius: 10%;
 }
+
+#board3{
+    text-align: center;
+    margin: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #478AF7;
+    border-radius: 10%;
+}
+
+#board3 a:link{
+    text-decoration: none;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 23px;
+    padding-top: 10px;
+    text-align: center;
+    align-items: center;
+}
+#board3 a:visited{
+    color: white;
+}
+
+
 #board2{
     text-align: center;
     margin: 15px;
@@ -106,6 +130,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
+#modifProf{
+    margin: 50px;
+    align-items: center;
+    text-align: center;
+}
 #modif2{
     background-color: #478AF7;
     border-radius: 5%;
@@ -114,6 +143,14 @@
     text-align: center;
     grid-column-end: 2;
 }
+#modifCenter{
+    border-radius: 5%;
+    padding: 10px;
+    grid-column-start: 2;
+    text-align: center;
+    grid-column-end: 2;
+}
+
 #deleteProf{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

@@ -51,6 +51,7 @@
             <a href="modifyCourses.php">Modification</a>
         </div>
 
+
         <?php
             require_once('../database.php');
             $dbConnection = dbConnect();
@@ -76,6 +77,15 @@
                     L\'épreuve a bien été ajoutée.
                 </div>';
                 unset($_POST['ajout_epreuve']);
+            }
+
+            if(isset($_POST['supprimer_epreuve'])){
+                deleteEpreuve($dbConnection, $_POST['id_epreuve']);
+                echo '
+                <div class="alert alert-success" role="alert">
+                    L\'épreuve a bien été supprimée.
+                </div>';
+                unset($_POST['supprimer_epreuve']);
             }
             ?>
 
@@ -199,6 +209,25 @@
                             echo '</form>
                         </div>
                     </div>';
+                }else if(isset($_POST['modif_ds_'.$cours['id_matiere']])){
+                    echo '
+                    <div id="modifProf">
+                            <div id="modifCenter">';
+                                echo '<table class="table table-striped">';
+                                echo '<tr><th>Nom</th><th>Matière</th><th>Coefficient</th><th>Supression</th></tr>';
+                                $epreuves = getEpreuves($dbConnection, $cours['id_matiere']);   
+                                foreach($epreuves as $epreuve){
+                                    echo '<tr><td>'.$epreuve['nom_epreuve'].'</td><td>'.$epreuve['nom_matiere'].'</td><td>'.$epreuve['coefficient'].'</td><td>
+                                    <form action="modifyCourses.php" method="post">
+                                    <button type="submit" class="btn btn-danger" name="supprimer_epreuve">Supprimer</button>
+                                    <input type="hidden" name="id_epreuve" value="'.$epreuve['id_epreuve'].'">
+                                    </form></td></tr>';
+                                }
+                echo'    
+                                </table>
+                            </div>
+                        </div>
+                    </div>';
                 }
             }
 
@@ -209,7 +238,7 @@
                     require_once('../database.php');
                     $dbConnection = dbConnect();
                     $allCourses = getAllCourses($dbConnection);
-                    echo '<tr><th>ID</th><th>Matière</th><th>Durée</th><th>Professeur</th><th>Classe</th><th>Semestre</th><th>Année</th><th>Ajouter des épreuves</th><th>Modification</th><th>Supression</th></tr>';
+                    echo '<tr><th>ID</th><th>Matière</th><th>Durée</th><th>Professeur</th><th>Classe</th><th>Semestre</th><th>Année</th><th>Ajouter des épreuves<th>Modifier des épreuves</th></th><th>Modification</th><th>Supression</th></tr>';
                     foreach($allCourses as $cours){
                         echo '<tr><td>'.$cours['id_matiere'].'</td><td>'.$cours['nom_matiere'].'</td><td>'.$cours['duree'].'</td><td>'.
                         $cours['prenom_prof'].' '.$cours['nom_prof'].'</td>
@@ -222,7 +251,12 @@
                         </td>
                         <td>
                             <form action="modifyCourses.php" method="post">
-                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" name="modif_'.$cours['id_matiere'].'">Modifier</button>
+                            <button type="submit" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" name="modif_ds_'.$cours['id_matiere'].'">Modifier</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="modifyCourses.php" method="post">
+                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" name="modif_'.$cours['id_matiere'].'">Supprimer</button>
                             </form>
                         </td>
                         <td>
