@@ -121,9 +121,11 @@
                                     <div class="form-group">
                                         <label for="nom" class="form-label">Enseignant responsable</label>
                                         <select class="form-control" name="id_prof">
-                                            <option value="impossible">Choisir un enseignant</option>';
+                                            <option value="'.$cours['id_prof'].'">'.$cours['prenom_prof'].' '.$cours['nom_prof'].'</option>';
                                             foreach($professors as $professor){
-                                                echo '<option value="'.$professor['id_prof'].'">'.$professor['prenom_prof'].' '.$professor['nom_prof'].'</option>';
+                                                if($professor['id_prof'] != $cours['id_prof']){
+                                                    echo '<option value="'.$professor['id_prof'].'">'.$professor['prenom_prof'].' '.$professor['nom_prof'].'</option>';
+                                                }
                                             }
                                             echo '
                                         </select>
@@ -136,9 +138,11 @@
                                     <div class="form-group">
                                     <label for="nom" class="form-label">Semestre</label>
                                         <select class="form-control" name="id_semestre">
-                                            <option value="impossible">Choisir un semestre</option>';
+                                            <option value="'.$cours['id_semestre'].'">Semestre : '.$cours['numero_semestre'].' Année : '.$cours['numero_annee'].'</option>';
                                             foreach($dateOfTheCours as $date){
-                                                echo '<option value="'.$date['id_semestre'].'">Semestre : '.$date['numero_semestre'].' Année : '.$date['numero_annee'].'</option>';
+                                                if($date['id_semestre'] != $cours['id_semestre']){
+                                                    echo '<option value="'.$date['id_semestre'].'">Semestre : '.$date['numero_semestre'].' Année : '.$date['numero_annee'].'</option>';
+                                                }
                                             }
                                             echo '
                                         </select>
@@ -150,12 +154,14 @@
                         echo '
                                 <label for="mail" class="form-label">Année du cursus</label>';
                         echo '      <select class="form-select" aria-label="Default select example" name="annee">';
-                                echo '<option value="impossible">Choisir une année</option>';
-                                for ($i = 1; $i <= 5; $i++) {
-                                    {
-                                        echo '<option value="'.$i.'">'.$i.'</option>';
-                                    }
-                                }
+                        $allYears = getAllYearsClass($dbConnection);
+                        echo '<option value="'.$cours['annee_cursus'].'">'.$cours['annee_cursus'].'</option>';
+                        foreach($allYears as $year){
+                            if($year['annee_cursus'] != $cours['annee_cursus'])
+                            {
+                                echo '<option value="'.$year['annee_cursus'].'">'.$year['annee_cursus'].'</option>';
+                            }
+                        }
                                 echo '
                             </select>
                         </div>
@@ -164,9 +170,9 @@
                     echo '<label for="mail" class="form-label">Cycle</label>';
                     $cycles = getCycles($dbConnection);
                     echo '<div><select class="form-select" aria-label="Default select example" name="cycle">';
-                    echo '<option value="impossible">Choisir un cycle</option>';
+                    echo '<option value="'.$cours['nom_cycle'].'">'.$cours['nom_cycle'].'</option>';
                     foreach($cycles as $cycle){
-                        if($cycle['nom_cycle'] != $student['nom_cycle'])
+                        if($cycle['nom_cycle'] != $cours['nom_cycle'])
                         {
                             echo '<option value="'.$cycle['nom_cycle'].'">'.$cycle['nom_cycle'].'</option>';
                         }
@@ -256,7 +262,7 @@
                         </td>
                         <td>
                             <form action="modifyCourses.php" method="post">
-                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" name="modif_'.$cours['id_matiere'].'">Supprimer</button>
+                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" name="modif_'.$cours['id_matiere'].'">Modifier</button>
                             </form>
                         </td>
                         <td>

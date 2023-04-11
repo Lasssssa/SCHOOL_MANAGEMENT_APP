@@ -534,5 +534,17 @@
             echo $e->getMessage();
         }
     }
+    function getAllYearsClass($dbConnection){
+        try{
+            $query = 'SELECT DISTINCT annee_cursus FROM classe';
+            $statement = $dbConnection->prepare($query);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(exception $e) {
+            echo $e->getMessage();
+        }
+    }
     
     ?>

@@ -124,10 +124,9 @@
                                 <label for="mail" class="form-label">Année du cursus</label>';
                         echo '      <select class="form-select" aria-label="Default select example" name="annee">';
                                 echo '<option value="impossible">Choisir une année</option>';
-                                for ($i = 1; $i <= 5; $i++) {
-                                    {
-                                        echo '<option value="'.$i.'">'.$i.'</option>';
-                                    }
+                                $allYears = getAllYearsClass($db);
+                                foreach($allYears as $year){
+                                    echo '<option value="'.$year['annee_cursus'].'">'.$year['annee_cursus'].'</option>';
                                 }
                                 echo '
                             </select>
