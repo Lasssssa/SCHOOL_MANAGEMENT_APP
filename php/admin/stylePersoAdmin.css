@@ -111,6 +111,7 @@
     border-radius: 5%;
     padding: 10px;
     grid-column-start: 2;
+    text-align: center;
     grid-column-end: 2;
 }
 #deleteProf{

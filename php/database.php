@@ -471,5 +471,29 @@
             echo $e->getMessage();
         }
     }
+
+    function addEpreuve($dbConnection, $id_matiere, $nom_epreuve, $coefficient){
+        $queryTest = 'SELECT * FROM epreuve WHERE nom_epreuve = :nom AND id_matiere = :id_matiere';
+        $statementTest = $dbConnection->prepare($queryTest);
+        $statementTest->bindParam(':nom', $nom_epreuve);
+        $statementTest->bindParam(':id_matiere', $id_matiere);
+        $statementTest->execute();
+        $result = $statementTest->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) > 0){
+            return false;
+        }else{
+            try{
+                $query = 'INSERT INTO epreuve (id_matiere, nom_epreuve, coefficient) VALUES (:id_matiere, :nom_epreuve, :coefficient)';
+                $statement = $dbConnection->prepare($query);
+                $statement->bindParam(':id_matiere', $id_matiere);
+                $statement->bindParam(':nom_epreuve', $nom_epreuve);
+                $statement->bindParam(':coefficient', $coefficient);
+                $statement->execute();
+                return true;
+            }catch(Exception $e){
+                echo $e->getMessage();
+            }
+        }
+    }
     
     ?>
