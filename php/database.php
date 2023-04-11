@@ -471,5 +471,20 @@
             echo $e->getMessage();
         }
     }
+
+    function getCoursesBySemesterAndStudents($dbConnection, $id_semestre, $id_student){
+            try{
+                $query = 'Select * from cours JOIN classe ON cours.id_classe = classe.id_classe JOIN semestre ON semestre.id_semestre = cours.id_semestre JOIN etudiant ON etudiant.id_classe = classe.id_classe WHERE etudiant.id_etu = :id_etu AND semestre.id_semestre = :id_semestre';
+                $statement = $dbConnection->prepare($query);
+                $statement->bindParam(':id_etu', $id_student);
+                $statement->bindParam(':id_semestre', $id_semestre);
+                $statement->execute();
+                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                return $result;
+            }
+            catch(exception $e) {
+                echo $e->getMessage();
+            }
+    }
     
     ?>
