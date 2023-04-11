@@ -68,7 +68,16 @@
                     Veuillez remplir tous les champs.
                 </div>';
             }
-        ?>
+        
+            if(isset($_POST['ajout_epreuve']) && $_POST['coefficient'] && isset($_POST['nom_epreuve'])){
+                addEpreuve($dbConnection, $_POST['id_matiere'], $_POST['nom_epreuve'], $_POST['coefficient']);
+                echo '
+                <div class="alert alert-success" role="alert">
+                    L\'épreuve a bien été ajoutée.
+                </div>';
+                unset($_POST['ajout_epreuve']);
+            }
+            ?>
 
         <?php
             require_once('../database.php');
@@ -172,13 +181,30 @@
                     </div>';
                 
                 }else if(isset($_POST['ajout_ds_'.$cours['id_matiere']])){
-                    echo "coucou";
+                    echo '
+                    <div id="modificationProf">
+                            <div id="modif2">
+                                <form action="modifyCourses.php" method="post">
+                                    <h4>Ajouter un devoir surveillé pour le cours : '.$cours['nom_matiere'].'</h4>
+                                    <div class="mb-3">
+                                        <label for="nom" class="form-label">Nom de l\'épreuve</label>
+                                        <input type="text" class="form-control" id="nom" name="nom_epreuve"">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="prenom" class="form-label">Coefficient</label>
+                                        <input type="number" class="form-control" id="duree" name="coefficient">
+                                    </div>
+                                    <input type="hidden" name="id_matiere" value="'.$cours['id_matiere'].'">';
+                                    echo '<button type="submit" class="btn btn-primary" name="ajout_epreuve">Ajouter</button>';
+                            echo '</form>
+                        </div>
+                    </div>';
                 }
             }
 
         ?>
         <div id="modifyEnseignant">
-            <table class="table table-dark table-striped">
+            <table class="table table-striped">
                 <?php
                     require_once('../database.php');
                     $dbConnection = dbConnect();

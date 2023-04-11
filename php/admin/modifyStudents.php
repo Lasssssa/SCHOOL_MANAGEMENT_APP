@@ -180,7 +180,7 @@
             </form>
         </div>
         <div id="modifyEnseignant">
-            <table class="table table-dark table-striped">
+            <table class="table table-striped">
                 <?php
                     require_once('../database.php');
                     $dbConnection = dbConnect();
