@@ -18,11 +18,6 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
         <script src="../script.js"></script>
-        <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </head>
     
     <!-- A voir pour plutot avoir un récapitulatif en fonction de ce que l'on demande -->
@@ -33,10 +28,10 @@
                 <a href ="persoEnseignant.php"><img src="../images/logoIsen.png" alt="logo" width ="190px"></a>
             </div>
             <div id="enseignant">
-                <!-- <a href="consultation.php">Consultation</a> -->
+                <a href="consultation.php">Consultation</a>
             </div>
             <div id="etudiant">
-                <!-- <a href="notes.php">Saisie des notes</a> -->
+                <a href="notes.php">Saisie des notes</a>
             </div>
             <div>
             
@@ -48,11 +43,8 @@
                 <a href="../loginAdmin.php"><span class="material-symbols-outlined">logout</span></a>
             </div>
         </div>
-
-
-        <a href="notes.php">SAISIE DES NOTES </a>
-
-        <a href="appreciation">APPRECIATION</a>
-
+        <div id ="board2">
+            <h1>Tableau de bord général</h1>
+        </div>
     </body>
 </html>

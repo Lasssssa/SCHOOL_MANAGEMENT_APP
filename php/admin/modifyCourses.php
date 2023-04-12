@@ -238,12 +238,83 @@
             }
 
         ?>
+        <div id="filtreCours">
+            <form action="modifyCourses.php" method ="post" id="formTri">
+                <div id="titreCours">
+                    <h2>Filtre de tri</h2>
+                </div>
+                <div id="choiceCycleCours">
+                    <?php
+                        $db = dbConnect();
+                        $cycles = getCycles($db);
+                        echo '<select class="form-select" aria-label="Default select example" name="choice_cycle">';
+                        echo '<option value="all">Tous les cycles</option>';
+                        foreach($cycles as $cycle){
+                            echo '<option value="'.$cycle['nom_cycle'].'">'.$cycle['nom_cycle'].'</option>';
+                        }
+                        echo '</select>';
+                    ?>
+                </div>
+                <div id="choiceProfessor">
+                    <?php
+                        $db = dbConnect();
+                        $professors = getAllProfessors($db);
+                        echo '<select class="form-select" aria-label="Default select example" name="choice_prof">';
+                        echo '<option value="all">Tous les professeurs</option>';
+                        foreach($professors as $professor){
+                            echo '<option value="'.$professor['id_prof'].'">'.$professor['prenom_prof'].' '.$professor['nom_prof'].'</option>';
+                        }
+                        echo '</select>';
+                    ?>
+                </div>
+                <div id="courSemestre">
+                    <?php
+                        $db = dbConnect();
+                        $semestres = getAllSemesters($db);
+                        echo '<select class="form-select" aria-label="Default select example" name="choice_semester">';
+                        echo '<option value="all">Tous les semestres</option>';
+                        foreach($semestres as $semestre){
+                            echo '<option value="'.$semestre['id_semestre'].'">Semestre '.$semestre['numero_semestre'].' | Année '.$semestre['numero_annee'].'</option>';
+                        }
+                        echo '</select>';
+                    ?>
+                </div>
+                <div id="choiceSubmit">
+                    <button type="submit" class="btn btn-primary" name="submitFiltre">Appliquer des filtres</button>
+                </div>
+            </form>
+        </div>
+
+
         <div id="modifyEnseignant">
             <table class="table table-striped">
                 <?php
                     require_once('../database.php');
                     $dbConnection = dbConnect();
-                    $allCourses = getAllCourses($dbConnection);
+                    if(isset($_POST['submitFiltre'])){
+                        $cycle = $_POST['choice_cycle'];
+                        $prof = $_POST['choice_prof'];
+                        $semestre = $_POST['choice_semester'];
+                        if($cycle == 'all' && $prof == 'all' && $semestre == 'all'){
+                            $allCourses = getAllCourses($dbConnection);
+                        }else if($cycle == 'all' && $prof == 'all'){
+                            $allCourses = getCoursesBySemester($dbConnection, $semestre);
+                        }else if($cycle == 'all' && $semestre == 'all'){
+                            $allCourses = getCoursesByProfessor($dbConnection, $prof);
+                        }else if($prof == 'all' && $semestre == 'all'){
+                            $allCourses = getCoursesByCycle($dbConnection, $cycle);
+                        }else if($cycle == 'all'){
+                            $allCourses = getCoursesByProfessorAndSemester($dbConnection, $prof, $semestre);
+                        }else if($prof == 'all'){
+                            $allCourses = getCoursesByCycleAndSemester($dbConnection, $cycle, $semestre);
+                        }else if($semestre == 'all'){
+                            $allCourses = getCoursesByCycleAndProfessor($dbConnection, $cycle, $prof);
+                        }else{
+                            $allCourses = getCoursesByCycleAndProfessorAndSemester($dbConnection, $cycle, $prof, $semestre);
+                        }
+                    }else{
+                        $allCourses = getAllCourses($dbConnection);
+                    }
                     echo '<tr><th>ID</th><th>Matière</th><th>Durée</th><th>Professeur</th><th>Classe</th><th>Semestre</th><th>Année</th><th>Ajouter des épreuves<th>Modifier des épreuves</th></th><th>Modification</th><th>Supression</th></tr>';
                     foreach($allCourses as $cours){
                         echo '<tr><td>'.$cours['id_matiere'].'</td><td>'.$cours['nom_matiere'].'</td><td>'.$cours['duree'].'</td><td>'.

@@ -1,0 +1,68 @@
+#header{
+    padding-left: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 4fr 1fr 0.5fr;
+    grid-template-rows: 100px 1fr;
+    background: linear-gradient(.25turn, #1E559C, #478AF7);
+    text-align: center;
+    align-items: center;
+}
+#bodyNotes{
+    margin: 30px;
+}
+#header a:link{
+    text-decoration: none;
+    padding-left: 10px;
+    padding-top: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    color: white;
+}
+#header a:visited{
+    color: white;
+}
+#account a:link{
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 23px;
+    padding-top: 10px;
+    text-align: center;
+    align-items: center;
+}
+
+
+#header a:hover{
+    color: black;
+}
+
+#choixSemestre{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    margin: 30px;
+}
+
+#formSemestre{
+    display: grid;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-template-columns: 2fr 1fr;
+}
+#titleSemestre{
+    font-family: 'Roboto', sans-serif;
+    font-size: 35px;
+    color: #1E559C;
+    text-align: center;
+    align-items: center;
+    padding-top: 10px;
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+#selectSemestre{
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+#buttonSemestre{
+    grid-column-start: 2;
+    grid-column-end: 2;
+    margin-left: 50px;
+}

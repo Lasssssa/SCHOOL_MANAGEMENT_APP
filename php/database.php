@@ -546,5 +546,137 @@
             echo $e->getMessage();
         }
     }
+
+    //Fonction getCours avec tout les paramètres
+    function getCoursesBySemester($dbConnection, $id_semestre){
+        try{
+            $query = 'Select * from cours JOIN classe ON cours.id_classe = classe.id_classe JOIN semestre ON semestre.id_semestre = cours.id_semestre JOIN annee a ON semestre.id_annee = a.id_annee JOIN enseignant e ON e.id_prof = cours.id_prof WHERE semestre.id_semestre = :id_semestre';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id_semestre', $id_semestre);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function getCoursesByProfessor($dbConnection, $id_prof){
+        try{
+            $query = 'Select * from cours JOIN classe ON cours.id_classe = classe.id_classe JOIN semestre ON semestre.id_semestre = cours.id_semestre JOIN annee a ON semestre.id_annee = a.id_annee JOIN enseignant ON enseignant.id_prof = cours.id_prof WHERE enseignant.id_prof = :id_prof';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id_prof', $id_prof);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function getCoursesByCycle($dbConnection, $cycle){
+        try{
+            $query = 'Select * from cours JOIN classe ON cours.id_classe = classe.id_classe JOIN semestre ON semestre.id_semestre = cours.id_semestre JOIN annee a ON semestre.id_annee = a.id_annee  JOIN enseignant e ON e.id_prof = cours.id_prof WHERE classe.nom_cycle = :cycle';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':cycle', $cycle);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(exception $e) {
+            echo $e->getMessage();
+        }
+    }
+    
+    function getCoursesByProfessorAndSemester($dbConnection, $id_prof, $id_semestre){
+        try{
+            $query = 'Select * from cours JOIN classe ON cours.id_classe = classe.id_classe JOIN semestre ON semestre.id_semestre = cours.id_semestre JOIN annee a ON semestre.id_annee = a.id_annee JOIN enseignant ON enseignant.id_prof = cours.id_prof WHERE enseignant.id_prof = :id_prof AND semestre.id_semestre = :id_semestre';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id_prof', $id_prof);
+            $statement->bindParam(':id_semestre', $id_semestre);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function getCoursesByCycleAndSemester($dbConnection, $cycle, $id_semestre){
+        try{
+            $query = 'Select * from cours JOIN classe ON cours.id_classe = classe.id_classe JOIN semestre ON semestre.id_semestre = cours.id_semestre JOIN enseignant e ON e.id_prof = cours.id_prof JOIN annee a ON a.id_annee = semestre.id_annee WHERE classe.nom_cycle = :cycle AND semestre.id_semestre = :id_semestre';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':cycle', $cycle);
+            $statement->bindParam(':id_semestre', $id_semestre);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function getCoursesByCycleAndProfessor($dbConnection, $cycle, $id_prof){
+        try{
+            $query = 'Select * from cours JOIN classe ON cours.id_classe = classe.id_classe JOIN semestre ON semestre.id_semestre = cours.id_semestre JOIN annee a ON a.id_annee = semestre.id_annee JOIN enseignant ON enseignant.id_prof = cours.id_prof WHERE classe.nom_cycle = :cycle AND enseignant.id_prof = :id_prof';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':cycle', $cycle);
+            $statement->bindParam(':id_prof', $id_prof);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function getCoursesByCycleAndProfessorAndSemester($dbConnection, $cycle, $id_prof, $id_semestre){
+        try{
+            $query = 'Select * from cours JOIN classe ON cours.id_classe = classe.id_classe JOIN semestre ON semestre.id_semestre = cours.id_semestre JOIN annee a ON a.id_annee = semestre.id_annee JOIN enseignant ON enseignant.id_prof = cours.id_prof WHERE classe.nom_cycle = :cycle AND enseignant.id_prof = :id_prof AND semestre.id_semestre = :id_semestre';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':cycle', $cycle);
+            $statement->bindParam(':id_prof', $id_prof);
+            $statement->bindParam(':id_semestre', $id_semestre);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function getEpreuvesOfACourse($dbConnection, $id_cours){
+        try{
+            $query = 'Select * from epreuve JOIN cours ON epreuve.id_matiere = cours.id_matiere JOIN semestre ON semestre.id_semestre = cours.id_semestre JOIN annee a ON a.id_annee = semestre.id_annee JOIN enseignant e ON e.id_prof = cours.id_prof WHERE epreuve.id_matiere = :id_cours';
+            $statement = $dbConnection->prepare($query);
+            $statement->bindParam(':id_cours', $id_cours);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function getStudentNotNoted($db,$id_epreuve){
+        try{
+            $query = 'SELECT DISTINCT nom_etu,prenom_etu FROM etudiant e JOIN classe cl ON cl.id_classe = e.id_classe JOIN cours c ON c.id_classe = cl.id_classe JOIN epreuve ep ON ep.id_matiere = c.id_matiere WHERE id_etu NOT IN (SELECT id_etu FROM fait_epreuve fep WHERE fep.id_epreuve = :id) AND ep.id_epreuve = :id';
+        $statement = $db->prepare($query);
+        $statement->bindParam(':id', $id_epreuve);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+
+    }
     
     ?>

@@ -9,15 +9,12 @@ DROP TABLE IF EXISTS semestre CASCADE;
 DROP TABLE IF EXISTS etudiant CASCADE;
 DROP TABLE IF EXISTS cours CASCADE;
 DROP TABLE IF EXISTS epreuve CASCADE;
-DROP TABLE IF EXISTS appreciation CASCADE;
 DROP TABLE IF EXISTS fait_epreuve CASCADE;
 DROP TABLE IF EXISTS recoit_appreciation CASCADE;
 DROP TABLE IF EXISTS classe CASCADE;
 ------------------------------------------------------------
 --        Script Postgre 
 ------------------------------------------------------------
-
-
 
 ------------------------------------------------------------
 -- Table: administrateur
@@ -66,7 +63,7 @@ CREATE TABLE public.semestre(
 	id_annee          INT  NOT NULL  ,
 	CONSTRAINT semestre_PK PRIMARY KEY (id_semestre)
 
-	,CONSTRAINT semestre_annee_FK FOREIGN KEY (id_annee) REFERENCES public.annee(id_annee)
+	,CONSTRAINT semestre_annee_FK FOREIGN KEY (id_annee) REFERENCES public.annee(id_annee) ON DELETE CASCADE
 )WITHOUT OIDS;
 
 
@@ -141,19 +138,6 @@ CREATE TABLE public.epreuve(
 
 
 ------------------------------------------------------------
--- Table: appreciation
-------------------------------------------------------------
-CREATE TABLE public.appreciation(
-	id_appreciation   SERIAL NOT NULL ,
-	phrase            VARCHAR (50) NOT NULL ,
-	id_matiere        INT  NOT NULL  ,
-	CONSTRAINT appreciation_PK PRIMARY KEY (id_appreciation)
-
-	,CONSTRAINT appreciation_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere) ON DELETE CASCADE
-)WITHOUT OIDS;
-
-
-------------------------------------------------------------
 -- Table: fait_epreuve
 ------------------------------------------------------------
 CREATE TABLE public.fait_epreuve(
@@ -165,20 +149,23 @@ CREATE TABLE public.fait_epreuve(
 
 	,CONSTRAINT fait_epreuve_epreuve_FK FOREIGN KEY (id_epreuve) REFERENCES public.epreuve(id_epreuve)
 	,CONSTRAINT fait_epreuve_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
-)WITHOUT OIDS; 
+)WITHOUT OIDS;
 
 
 ------------------------------------------------------------
 -- Table: recoit_appreciation
 ------------------------------------------------------------
 CREATE TABLE public.recoit_appreciation(
-	id_appreciation   INT  NOT NULL ,
-	id_etu            INT  NOT NULL  ,
-	CONSTRAINT recoit_appreciation_PK PRIMARY KEY (id_appreciation,id_etu)
+	id_matiere    INT  NOT NULL ,
+	id_etu        INT  NOT NULL ,
+	commentaire   VARCHAR (150) NOT NULL  ,
+	CONSTRAINT recoit_appreciation_PK PRIMARY KEY (id_matiere,id_etu)
 
-	,CONSTRAINT recoit_appreciation_appreciation_FK FOREIGN KEY (id_appreciation) REFERENCES public.appreciation(id_appreciation) 
+	,CONSTRAINT recoit_appreciation_cours_FK FOREIGN KEY (id_matiere) REFERENCES public.cours(id_matiere) ON DELETE CASCADE
 	,CONSTRAINT recoit_appreciation_etudiant0_FK FOREIGN KEY (id_etu) REFERENCES public.etudiant(id_etu)
 )WITHOUT OIDS;
+
+
 
 
 

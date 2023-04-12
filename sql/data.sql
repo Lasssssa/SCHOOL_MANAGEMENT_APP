@@ -3,17 +3,19 @@ DELETE FROM enseignant;
 DELETE FROM etudiant;
 DELETE FROM cycle;
 
-INSERT INTO annee (numero_annee) VALUES (2021),(2022),(2023);
-INSERT INTO semestre (numero_semestre,id_annee) VALUES (1,3),(2,3),(1,2),(2,2),(1,1),(2,1);
+INSERT INTO annee (numero_annee) VALUES (2022),(2023);
+INSERT INTO semestre (numero_semestre,id_annee) VALUES (1,2),(2,2),(1,1),(2,1);
 
 INSERT INTO administrateur (nom_admin,prenom_admin,telephone_admin,mail_admin,password_admin) VALUES 
-('Porodo','Theo','0781908419','theo.porodo@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW');
+('Porodo','Theo','0781908419','admin@mail.com','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.');
+
 INSERT INTO enseignant (nom_prof,prenom_prof,telephone_prof,password_prof,mail_prof) VALUES 
-('Karine','Ayoub','0675859647','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW','ayoub.karine@isen-ouest.yncrea.fr'),
-('Montero','Léandro','0675859647','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW','leandro.montero@isen-ouest.yncrea.fr'),
-('Bouvier','Jean','0675859647','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW','pierre.bouvier@isen-ouest.yncrea.fr'),
-('Jean','Dupont','0675859647','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW','jean.dupont@isen-ouest.yncrea.fr'),
-('Lacourt','Marc','0675859647','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW','marc.lacourt@isen-ouest.yncrea.fr');
+('Karine','Ayoub','0675859647','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.','ayoub.karine@isen-ouest.yncrea.fr'),
+('Montero','Léandro','0675859647','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.','leandro.montero@isen-ouest.yncrea.fr'),
+('Lacourt','Marc','0675859647','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.','marc.lacourt@isen-ouest.yncrea.fr'),
+('Freixas','Jeremy','0785965748','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.','jeremy.freixas@isen-ouest.yncrea.fr'),
+('Turmero','Virginia','1485963625','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.','virginia.turmero@isen-ouest.yncrea.fr'),
+('Sorin','Matéo','0785965748','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.','mateo.sorin@isen-ouest.yncrea.fr');
 
 INSERT INTO cycle(nom_cycle) VALUES 
 ('CIR'),
@@ -47,12 +49,66 @@ INSERT INTO classe(annee_cursus,nom_cycle) VALUES
 (3,'MECA'),
 (3,'BIAST');
 
-INSERT INTO etudiant (nom_etu,prenom_etu,mail_etu,password_etu,id_classe) VALUES 
-('Croguennoc','Romain','romain.croguennoc@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',1),
-('Sibylle','Rimbert','sibylle.rimbert@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',7),
-('Pajdak','Antoine','antoine.pajdak@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',3),
-('Maret','Julien','julien.maret@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',8),
-('Dubois','Jeanne','jeanne.dubois@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',9),
-('Dupont','Titouan','titouan.dupont@isen-ouest.yncrea.fr','$2y$10$uyfPiSbqMovYRmSZT.fJlu9IVWj8v9hygi5Bj5hLHnuUdsQe9bUoW',6);
+INSERT INTO etudiant (nom_etu,prenom_etu,mail_etu,password_etu,id_classe) VALUES
+('Croguennoc','Romain','romain.croguennoc@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
+('Pajdak','Antoine','antoine.pajdak@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
+('Porodo','Theo','theo.porodo@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
+('Paitier','Mathias','mathias.paitier@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
+('Meunier','Mathis','mathis.meunier@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
+('Le Pan', 'Ethan', 'ethan.le-pan@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
+('Kebci','Paul','paul.kebci@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
+('Sermon','Goustan','goustan.sermon@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
+('Rena','Dorian','dorian.rena@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
+('Rimbert','Sibylle','sibylle.rimbert@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',10),
+('Vrain','Raphael','raphael.vrain@isne-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',10),
+('Edet','Victor','victor.edet@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',10),
+('Gadras','Erine','erine.gadras@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',10),
+('Rabussier','Océane','oceane.rabussier@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',2),
+('Le Floch','Léonore','leonore.le-floch@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',2),
+('Grimaud','Alex','alex.grimaud@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',2),
+('Petry','Guillaume','guillaume.petry@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',2);
 
+INSERT INTO cours (nom_matiere,duree,id_prof,id_semestre,id_classe) VALUES
+('PHP CIR2', 60, 1, 2, 8),
+('HTML CIR2', 30, 1, 2, 8),
+('Mathématiques CIR2',120,3,2,8),
+('Physique CIR2',120,4,2,8),
+('Mathématiques EST1',120,3,2,2),
+('Physique EST1',120,4,2,2),
+('Langage C CIR2',60,2,1,8),
+('Anglais CIR2',30,5,2,8),
+('FHS CIR2',30,6,2,8),
+('Anglais EST1',30,5,2,2),
+('FHS EST1',30,6,2,2),
+('Anglais CGSI2',30,5,2,10),
+('FHS CGSI2',30,6,2,10);
+
+INSERT INTO epreuve (nom_epreuve,coefficient,id_matiere) VALUES 
+('DS1',2,1),
+('DS2',2,1),
+('DS1',2,2),
+('DS2',2,2),
+('DS1',2,3),
+('DS2',2,3),
+('DS3',2,3),
+('DS1',2,4),
+('DS2',2,4),
+('DS3',2,4),
+('DS1',2,5),
+('DS2',2,5),
+('DS3',2,5),
+('DS1',2,6),
+('DS2',2,6),
+('DS3',2,6),
+('DS1',2,7),
+('DS1',2,8),
+('DS2',2,8),
+('DS1',2,9),
+('DS2',2,9),
+('DS1',2,10),
+('DS2',2,10),
+('DS1',2,11),
+('DS2',2,11),
+('DS1',2,12),
+('DS2',2,12);
 

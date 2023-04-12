@@ -21,6 +21,7 @@
         <script src="script.js"></script>
     </head>
     
+    
     <!-- A réadapter -->
     <?php
         ini_set('display_errors', 1);

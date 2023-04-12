@@ -234,6 +234,46 @@
     margin: 0;
     text-align: center;
 }
+
+#filtreCours{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    margin: 25px;
+}
+#filtreCours h2{
+    font-family: 'Roboto', sans-serif;
+    font-size: 40px;
+    color: #478AF7;
+    padding: 10px;
+}
+
+#titreCours{
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+#choiceCycleCours{
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+#choiceProfessor{
+    grid-column-start: 2;
+    grid-column-end: 2;
+}
+#courSemestre{
+    grid-column-start: 3;
+    grid-column-end: 3;
+}
+
+#choiceSubmit{
+    grid-column-start: 4;
+    grid-column-end: 4;
+}
+#formTri{
+    display: grid;
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
 #header a:hover{
     color: black;
 }
