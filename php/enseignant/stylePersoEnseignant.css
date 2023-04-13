@@ -66,3 +66,31 @@
     grid-column-end: 2;
     margin-left: 50px;
 }
+
+#coursNotes{
+    margin: 50px;
+    border: solid 1px black;
+    padding: 50px ;
+
+}
+#coursNotes h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 45px;
+    color: #1E559C;
+    text-align: center;
+    align-items: center;
+    padding-top: 10px;
+}
+
+#coursNotes h2{
+    font-family: 'Roboto', sans-serif;
+    font-size: 35px;
+    color: #478AF7;
+    padding-top: 10px;
+}
+#epreuveNotes{
+    margin: 10px;
+    /* border: solid 1px black; */
+    padding: 20px ;
+    align-items: center;
+}

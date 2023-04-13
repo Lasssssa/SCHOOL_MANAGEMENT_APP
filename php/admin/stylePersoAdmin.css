@@ -1,18 +1,16 @@
 #header{
     padding-left: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 4fr 1fr 0.5fr;
-    grid-template-rows: 100px 1fr;
     background: linear-gradient(.25turn, #1E559C, #478AF7);
     text-align: center;
     align-items: center;
+    height: 120px;
 }
 #header a:link{
     text-decoration: none;
     padding-left: 10px;
     padding-top: 10px;
     font-family: 'Roboto', sans-serif;
-    font-size: 30px;
+    font-size: 35px;
     color: white;
 }
 #header a:visited{

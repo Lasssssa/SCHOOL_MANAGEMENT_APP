@@ -72,6 +72,21 @@
                         </div>
                 </div>
                 </form>
+
+            <?php
+                if(isset($_POST['validerNote'])){
+                    $id_epreuve = $_POST['idEpreuve'];
+                    require_once('../database.php');
+                    $db = dbConnect();
+                    $studentNotNotedForm = getStudentNotNoted($db, $id_epreuve);
+                    foreach($studentNotNotedForm as $student){
+                        if(isset($_POST['etu_'.$student['id_etu']]) && isset($_POST['note_'.$student['id_etu']])){
+                                $noteAdded = addNoteToStudent($db, $student['id_etu'], $id_epreuve, $_POST['note_'.$student['id_etu']]);
+                            }
+                        }
+                }
+            ?>
+            
             <?php
                 if(isset($_POST['validerSemestre'])){
                     $coursesOfAProfessor = getCoursesByProfessorAndSemester($db, $_SESSION['id'],$_POST['semester']);
@@ -89,14 +104,31 @@
                             require_once('../database.php');
                             $db = dbConnect();
                             $epreuvesOfCourses = getEpreuvesOfACourse($db, $course['id_matiere']);
-                            echo $course['nom_matiere'].'<br>';
-                            foreach($epreuvesOfCourses as $epreuve){
-                                echo $epreuve['nom_epreuve'].'<br>';
-                                $studentNotNoted = getStudentNotNoted($db, $epreuve['id_epreuve']);
-                                foreach($studentNotNoted as $student){
-                                    echo $student['nom_etu'].' '.$student['prenom_etu'].'<br>';
+
+                            echo '<div id="coursNotes">';
+                                echo '<h1>'.$course['nom_matiere'].'</h1>';
+                                foreach($epreuvesOfCourses as $epreuve){
+                                    $studentNotNoted = getStudentNotNoted($db, $epreuve['id_epreuve']);
+                                    if($studentNotNoted != null){
+                                        echo '<div id="epreuveNotes">';
+                                            echo '<h2>'.$epreuve['nom_epreuve'].'</h2>';
+                                            echo '<form action="notes.php" method="post">';
+                                            echo '<table class="table table-striped">';
+                                            echo '<tr><th>Nom</th><th>Prénom</th><th>Note</th></tr>';
+                                            foreach($studentNotNoted as $student){
+                                                echo '<tr><td>'.$student['nom_etu'].'</td><td>'.$student['prenom_etu'].'</td>';
+                                                echo '<td><input type="number" class="form-control" id="exampleFormControlInput1" min="0" max="20" step="0.05" name="note_'.$student['id_etu'].'"></td>
+                                                </tr>';
+                                                echo '<input type="hidden" name="idEpreuve" value="'.$epreuve['id_epreuve'].'">';
+                                                echo '<input type="hidden" name="etu_'.$student['id_etu'].'" value="'.$student['id_etu'].'">';
+                                            }
+                                            echo '</table>';
+                                            echo '<input type="submit" name="validerNote" value="Valider" id="center" class="btn btn-primary">';
+                                            echo '</form>';
+                                        echo '</div>';
+                                    }
                                 }
-                            }
+                            echo '</div>';
                         }
                     }
                 }

@@ -23,29 +23,35 @@
     <!-- A voir pour plutot avoir un récapitulatif en fonction de ce que l'on demande -->
 
     <body>
-        <div id="header">
-            <div id="logo">
-                <a href ="persoAdmin.php"><img src="../images/logoIsen.png" alt="logo" width ="190px"></a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header">
+            <div class="container-fluid" id="space">
+                <a class="navbar-brand" href="persoAdmin.php">
+                    <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a href="addingEnseignant.php">Enseignants</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="addingEtudiant.php">Étudiants</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="addingCours.php">Cours</a>
+                        </li>
+                    </ul>
+                </div>
+                <span class="navbar-text ms-auto">
+                    <?php echo '<a href="infoAdmin.php">'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].'    <span class="material-symbols-outlined">account_circle</span></a>'; ?>
+                </span>
+                    <!-- <button type="button" class="btn btn-outline-danger">Danger</button> -->
+                    <a href="../loginAdmin.php">Deconnexion</a>
             </div>
-            <div id="enseignant">
-                <a href="addingEnseignant.php">Enseignants</a>
-            </div>
-            <div id="etudiant">
-                <a href="addingEtudiant.php">Étudiants</a>
-            </div>
-            <div id="cours">
-                <a href="addingCours.php">Cours</a>
-            </div>
-            <div>
+        </nav>
             
-            </div>
-            <div id="account">
-            <?php echo '<div id="info"><a href="infoAdmin.php">'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].'    <span class="material-symbols-outlined">account_circle</span></a></div>'; ?>
-            </div>
-            <div id="deconnexion">
-                <a href="../loginAdmin.php"><span class="material-symbols-outlined">logout</span></a>
-            </div>
-        </div>
         <div id ="board2">
             <h1>Tableau de bord général</h1>
         </div>

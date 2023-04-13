@@ -667,7 +667,7 @@
 
     function getStudentNotNoted($db,$id_epreuve){
         try{
-            $query = 'SELECT DISTINCT nom_etu,prenom_etu FROM etudiant e JOIN classe cl ON cl.id_classe = e.id_classe JOIN cours c ON c.id_classe = cl.id_classe JOIN epreuve ep ON ep.id_matiere = c.id_matiere WHERE id_etu NOT IN (SELECT id_etu FROM fait_epreuve fep WHERE fep.id_epreuve = :id) AND ep.id_epreuve = :id';
+            $query = 'SELECT DISTINCT nom_etu,prenom_etu, id_etu FROM etudiant e JOIN classe cl ON cl.id_classe = e.id_classe JOIN cours c ON c.id_classe = cl.id_classe JOIN epreuve ep ON ep.id_matiere = c.id_matiere WHERE id_etu NOT IN (SELECT id_etu FROM fait_epreuve fep WHERE fep.id_epreuve = :id) AND ep.id_epreuve = :id';
         $statement = $db->prepare($query);
         $statement->bindParam(':id', $id_epreuve);
         $statement->execute();
@@ -677,6 +677,18 @@
             echo $e->getMessage();
         }
 
+    }
+    function addNoteToStudent($db,$id_etu,$id_epreuve,$note){
+        try{
+            $query = 'INSERT INTO fait_epreuve (id_etu,id_epreuve,note,est_note) VALUES (:id_etu,:id_epreuve,:note,\'true\')';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id_etu', $id_etu);
+            $statement->bindParam(':id_epreuve', $id_epreuve);
+            $statement->bindParam(':note', $note);
+            $statement->execute();
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
     }
     
     ?>
