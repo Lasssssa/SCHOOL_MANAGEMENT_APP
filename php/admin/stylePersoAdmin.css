@@ -1,20 +1,21 @@
 #header{
-    padding-left: 20px;
+    padding-left: 1%;
+    padding-right: 1%;
     background: linear-gradient(.25turn, #1E559C, #478AF7);
-    text-align: center;
-    align-items: center;
-    height: 120px;
 }
 #header a:link{
     text-decoration: none;
-    padding-left: 10px;
-    padding-top: 10px;
+    padding-left: 1%;
     font-family: 'Roboto', sans-serif;
     font-size: 35px;
     color: white;
 }
 #header a:visited{
     color: white;
+}
+#ecart{
+    padding-left: 4%;
+    padding-right: 4%;
 }
 #account a:link{
     color: white;
@@ -24,8 +25,27 @@
     text-align: center;
     align-items: center;
 }
+#container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    margin:10%;
+}
 
-
+#blockCard{
+    height: 350px;
+    width: auto;
+}
+#container a:link{
+    text-decoration: none;
+}
+#container a:visited{
+    text-decoration: none;
+}
+#container a:hover{
+    text-decoration: none;
+}
 #recap{
     margin: 2%;
     display: grid;
@@ -205,6 +225,12 @@
     font-size: 20px;
     color: #478AF7;
     text-align: center;
+}
+#choiceSubmitStudent{
+    grid-column-start: 3;
+    grid-column-end: 3;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 #choiceCycleSelect{

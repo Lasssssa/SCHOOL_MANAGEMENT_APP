@@ -23,79 +23,82 @@
     
     <!-- A réadapter -->
     <body>
-        <div id="header">
-            <div id="logo">
-                <a href ="persoAdmin.php"><img src="../images/logoIsen.png" alt="logo" width ="190px"></a>
-            </div>
-            <div id="enseignant">
-                <a href="addingEnseignant.php">Enseignants</a>
-            </div>
-            <div id="etudiant">
-                <a href="addingEtudiant.php">Étudiants</a>
-            </div>
-            <div id="cours">
-                <a href="addingCours.php">Cours</a>
-            </div>
-            <div>
-            
-            </div>
-            <div id="account">
-            <?php echo '<div id="info"><a href="infoAdmin.php">'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].'    <span class="material-symbols-outlined">account_circle</span></a></div>'; ?>
-            </div>
-            <div id="deconnexion">
-                <a href="../loginAdmin.php"><span class="material-symbols-outlined">logout</span></a>
-            </div>
-        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header">
+                <div class="container-fluid" id="space">
+                    <a class="navbar-brand" href="persoAdmin.php">
+                        <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item" id="ecart">
+                                <a href="addingEnseignant.php">Enseignants</a>
+                            </li>
+                            <li class="nav-item" id="ecart">
+                                <a href="addingEtudiant.php">Étudiants</a>
+                            </li>
+                            <li class="nav-item" id="ecart">
+                                <a href="addingCours.php">Cours</a>
+                            </li>
+                        </ul>
+                        <a href="infoAdmin.php">
+                            <button type="button" class="btn btn-secondary">
+                                <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
+                            </button>
+                        </a>
+                        <a href="../loginAdmin.php">
+                            <button type="button" class="btn btn-danger"><span class="material-symbols-outlined">logout</span></button>
+                        </a>
+                    </div>
+                    
+                </div>
+            </nav>
         <div id ="board">
             <a href="addingEtudiant.php">Ajout</a>
             <a href="modifyStudents.php">Modification</a>
         </div>
 
         <?php 
+            require_once('../database.php');
+            $dbConnection = dbConnect();
             if(isset($_POST['modifier'])){
-                require_once('../database.php');
-                $dbConnection = dbConnect();
                 $id_classe = getIdClassWithYearAndCycle($dbConnection, $_POST['annee_cursus'], $_POST['cycle']);
                 modifyStudent($dbConnection, $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['id_etu'], $id_classe);
                 echo '<div class="alert alert-success" role="alert">
                         L\'étudiant a bien été modifié.
                         </div>';
             }
+            if(isset($_POST['supprimer'])){
+                deleteStudent($dbConnection, $_POST['id_etu']);
+                echo '
+                <div class="alert alert-success" role="alert">
+                    L\'élève a bien été supprimé.
+                </div>';
+                unset($_POST['supprimer']);
+            }
 
         ?>
-        
-        <?php
-        
-            require_once('../database.php');
-            $dbConnection = dbConnect();
-            $allStudents = getAllStudents($dbConnection);
-            foreach($allStudents as $student){
-                if(isset($_POST['supprimer'])){
-                    deleteStudent($dbConnection, $_POST['id_etu']);
-                    echo '
-                    <div class="alert alert-success" role="alert">
-                        L\'élève a bien été supprimé.
-                    </div>';
-                    unset($_POST['supprimer']);
-                }
-                else if(isset($_POST['supp_'.$student['id_etu']])){
-                    //Demander à l'utilisateur si il est sûr de vouloir supprimer l'enseignant :
-                    echo '
-                    <div id="deleteProf">
-                        <div id="delete2">
-                            <p>Êtes-vous sûr de vouloir supprimer cet élève ?</p>
-                            <form action="modifyStudents.php" method="post">
-                                <button type="submit" class="btn btn-success" name="supprimer">Supprimer</button>
-                                <button type="submit" class="btn btn-danger" name="retour">Retour</button>
-                                <input type="hidden" name="id_etu" value="'.$student['id_etu'].'">
-                            </form>
-                        </div>
-                    </div>';
-                }
-                else if(isset($_POST[$student['id_etu']])){
-                    echo '
-                        <div id="modificationProf">
-                            <div id="modif2">
+
+
+<?php
+        //Modal pour modifier un étudiant
+        require_once('../database.php');
+        $dbConnection = dbConnect(); 
+        $allStudents = getAllStudents($dbConnection);
+        foreach($allStudents as $student){
+            echo '
+                <div class="modal" id="modal_'.$student['id_etu'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modification d\'un élève</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
                                 <form action="modifyStudents.php" method="post">
                                     <div class="mb-3">
                                         <label for="nom" class="form-label">Nom</label>
@@ -107,7 +110,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="mail" class="form-label">Mail</label>
-                                        <input type="text" class="form-control" id="mail" name="mail" value="'.$student['mail_etu'].'">
+                                        <input type="email" class="form-control" id="mail" name="mail" value="'.$student['mail_etu'].'">
                                     </div>
                                     <div class="row">
                                         <div class="col">';
@@ -140,11 +143,36 @@
                                     <input type="hidden" name="id_etu" value="'.$student['id_etu'].'" name="id_etu">
                                 </form>
                             </div>
-                        </div>';
-                }
-            }
-            
-        ?>
+                            
+                        </div>
+                    </div>
+                </div>
+                ';
+                echo '
+                <div class="modal" id="modalSupp_'.$student['id_etu'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Suppression d\'un élève</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="modifyStudents.php" method="post">
+                                    <p>Êtes-vous sûr de vouloir supprimer cet élève ?</p>
+                                    <input type="hidden" name="id_etu" value="'.$student['id_etu'].'">
+                                    <button type="submit" class="btn btn-success" name="supprimer">Supprimer</button>
+                                    <button type="submit" class="btn btn-danger" name="retour">Retour</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ';
+        }
+       ?>
+
         
         <div id="middleChoiceStudents">
             <form action="modifyStudents.php" method ="post" id="formCycle">
@@ -174,7 +202,7 @@
                         <option value="5">Année 5</option>
                     </select>
                 </div>
-                <div id="choiceSubmit">
+                <div id="choiceSubmitStudent">
                     <button type="submit" class="btn btn-primary" name="submitCycle">Appliquer des filtres</button>
                 </div>
             </form>
@@ -201,13 +229,11 @@
                         echo '<tr><td>'.$student['id_etu'].'</td><td>'.$student['nom_etu'].'</td><td>'.$student['prenom_etu'].'</td><td>'.
                         $student['mail_etu'].'</td><td>'.$student['nom_cycle'].' '.$student['annee_cursus'].'</td>
                         <td>
-                            <form action="modifyStudents.php" method="post">
-                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" name="'.$student['id_etu'].'">Modifier</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="modifyStudents.php" method="post">
-                            <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" name="supp_'.$student['id_etu'].'">Supprimer</button></form>
+                        <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal_'.$student['id_etu'].'" name="'.$student['id_etu'].'">
+                        Modifier</button></td>
+                        <td>  
+                            <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalSupp_'.$student['id_etu'].'" name="supp_'.$student['id_etu'].'">Supprimer
+                            </button>    
                         </td>
                         </tr>';
                     }

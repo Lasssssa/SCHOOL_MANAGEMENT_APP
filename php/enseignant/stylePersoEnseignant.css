@@ -1,11 +1,7 @@
 #header{
-    padding-left: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 4fr 1fr 0.5fr;
-    grid-template-rows: 100px 1fr;
+    padding-left: 1%;
+    padding-right: 1%;
     background: linear-gradient(.25turn, #1E559C, #478AF7);
-    text-align: center;
-    align-items: center;
 }
 #bodyNotes{
     margin: 30px;
@@ -17,6 +13,11 @@
     font-family: 'Roboto', sans-serif;
     font-size: 30px;
     color: white;
+}
+
+#ecart{
+    padding-left: 4%;
+    padding-right: 4%;
 }
 #header a:visited{
     color: white;

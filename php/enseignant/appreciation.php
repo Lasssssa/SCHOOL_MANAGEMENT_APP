@@ -23,29 +23,56 @@
     <!-- A voir pour plutot avoir un récapitulatif en fonction de ce que l'on demande -->
 
     <body>
-        <div id="header">
-            <div id="logo">
-                <a href ="persoEnseignant.php"><img src="../images/logoIsen.png" alt="logo" width ="190px"></a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header">
+            <div class="container-fluid" id="space">
+                <a class="navbar-brand" href="persoEnseignant.php">
+                    <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" id="ecart">
+                            <a href="consultation.php">Consultation</a>
+                        </li>
+                        <li class="nav-item" id="ecart">
+                            <a href="notes.php">Notes</a>
+                        </li>
+                        <li class="nav-item" id="ecart">
+                            <a href="appreciation.php">Appréciations</a>
+                        </li>
+                    </ul>
+                    <a href="infoAdmin.php">
+                        <button type="button" class="btn btn-secondary">
+                            <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
+                        </button>
+                    </a>
+                    <a href="../loginAdmin.php">
+                        <button type="button" class="btn btn-danger"><span class="material-symbols-outlined">logout</span></button>
+                    </a>
+                </div>
+                
             </div>
-            <div id="consultation">
-                <a href="consultation.php">Consultation</a>
-            </div>
-            <div id="notes">
-                <a href="notes.php">Saisie</a>
-            </div>
-            <div>
-            
-            </div>
-            <div id="account">
-            <?php echo '<div id="info"><a href="infoEnseignant.php">'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].'    <span class="material-symbols-outlined">account_circle</span></a></div>'; ?>
-            </div>
-            <div id="deconnexion">
-                <a href="../loginAdmin.php"><span class="material-symbols-outlined">logout</span></a>
-            </div>
-        </div>
+        </nav>
+    
+        <?php
+                if(isset($_POST['validerAppreciation'])){
+                    require_once('../database.php');
+                    $db = dbConnect();
+                    $studentNotCommentedForm = getStudentOfCourseNotCommented($db, $_POST['id_matiere']);
+                    foreach($studentNotCommentedForm as $student){
+                        if(isset($_POST['etu_'.$student['id_etu']]) && isset($_POST['appreciation_'.$student['id_etu']]) && $_POST['appreciation_'.$student['id_etu']] != ""){
+                                $appreciation = addAppreciationToStudent($db, $student['id_etu'], $_POST['id_matiere'], $_POST['appreciation_'.$student['id_etu']]);
+                            }
+                        }
+                }
+            ?>
+
+
 
         <div id="bodyNotes">
-            <form action="notes.php" method="post">
+            <form action="appreciation.php" method="post">
             <div id="choixSemestre">
                     <h1 id="titleSemestre">Choix du semestre</h1>
                         <?php
@@ -65,55 +92,55 @@
                         </div>
                 </div>
                 </form>
-            <?php
+
+
+
+                <?php
                 if(isset($_POST['validerSemestre'])){
                     $coursesOfAProfessor = getCoursesByProfessorAndSemester($db, $_SESSION['id'],$_POST['semester']);
                     if($coursesOfAProfessor == null){
                         echo '<div class="alert alert-danger" role="alert">
-                        Vous n\'avez pas de cours ni d\'épreuves à noter pour ce semestre.
+                        Vous n\'avez pas de cours pour ce semestre.
                         </div>';
                     }
                     else{
                         echo '<div class="alert alert-success" role="alert">
-                        Vous avez des épreuves à noter pour ce semestre.
+                        Vous avez des cours pour ce semestre.
                         </div>';
 
-                        echo '<table class="table table-striped">';
-                        echo '<tr><th>Matière</th><th>Classe</th><th>Année</th><th>Semestre</th></tr>';
                         foreach($coursesOfAProfessor as $course){
-                            echo '<tr><td>'.$course['nom_matiere'].'</td><td>'.$course['nom_cycle'].$course['annee_cursus'].'</td><td>'.$course['numero_annee'].'</td><td>'.$course['numero_semestre'].'</td></tr>';
-                        }   
+                            echo '<div id="coursNotes">';
+                                echo '<h1>'.$course['nom_matiere'].'</h1>';
+                                $studentOfCourseNotCommented = getStudentOfCourseNotCommented($db, $course['id_matiere']);
+                                if($studentOfCourseNotCommented != null){
+                                    echo '<div id="epreuveNotes">';
+                                    echo '<form action="appreciation.php" method="post">';
+                                    echo '<table class="table table-striped">';
+                                    echo '<tr><th>Nom</th><th>Prénom</th><th>Moyenne</th><th>Commentaire</th></tr>';
+                                    foreach($studentOfCourseNotCommented as $student){
+                                        echo '<tr><td>'.$student['nom_etu'].'</td><td>'.$student['prenom_etu'].'</td>';
+                                        $moyenne = getAverageByStudentAndCourse($db, $student['id_etu'], $course['id_matiere']);
+                                        if($moyenne['moyenne'] == null){
+                                            echo '<td>Note manquante</td>';
+                                        }else{
+                                            echo '<td>'.$moyenne['moyenne'].'</td>';
+                                        }
+                                        echo '<td><input type="text" class="form-control" id="exampleFormControlInput1" name="appreciation_'.$student['id_etu'].'" placeholder="Entrez une appréciation"></td>
+                                        </tr>';
+                                        echo '<input type="hidden" name="etu_'.$student['id_etu'].'" value="'.$student['id_etu'].'">';
+                                    }
+                                    echo '</table>';
+                                    echo '<input type="hidden" name="id_matiere" value="'.$course['id_matiere'].'">';
+                                    echo '<input type="submit" name="validerAppreciation" value="Valider" id="center" class="btn btn-primary">';
+                                    echo '</form>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    }
+                        }
+                        }
                     }
-                }
             ?>
         </div>
-
-
-
-
-        <button onclick="afficherNotes()">Afficher les notes</button>
-
-        <!-- Liste des notes (à renseigner avec les données appropriées) -->
-        <ul id="listeNotes">
-            <li>Cours 1 : Note 1</li>
-            <li>Cours 2 : Note 2</li>
-            <li>Cours 3 : Note 3</li>
-            <!-- Ajoutez autant d'éléments de liste que nécessaire pour les notes à rentrer -->
-        </ul>
-
-        <script>
-            // Fonction pour afficher la liste des notes
-            function afficherNotes() {
-                var listeNotes = document.getElementById("listeNotes");
-                if(listeNotes.style.display == "block"){
-                    listeNotes.style.display = "none";
-                }
-                else{
-                    listeNotes.style.display = "block";
-                } // Affiche la liste des notes
-            }
-        </script>
-
         
     </body>
 </html>

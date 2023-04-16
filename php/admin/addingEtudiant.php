@@ -23,29 +23,38 @@
     <!-- A réadapter -->
 
     <body>
-        <div id="header">
-            <div id="logo">
-                <a href ="persoAdmin.php"><img src="../images/logoIsen.png" alt="logo" width ="190px"></a>
-            </div>
-            <div id="enseignant">
-                <a href="addingEnseignant.php">Enseignants</a>
-            </div>
-            <div id="etudiant">
-                <a href="addingEtudiant.php">Étudiants</a>
-            </div>
-            <div id="cours">
-                <a href="addingCours.php">Cours</a>
-            </div>
-            <div>
-            
-            </div>
-            <div id="account">
-            <?php echo '<div id="info"><a href="infoAdmin.php">'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].'    <span class="material-symbols-outlined">account_circle</span></a></div>'; ?>
-            </div>
-            <div id="deconnexion">
-                <a href="../loginAdmin.php"><span class="material-symbols-outlined">logout</span></a>
-            </div>
-        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header">
+                <div class="container-fluid" id="space">
+                    <a class="navbar-brand" href="persoAdmin.php">
+                        <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item" id="ecart">
+                                <a href="addingEnseignant.php">Enseignants</a>
+                            </li>
+                            <li class="nav-item" id="ecart">
+                                <a href="addingEtudiant.php">Étudiants</a>
+                            </li>
+                            <li class="nav-item" id="ecart">
+                                <a href="addingCours.php">Cours</a>
+                            </li>
+                        </ul>
+                        <a href="infoAdmin.php">
+                            <button type="button" class="btn btn-secondary">
+                                <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
+                            </button>
+                        </a>
+                        <a href="../loginAdmin.php">
+                            <button type="button" class="btn btn-danger"><span class="material-symbols-outlined">logout</span></button>
+                        </a>
+                    </div>
+                    
+                </div>
+            </nav>
         <div id ="board">
             <a href="addingEtudiant.php">Ajout</a>
             <a href="modifyStudents.php">Modification</a>

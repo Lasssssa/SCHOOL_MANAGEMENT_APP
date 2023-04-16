@@ -20,36 +20,39 @@
         <script src="../script.js"></script>
     </head>
     
-    <style>
-        /* Style pour la liste des notes */
-    #listeNotes {
-            display: none; /* Par défaut, la liste des notes est cachée */
-        }
-    </style>
-
-    <!-- A voir pour plutot avoir un récapitulatif en fonction de ce que l'on demande -->
-
     <body>
-        <div id="header">
-            <div id="logo">
-                <a href ="persoEnseignant.php"><img src="../images/logoIsen.png" alt="logo" width ="190px"></a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header">
+            <div class="container-fluid" id="space">
+                <a class="navbar-brand" href="persoEnseignant.php">
+                    <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" id="ecart">
+                            <a href="consultation.php">Consultation</a>
+                        </li>
+                        <li class="nav-item" id="ecart">
+                            <a href="notes.php">Notes</a>
+                        </li>
+                        <li class="nav-item" id="ecart">
+                            <a href="appreciation.php">Appréciations</a>
+                        </li>
+                    </ul>
+                    <a href="infoAdmin.php">
+                        <button type="button" class="btn btn-secondary">
+                            <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
+                        </button>
+                    </a>
+                    <a href="../loginAdmin.php">
+                        <button type="button" class="btn btn-danger"><span class="material-symbols-outlined">logout</span></button>
+                    </a>
+                </div>
+                
             </div>
-            <div id="consultation">
-                <a href="consultation.php">Consultation</a>
-            </div>
-            <div id="notes">
-                <a href="notes.php">Saisie</a>
-            </div>
-            <div>
-            
-            </div>
-            <div id="account">
-            <?php echo '<div id="info"><a href="infoEnseignant.php">'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].'    <span class="material-symbols-outlined">account_circle</span></a></div>'; ?>
-            </div>
-            <div id="deconnexion">
-                <a href="../loginAdmin.php"><span class="material-symbols-outlined">logout</span></a>
-            </div>
-        </div>
+        </nav>
 
         <div id="bodyNotes">
             <form action="notes.php" method="post">
@@ -78,9 +81,11 @@
                     $id_epreuve = $_POST['idEpreuve'];
                     require_once('../database.php');
                     $db = dbConnect();
+                    $coefficient = $_POST['coefficient'];
+                    changeCoefficient($db, $id_epreuve, $coefficient);
                     $studentNotNotedForm = getStudentNotNoted($db, $id_epreuve);
                     foreach($studentNotNotedForm as $student){
-                        if(isset($_POST['etu_'.$student['id_etu']]) && isset($_POST['note_'.$student['id_etu']])){
+                        if(isset($_POST['etu_'.$student['id_etu']]) && isset($_POST['note_'.$student['id_etu']]) && $_POST['note_'.$student['id_etu']] != null){
                                 $noteAdded = addNoteToStudent($db, $student['id_etu'], $id_epreuve, $_POST['note_'.$student['id_etu']]);
                             }
                         }
@@ -123,6 +128,9 @@
                                                 echo '<input type="hidden" name="etu_'.$student['id_etu'].'" value="'.$student['id_etu'].'">';
                                             }
                                             echo '</table>';
+                                            echo '<h5>Coefficient : </h5>';
+                                            echo '<input type="number" name = "coefficient" class="form-control" id="exampleFormControlInput1" value = "'.$epreuve['coefficient'].'">';
+                                            echo '<br>';
                                             echo '<input type="submit" name="validerNote" value="Valider" id="center" class="btn btn-primary">';
                                             echo '</form>';
                                         echo '</div>';

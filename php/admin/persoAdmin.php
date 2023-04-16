@@ -33,128 +33,65 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
+                        <li class="nav-item" id="ecart">
                             <a href="addingEnseignant.php">Enseignants</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="ecart">
                             <a href="addingEtudiant.php">Étudiants</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="ecart">
                             <a href="addingCours.php">Cours</a>
                         </li>
                     </ul>
+                    <a href="infoAdmin.php">
+                        <button type="button" class="btn btn-secondary">
+                            <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
+                        </button>
+                    </a>
+                    <a href="../loginAdmin.php">
+                        <button type="button" class="btn btn-danger"><span class="material-symbols-outlined">logout</span></button>
+                    </a>
                 </div>
-                <span class="navbar-text ms-auto">
-                    <?php echo '<a href="infoAdmin.php">'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].'    <span class="material-symbols-outlined">account_circle</span></a>'; ?>
-                </span>
-                    <!-- <button type="button" class="btn btn-outline-danger">Danger</button> -->
-                    <a href="../loginAdmin.php">Deconnexion</a>
+                
             </div>
         </nav>
-            
-        <div id ="board2">
-            <h1>Tableau de bord général</h1>
+
+        <div id="container">
+            <a href="addingEnseignant.php">
+                <div class="card text-bg-primary mb-3" style="max-width: 18rem;" id="blockCard">
+                    <div class="card-header">
+                        <h4>Enseignants</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Primary card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </a>
+            <a href="addingEtudiant.php">
+                <div class="card text-bg-danger mb-3" style="max-width: 18rem;" id="blockCard">
+                    <div class="card-header">
+                        <h4>Élève</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Danger card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </a>
+            <a href="addingCours.php">
+                <div class="card text-bg-dark mb-3" style="max-width: 18rem;"id="blockCard">
+                    <div class="card-header">
+                        <h4>Cours</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Danger card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </a>
         </div>
-        <div id="recap">
-            <div id="recapEnseignant">
-                <h1>Enseignants</h1>
-                <div id="bouton">
-                    <form action="persoAdmin.php" method="post">
-                        <button type="submit" class="btn btn-success" name="afficherEnseignant">Afficher</button>
-                        <button type="sumbit" class="btn btn-danger" name="retirerEnseignant">Retirer</button>
-                    </form>
-                </div>
-                <?php
-                    ini_set('display_errors', 1);
-                    error_reporting(E_ALL);
-                    require_once('../database.php');
-                    if(isset($_POST['afficherEnseignant'])){
-                        $_SESSION['afficherEnseignant'] = true;
-                    }
-                    if(isset($_POST['retirerEnseignant'])){
-                        $_SESSION['afficherEnseignant'] = false;
-                    }
-                    if(isset($_SESSION['afficherEnseignant']) && $_SESSION['afficherEnseignant'] == true){
-                        echo '<div id="afficher">';
-                            $dbConnection = dbConnect();
-                            $allProfessors = getAllProfessors($dbConnection);
-                            echo '<table class="table table-striped">';
-                            echo '<tr><th>Nom</th><th>Prénom</th><th>Mail</th><th>Numéro de téléphone</th></tr>';
-                            foreach($allProfessors as $enseignant){
-                                echo '<tr><td>'.$enseignant['nom_prof'].'</td><td>'.$enseignant['prenom_prof'].'</td><td>'.$enseignant['mail_prof'].'</td><td>'.$enseignant['telephone_prof'].'</td></tr>';
-                            }
-                            echo '</table>';
-                        echo '</div>';
-                    }
 
-                ?>
-            </div>
-            <div id="recapEtudiant">
-                <h1>Étudiants</h1>
-                <div id="bouton">
-                    <form action="persoAdmin.php" method="post">
-                        <button type="submit" class="btn btn-success" name="afficherEtu">Afficher</button>
-                        <button type="sumbit" class="btn btn-danger" name="retirerEtu">Retirer</button>
-                    </form>
-                </div>
-                <?php
-                    ini_set('display_errors', 1);
-                    error_reporting(E_ALL);
-                    require_once('../database.php');
-                    if(isset($_POST['afficherEtu'])){
-                        $_SESSION['afficherEtudiant'] = true;
-                    }
-                    if(isset($_POST['retirerEtu'])){
-                        $_SESSION['afficherEtudiant'] = false;
-                    }
-                    if(isset($_SESSION['afficherEtudiant'])&& $_SESSION['afficherEtudiant'] == true){
-                        echo '<div id="afficher">';
-                            $dbConnection = dbConnect();
-                            $allStudents = getAllStudents($dbConnection);
-                            echo '<table class="table table-striped">';
-                            echo '<tr><th>Nom</th><th>Prénom</th><th>Mail</th><th>Année</th><th>Cycle</th></tr>';
-                            foreach($allStudents as $etudiant){
-                                echo '<tr><td>'.$etudiant['nom_etu'].'</td><td>'.$etudiant['prenom_etu'].'</td><td>'.$etudiant['mail_etu'].'</td><td>'.$etudiant['annee_cursus'].'</td><td>'.$etudiant['nom_cycle'].'</td></tr>';
-                            }
-                            echo '</table>';
-                        echo '</div>';
-                    }
 
-                ?>
-            </div>
-            <div id="recapCours">
-                <h1>Cours</h1>
-                <div id="bouton">
-                    <form action="persoAdmin.php" method="post">
-                        <button type="submit" class="btn btn-success" name="afficherCours">Afficher</button>
-                        <button type="sumbit" class="btn btn-danger" name="retirerCours">Retirer</button>
-                    </form>
-                </div>
-                <?php
-                    ini_set('display_errors', 1);
-                    error_reporting(E_ALL);
-                    require_once('../database.php');
-                    if(isset($_POST['afficherCours'])){
-                        $_SESSION['afficherCours'] = true;
-                    }
-                    if(isset($_POST['retirerCours'])){
-                        $_SESSION['afficherCours'] = false;
-                    }
-                    if(isset($_SESSION['afficherCours'])&& $_SESSION['afficherCours'] == true){
-                        echo '<div id="afficher">';
-                            $dbConnection = dbConnect();
-                            $allCourses = getAllCourses($dbConnection);
-                            echo '<table class="table table-striped">';
-                            echo '<tr><th>Matière</th><th>Durée</th><th>Professeur</th><th>Semestre</th><th>Année</th></tr>';
-                            foreach($allCourses as $course){   
-                                echo '<tr><td>'.$course['nom_matiere'].'</td><td>'.$course['duree'].'</td><td>'.$course['prenom_prof'].' '.$course['nom_prof'].'</td><td>'.$course['numero_semestre'].'</td><td>'.$course['numero_annee'].'</td></tr>';
-                            }
-                            echo '</table>';
-                        echo '</div>';
-                    }
-
-                ?>
-            </div>
-        </div>
     </body>
 </html>

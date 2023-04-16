@@ -676,7 +676,19 @@
         }catch(exception $e){
             echo $e->getMessage();
         }
+    }
 
+    function getStudentOfCourseNotCommented($db,$id_cours){
+        try{
+            $query = 'SELECT DISTINCT nom_etu,prenom_etu, e.id_etu FROM etudiant e JOIN classe cl ON cl.id_classe = e.id_classe JOIN cours c ON c.id_classe = cl.id_classe WHERE id_etu NOT IN (SELECT id_etu FROM recoit_appreciation ra WHERE id_matiere =:id) AND c.id_matiere = :id;';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id', $id_cours);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
     }
     function addNoteToStudent($db,$id_etu,$id_epreuve,$note){
         try{
@@ -690,5 +702,112 @@
             echo $e->getMessage();
         }
     }
+
+    function changeCoefficient($db,$id_epreuve,$coef){
+        try{
+            $query = 'UPDATE epreuve SET coefficient = :coef WHERE id_epreuve = :id_epreuve';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id_epreuve', $id_epreuve);
+            $statement->bindParam(':coef', $coef);
+            $statement->execute();
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    function getAverageByStudentAndCourse($db,$id_etu,$id_cours){
+        try{
+            $query = 'SELECT AVG(note) as moyenne FROM fait_epreuve fep JOIN epreuve ep ON ep.id_epreuve = fep.id_epreuve WHERE id_etu = :id_etu AND id_matiere = :id_cours';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id_etu', $id_etu);
+            $statement->bindParam(':id_cours', $id_cours);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    function addAppreciationToStudent($db, $id_etu, $id_cours, $appreciation){
+        try{
+            $query = 'INSERT INTO recoit_appreciation (id_etu,id_matiere,commentaire) VALUES (:id_etu,:id_matiere,:appreciation)';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id_etu', $id_etu);
+            $statement->bindParam(':id_matiere', $id_cours);
+            $statement->bindParam(':appreciation', $appreciation);
+            $statement->execute();
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    function getStudentOfCourse($db,$id_cours){
+        try{
+            $query = 'SELECT DISTINCT * FROM etudiant e JOIN classe cl ON cl.id_classe = e.id_classe JOIN cours c ON c.id_classe = cl.id_classe WHERE c.id_matiere = :id';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id', $id_cours);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    function getNumberOfDS($db,$id_cours){
+        try{
+            $query = 'SELECT COUNT(*) as nb FROM epreuve ep JOIN cours c ON c.id_matiere = ep.id_matiere WHERE c.id_matiere = :id';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id', $id_cours);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    function getAppreciation($db,$id_etu,$id_cours){
+        try{
+            $query = 'SELECT commentaire FROM recoit_appreciation WHERE id_etu = :id_etu AND id_matiere = :id_cours';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id_etu', $id_etu);
+            $statement->bindParam(':id_cours', $id_cours);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+    }
     
+    function getRankingByStudentAndCourseInClass($db,$id_etu,$id_cours){
+        try{
+            $query = 'SELECT COUNT(*) as rang FROM etudiant e JOIN classe cl ON cl.id_classe = e.id_classe JOIN cours c ON c.id_classe = cl.id_classe JOIN fait_epreuve fep ON fep.id_etu = e.id_etu JOIN epreuve ep ON ep.id_epreuve = fep.id_epreuve WHERE c.id_matiere = :id_cours AND ep.id_matiere = :id_cours AND fep.note > (SELECT note FROM fait_epreuve fep2 JOIN epreuve ep2 ON ep2.id_epreuve = fep2.id_epreuve WHERE fep2.id_etu = :id_etu AND ep2.id_matiere = :id_cours)';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id_etu', $id_etu);
+            $statement->bindParam(':id_cours', $id_cours);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    function getNoteByStudentAndCourseAndDS($db,$id_etu,$id_cours,$numEpreuve){
+        try{
+            $query = 'SELECT note FROM fait_epreuve fep JOIN epreuve ep ON ep.id_epreuve = fep.id_epreuve JOIN cours c ON c.id_matiere = ep.id_matiere WHERE c.id_matiere = :id_cours AND fep.id_etu = :id_etu AND substr(ep.nom_epreuve,3) = CAST(:numEpreuve AS CHAR)';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id_etu', $id_etu);
+            $statement->bindParam(':id_cours', $id_cours);
+            $statement->bindParam(':numEpreuve', $numEpreuve);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+    }
     ?>

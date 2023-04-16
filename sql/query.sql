@@ -1,1 +1,0 @@
-INSERT INTO etudiant (nom_etu, prenom_etu, mail_etu, password_etu, id_classe) VALUES ('Martin', 'Lobel', 'test@gmail.com', 'test', 1);
