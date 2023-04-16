@@ -23,28 +23,146 @@
     <!-- A voir pour plutot avoir un récapitulatif en fonction de ce que l'on demande -->
 
     <body>
-        <div id="header">
-            <div id="logo">
-                <a href ="persoEnseignant.php"><img src="../images/logoIsen.png" alt="logo" width ="190px"></a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header">
+            <div class="container-fluid" id="space">
+                <a class="navbar-brand" href="persoEnseignant.php">
+                    <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" id="ecart">
+                            <a href="consultation.php">Consultation</a>
+                        </li>
+                        <li class="nav-item" id="ecart">
+                            <a href="notes.php">Notes</a>
+                        </li>
+                        <li class="nav-item" id="ecart">
+                            <a href="appreciation.php">Appréciations</a>
+                        </li>
+                    </ul>
+                    <a href="infoAdmin.php">
+                        <button type="button" class="btn btn-secondary">
+                            <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
+                        </button>
+                    </a>
+                    <a href="../loginAdmin.php">
+                        <button type="button" class="btn btn-danger"><span class="material-symbols-outlined">logout</span></button>
+                    </a>
+                </div>
+                
             </div>
-            <div id="enseignant">
-                <a href="consultation.php">Consultation</a>
-            </div>
-            <div id="etudiant">
-                <a href="notes.php">Saisie des notes</a>
-            </div>
-            <div>
-            
-            </div>
-            <div id="account">
-            <?php echo '<div id="info"><a href="infoEnseignant.php">'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].'    <span class="material-symbols-outlined">account_circle</span></a></div>'; ?>
-            </div>
-            <div id="deconnexion">
-                <a href="../loginAdmin.php"><span class="material-symbols-outlined">logout</span></a>
-            </div>
+        </nav>
+
+        <div id="bodyNotes">
+            <form action="consultation.php" method="post">
+            <div id="choixSemestre">
+                    <h1 id="titleSemestre">Choix du semestre</h1>
+                        <?php
+                            require_once('../database.php');
+                            $db = dbConnect();
+                            $allSemesters = getAllSemesters($db);
+                            echo '<div id="selectSemestre">';
+                            echo '<select class="form-select" aria-label="Default select example" name="semester">';
+                            foreach($allSemesters as $semester){
+                                echo '<option value="'.$semester['id_semestre'].'">Semestre '.$semester['numero_semestre'].' | Année '.$semester['numero_annee'].'</option>';
+                            }
+                            echo '</select>';
+                            echo '</div>';
+                        ?>
+                        <div id="buttonSemestre">
+                            <input type="submit" name="validerSemestre" value="Valider" class="btn btn-primary">
+                        </div>
+                </div>
+                </form>
+
+
+
+                <?php
+                if(isset($_POST['validerSemestre'])){
+                    $coursesOfAProfessor = getCoursesByProfessorAndSemester($db, $_SESSION['id'],$_POST['semester']);
+                    if($coursesOfAProfessor == null){
+                        echo '<div class="alert alert-danger" role="alert">
+                        Vous n\'avez pas de cours pour ce semestre.
+                        </div>';
+                    }
+                    else{
+                        echo '<div class="alert alert-success" role="alert">
+                        Vous avez des cours pour ce semestre.
+                        </div>';
+
+                        foreach($coursesOfAProfessor as $course){
+                            echo '<div id="coursNotes">';
+                                echo '<h1>'.$course['nom_matiere'].'</h1>';
+                                $studentOfCourse = getStudentOfCourse($db, $course['id_matiere']);
+                                if($studentOfCourse != null){
+                                    echo '<div id="epreuveNotes">';
+                                    echo '<table class="table table-striped">';
+                                    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Cycle</th><th>Appréciation</th>';
+                                    $numberOfDS = getNumberOfDS($db, $course['id_matiere']);
+                                    for($i = 1; $i <= $numberOfDS['nb']; $i++){
+                                        echo '<th>DS'.$i.'</th>';
+                                    }
+                                    echo '<th>Moyenne</th></tr>
+                                    <th>Classement</th><th>Modification</th></tr>';
+                                    foreach($studentOfCourse as $student){
+                                        $average = getAverageByStudentAndCourse($db, $student['id_etu'], $course['id_matiere']);
+                                        // if($average != null){
+                                        //     $average = $average['moyenne'];
+                                        //     if($average < 10 && $average !=0){
+                                        //         echo '<tr class="table-danger">';
+                                        //     }
+                                        //     else if($average < 12 && $average !=0){
+                                        //         echo '<tr class="table-warning">';
+                                        //     }
+                                        //     else{
+                                        //         echo '<tr class="table-success">';
+                                        //     }
+                                        // }
+                                        echo '<td>'.$student['id_etu'].'</td><td>'.$student['nom_etu'].'</td><td>'.$student['prenom_etu'].'</td><td>'.$student['nom_cycle'].$student['annee_cursus'].'</td>';
+                                        $appreciation = getAppreciation($db, $student['id_etu'], $course['id_matiere']);
+                                        if($appreciation == null){
+                                            echo '<td>Non renseigné</td>';
+                                        }
+                                        else{
+                                            echo '<td>'.$appreciation['commentaire'].'</td>';
+                                        }
+                                        for($i = 1; $i <= $numberOfDS['nb']; $i++){
+                                            $note = getNoteByStudentAndCourseAndDS($db, $student['id_etu'], $course['id_matiere'],$i);
+                                            if($note == null){
+                                                echo '<td>Non renseigné</td>';
+                                            }
+                                            else{
+                                                echo '<td>'.$note['note'].'</td>';
+                                            }
+                                        }
+                                        if($average == null){
+                                            echo '<td>Non renseigné</td>';
+                                        }
+                                        else{
+                                            echo '<td>'.$average['moyenne'].'</td>';
+                                        }
+                                        $ranking = getRankingByStudentAndCourseInClass($db, $student['id_etu'], $course['id_matiere']);
+                                        if($ranking == null){
+                                            echo '<td>Non renseigné</td>';
+                                        }
+                                        else{
+                                            echo '<td>'.$ranking['rang'].'</td>';
+                                        }
+                                        echo '<td><input type="button" class="btn btn-primary"></td></tr>';
+                                    }
+                                    echo '</table>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    }
+                        }
+                        }
+                    }
+            ?>
         </div>
-        <div id ="board2">
-            <h1>Tableau de bord général</h1>
-        </div>
+
+        
     </body>
 </html>
