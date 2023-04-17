@@ -90,7 +90,8 @@
             }
         
             if(isset($_POST['ajout_epreuve']) && $_POST['coefficient'] && isset($_POST['nom_epreuve'])){
-                addEpreuve($dbConnection, $_POST['id_matiere'], $_POST['nom_epreuve'], $_POST['coefficient']);
+                $epreuve = 'DS'.$_POST['nom_epreuve'];
+                addEpreuve($dbConnection, $_POST['id_matiere'], $epreuve, $_POST['coefficient']);
                 echo '
                 <div class="alert alert-success" role="alert">
                     L\'épreuve a bien été ajoutée.
@@ -242,8 +243,8 @@
                             <form action="modifyCourses.php" method="post">
                             <h4>Cours : '.$cours['nom_matiere'].'</h4>
                             <div class="mb-3">
-                                <label for="nom" class="form-label">Nom de l\'épreuve</label>
-                                <input type="text" class="form-control" id="nom" name="nom_epreuve"">
+                                <label for="nom" class="form-label">Numéro de l\'épreuve</label>
+                                <input type="number" class="form-control" id="nom" name="nom_epreuve"">
                             </div>
                             <div class="mb-3">
                                 <label for="prenom" class="form-label">Coefficient</label>
@@ -272,7 +273,7 @@
                             <div class="modal-body">
                             <table class="table table-striped">';
                                 echo '<tr><th>Nom</th><th>Matière</th><th>Coefficient</th><th>Supression</th></tr>';
-                                $epreuves = getEpreuves($dbConnection, $cours['id_matiere']);   
+                                $epreuves = getEpreuvesOfACourse($dbConnection, $cours['id_matiere']);   
                                 foreach($epreuves as $epreuve){
                                     echo '<tr><td>'.$epreuve['nom_epreuve'].'</td><td>'.$epreuve['nom_matiere'].'</td><td>'.$epreuve['coefficient'].'</td><td>
                                     <form action="modifyCourses.php" method="post">

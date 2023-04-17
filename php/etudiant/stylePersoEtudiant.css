@@ -1,11 +1,12 @@
 #header{
-    padding-left: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 4fr 1fr 0.5fr;
-    grid-template-rows: 100px 1fr;
+    padding-left: 1%;
+    padding-right: 1%;
     background: linear-gradient(.25turn, #1E559C, #478AF7);
-    text-align: center;
-    align-items: center;
+}
+
+#ecart{
+    padding-left: 4%;
+    padding-right: 4%;
 }
 #header a:link{
     text-decoration: none;
@@ -27,6 +28,13 @@
     align-items: center;
 }
 
+#center{
+    text-align: center;
+}
+.boldTitle{
+    font-style: bold;
+    font-size: 27px;
+}
 #account a:visited {
     text-align: right;
     align-items: right;
@@ -54,4 +62,76 @@
     margin-bottom: 30px;
     width: 300px;
     text-align: left;
+}
+#choixSemestre{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    margin: 30px;
+}
+
+#formSemestre{
+    display: grid;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-template-columns: 2fr 1fr;
+}
+#titleSemestre{
+    font-family: 'Roboto', sans-serif;
+    font-size: 35px;
+    color: #1E559C;
+    text-align: center;
+    align-items: center;
+    padding-top: 10px;
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+#selectSemestre{
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+#buttonSemestre{
+    grid-column-start: 2;
+    grid-column-end: 2;
+    margin-left: 50px;
+}
+
+#bulletin{
+    margin: 2%;
+    border: solid 1px #1E559C;
+}
+
+#headerBulletin{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+#contact{
+    text-align: right;
+    display: block;
+    padding: 3%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    color: #1E559C;
+}
+#contactStudent{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+#containerContact{
+    border: solid 1px black;
+    margin-right: 15%;
+    margin-bottom: 15%;
+    text-align: left;
+    padding: 2%;
+    grid-column-start: 3;
+    grid-column-end: 3;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-style: bold;
+    
+}
+
+#recapBulletin{
+    border: 1px solid black;
+    margin: 2%;
+    padding: 1%;
 }

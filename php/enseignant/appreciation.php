@@ -48,7 +48,7 @@
                             <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
                         </button>
                     </a>
-                    <a href="../loginAdmin.php">
+                    <a href="../loginEnseignant.php">
                         <button type="button" class="btn btn-danger"><span class="material-symbols-outlined">logout</span></button>
                     </a>
                 </div>
@@ -56,6 +56,24 @@
             </div>
         </nav>
     
+
+        <?php
+        require_once('../database.php');
+        $db = dbConnect();
+            if(isset($_POST['validerSemestre'])){
+                $_SESSION['idSemestre'] = $_POST['semester'];
+                $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_semestre'] = getSemester($db, $_SESSION['idSemestre']);
+            }else{
+                $_SESSION['idSemestre'] = $_SESSION['idSemestre'];
+                $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_semestre'] = getSemester($db, $_SESSION['idSemestre']);
+            }
+        ?>
+
+
         <?php
                 if(isset($_POST['validerAppreciation'])){
                     require_once('../database.php');
@@ -81,8 +99,17 @@
                             $allSemesters = getAllSemesters($db);
                             echo '<div id="selectSemestre">';
                             echo '<select class="form-select" aria-label="Default select example" name="semester">';
+                            if(isset($_SESSION['idSemestre'])){
+                                echo '<option value="'.$_SESSION['idSemestre'].'">Semestre '.$_SESSION['numero_semestre'].' | Année '.$_SESSION['numero_annee'].'</option>';
+                            }
                             foreach($allSemesters as $semester){
-                                echo '<option value="'.$semester['id_semestre'].'">Semestre '.$semester['numero_semestre'].' | Année '.$semester['numero_annee'].'</option>';
+                                if(isset($_SESSION['idSemestre'])){
+                                    if($semester['id_semestre'] != $_SESSION['idSemestre']){
+                                        echo '<option value="'.$semester['id_semestre'].'">Semestre '.$semester['numero_semestre'].' | Année '.$semester['numero_annee'].'</option>';
+                                    }
+                                }else{
+                                    echo '<option value="'.$semester['id_semestre'].'">Semestre '.$semester['numero_semestre'].' | Année '.$semester['numero_annee'].'</option>';
+                                }
                             }
                             echo '</select>';
                             echo '</div>';
@@ -96,8 +123,8 @@
 
 
                 <?php
-                if(isset($_POST['validerSemestre'])){
-                    $coursesOfAProfessor = getCoursesByProfessorAndSemester($db, $_SESSION['id'],$_POST['semester']);
+                 if(isset($_SESSION['idSemestre']) || isset($_POST['validerSemestre'])){
+                    $coursesOfAProfessor = getCoursesByProfessorAndSemester($db, $_SESSION['id'],$_SESSION['idSemestre']);
                     if($coursesOfAProfessor == null){
                         echo '<div class="alert alert-danger" role="alert">
                         Vous n\'avez pas de cours pour ce semestre.
@@ -120,10 +147,10 @@
                                     foreach($studentOfCourseNotCommented as $student){
                                         echo '<tr><td>'.$student['nom_etu'].'</td><td>'.$student['prenom_etu'].'</td>';
                                         $moyenne = getAverageByStudentAndCourse($db, $student['id_etu'], $course['id_matiere']);
-                                        if($moyenne['moyenne'] == null){
+                                        if($moyenne == null){
                                             echo '<td>Note manquante</td>';
                                         }else{
-                                            echo '<td>'.$moyenne['moyenne'].'</td>';
+                                            echo '<td>'.$moyenne.'</td>';
                                         }
                                         echo '<td><input type="text" class="form-control" id="exampleFormControlInput1" name="appreciation_'.$student['id_etu'].'" placeholder="Entrez une appréciation"></td>
                                         </tr>';
@@ -134,8 +161,15 @@
                                     echo '<input type="submit" name="validerAppreciation" value="Valider" id="center" class="btn btn-primary">';
                                     echo '</form>';
                                     echo '</div>';
-                                    echo '</div>';
-                                    }
+                                    
+                                }else{
+                                    echo '<div class="alert alert-success" role="alert">
+                                    Vous avez donné une appréciation tous les étudiants pour cette épreuve.
+                                    </div>';
+                                    
+                                    
+                                }
+                                echo '</div>';
                         }
                         }
                     }

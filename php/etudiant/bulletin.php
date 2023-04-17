@@ -72,7 +72,7 @@
             }
         ?>
 
-        <form action="persoEtudiant.php" method="post">
+        <form action="bulletin.php" method="post">
             <div id="choixSemestre">
                     <h1 id="titleSemestre">Choix du semestre</h1>
                         <?php
@@ -103,7 +103,42 @@
                 </form>
 
 
-        
+        <div id="bulletin">
+            <div id="headerBulletin">
+                <img src="../images/logoISENCouleur.png" width="300px" id="contact">
+                <h1 id="contact">Bulletin de notes</h1>
+            </div>
+            <div id="contactStudent">
+                <div></div>
+                <div id="containerContact">
+                    <p>Monsieur <?php echo $_SESSION['nom'].' '.$_SESSION['prenom']; ?></p>
+                    <br>
+                    <p>Email : <?php echo $_SESSION['email']; ?></p>
+                </div>
+            </div>
+            <hr>
+            <p id="center" class="boldTitle">Bulletin de notes de l'année scolaire <?php echo $_SESSION['numero_annee']; ?></p>
+            <hr>
+            <h1>Monsieur <?php echo strtoupper($_SESSION['nom']).' '.$_SESSION['prenom']; ?></h1>
+            <p>Édité le <?php echo date('d/m/Y'); ?></p>
+            <div id="recapBulletin">
+                <?php
+                    require_once('../database.php');
+                    $db = dbConnect();
+                    $student = getStudentById($db, $_SESSION['id']);
+                    echo '<h4>'.$student['nom_cycle'].$student['annee_cursus'].' Nantes - Semestre '.$_SESSION['numero_semestre'].' | '.$_SESSION['numero_annee'].'</h4>';
+                    // $generalAverage = getGeneralAverage($db, $_SESSION['id'], $_SESSION['idSemestre']);
+                    // echo '<h5>Moyenne générale : '.$generalAverage.'</h5>';
+                    // echo '<h5>Période validée : ';
+                    // if($generalAverage >= 10){
+                    //     echo 'Oui';
+                    // }else{
+                    //     echo 'Non';
+                    // }
+                    // echo '</h5>';
+                ?>
+            <div>
+        </div>
 
 
     </body>

@@ -49,7 +49,7 @@
                             <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
                         </button>
                     </a>
-                    <a href="../loginAdmin.php">
+                    <a href="../loginEnseignant.php">
                         <button type="button" class="btn btn-danger"><span class="material-symbols-outlined">logout</span></button>
                     </a>
                 </div>

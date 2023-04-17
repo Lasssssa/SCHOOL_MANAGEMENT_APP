@@ -72,7 +72,7 @@
             }
         ?>
 
-        <form action="persoEtudiant.php" method="post">
+        <form action="recap.php" method="post">
             <div id="choixSemestre">
                     <h1 id="titleSemestre">Choix du semestre</h1>
                         <?php
@@ -103,7 +103,75 @@
                 </form>
 
 
-        
+    
+
+        <div id = "tabPerso">
+            <div id="recap">
+                <h1>Votre moyenne sur le semestre</h1>
+                <div id="moyenne">
+                    <?php
+                        require_once('../database.php');
+                        $db = dbConnect();
+                        $average = getGeneralAverage($db, $_SESSION['id'], $_SESSION['idSemestre']);
+                        if($average != null){
+                            echo '<h3>'.number_format($average,2).'</h3>';
+                        }else{
+                            echo '<h3>Non renseigné</h3>';
+                        }
+                    ?>
+                </div>
+            </div>
+            <table class="table table-striped">
+                <tr><th>Matière</th><th>Professeur</th><th>DS 1</th><th>DS 2</th><th>DS 3</th><th>Moyenne</th><th>Moyenne de classe</th><th>Classement</th><th>Appréciation</th><th>Rattrapage</th></tr>
+                <?php
+                    require_once('../database.php');
+                    $db = dbConnect();
+                    $allCoursesOfStudentsInSemester = getAllCoursesOfStudentsInSemester($db, $_SESSION['id'],$_SESSION['idSemestre']);
+                    foreach($allCoursesOfStudentsInSemester as $course){
+                        $average = getAverageByStudentAndCourse($db, $_SESSION['id'], $course['id_matiere']);
+                        if($average !=null && $average < 10){
+                            echo '<tr class="table-danger">';
+                        }
+                        else{
+                            echo '<tr>';
+                        }
+                        echo '<td>'.$course['nom_matiere'].'</td>';
+                        echo '<td>'.$course['nom_prof'].' '.$course['prenom_prof'].'</td>';
+                        $numberOfDS = getNumberOfDS($db, $course['id_matiere']);
+                        for($i = 1; $i <= $numberOfDS['nb']; $i++){
+                            $note = getNoteByStudentAndCourseAndDS($db, $_SESSION['id'], $course['id_matiere'],$i);
+                            if($note == null){
+                                echo '<td>Non renseigné</td>';
+                            }
+                            else{
+                                echo '<td>'.$note['note'].'</td>';
+                            }
+                        }
+                        for($i = $numberOfDS['nb']+1; $i <= 3; $i++){
+                            echo '<td>Pas de DS</td>';
+                        }
+                        echo '<td>'.number_format($average,2).'</td>';
+                        $averageOfCourse = getAverageOfCourse($db, $course['id_matiere']);
+                        echo '<td>'.number_format($averageOfCourse,2).'</td>';
+                        $rank = getRankingByStudentAndCourseInClass($db, $_SESSION['id'], $course['id_matiere']);
+                        echo '<td>'.$rank.'</td>';
+                        $appreciation = getAppreciation($db, $_SESSION['id'], $course['id_matiere']);
+                        if($appreciation == null){
+                            echo '<td>Non renseigné</td>';
+                        }else{
+                            echo '<td>'.$appreciation['commentaire'].'</td>';
+                        }
+                        if($average < 10){
+                            echo '<td>Oui</td>';
+                        }else{
+                            echo '<td>Non</td>';
+                        }
+                        echo '</tr>';
+                    }
+                ?>
+
+            </table>
+        </div>
 
 
     </body>

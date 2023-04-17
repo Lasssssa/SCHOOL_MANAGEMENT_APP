@@ -67,12 +67,42 @@
     grid-column-end: 2;
     margin-left: 50px;
 }
-
+#coursAppreciation{
+    margin: 25px;
+    border: solid 1px black;
+    padding: 25px ;
+}
+#coursAppreciation h2{
+    font-family: 'Roboto', sans-serif;
+    font-size: 35px;
+    color: #478AF7;
+    padding-top: 10px;
+}
+#coursAppreciation h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 45px;
+    color: #1E559C;
+    text-align: center;
+    align-items: center;
+    padding-top: 10px;
+}
 #coursNotes{
     margin: 50px;
     border: solid 1px black;
     padding: 50px ;
 
+}
+
+#titre h2{
+    font-family: 'Roboto', sans-serif;
+    font-size: 35px;
+    color: #1E559C;
+    padding-top: 10px;
+}
+#titre h4{
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    padding-top: 10px;
 }
 #coursNotes h1{
     font-family: 'Roboto', sans-serif;

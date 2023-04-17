@@ -46,13 +46,29 @@
                             <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
                         </button>
                     </a>
-                    <a href="../loginAdmin.php">
+                    <a href="../loginEnseignant.php">
                         <button type="button" class="btn btn-danger"><span class="material-symbols-outlined">logout</span></button>
                     </a>
                 </div>
                 
             </div>
         </nav>
+
+        <?php
+        require_once('../database.php');
+        $db = dbConnect();
+            if(isset($_POST['validerSemestre'])){
+                $_SESSION['idSemestre'] = $_POST['semester'];
+                $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_semestre'] = getSemester($db, $_SESSION['idSemestre']);
+            }else{
+                $_SESSION['idSemestre'] = $_SESSION['idSemestre'];
+                $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_semestre'] = getSemester($db, $_SESSION['idSemestre']);
+            }
+        ?>
 
         <div id="bodyNotes">
             <form action="notes.php" method="post">
@@ -64,8 +80,17 @@
                             $allSemesters = getAllSemesters($db);
                             echo '<div id="selectSemestre">';
                             echo '<select class="form-select" aria-label="Default select example" name="semester">';
+                            if(isset($_SESSION['idSemestre'])){
+                                echo '<option value="'.$_SESSION['idSemestre'].'">Semestre '.$_SESSION['numero_semestre'].' | Année '.$_SESSION['numero_annee'].'</option>';
+                            }
                             foreach($allSemesters as $semester){
-                                echo '<option value="'.$semester['id_semestre'].'">Semestre '.$semester['numero_semestre'].' | Année '.$semester['numero_annee'].'</option>';
+                                if(isset($_SESSION['idSemestre'])){
+                                    if($semester['id_semestre'] != $_SESSION['idSemestre']){
+                                        echo '<option value="'.$semester['id_semestre'].'">Semestre '.$semester['numero_semestre'].' | Année '.$semester['numero_annee'].'</option>';
+                                    }
+                                }else{
+                                    echo '<option value="'.$semester['id_semestre'].'">Semestre '.$semester['numero_semestre'].' | Année '.$semester['numero_annee'].'</option>';
+                                }
                             }
                             echo '</select>';
                             echo '</div>';
@@ -77,10 +102,15 @@
                 </form>
 
             <?php
+                require_once('../database.php');
+                $db = dbConnect();
+                if(isset($_POST['validerCoeff'])){
+                    $id_epreuve = $_POST['idEpreuve'];
+                    $coefficient = $_POST['coefficient'];
+                    changeCoefficient($db, $id_epreuve,$coefficient);
+                }
                 if(isset($_POST['validerNote'])){
                     $id_epreuve = $_POST['idEpreuve'];
-                    require_once('../database.php');
-                    $db = dbConnect();
                     $coefficient = $_POST['coefficient'];
                     changeCoefficient($db, $id_epreuve, $coefficient);
                     $studentNotNotedForm = getStudentNotNoted($db, $id_epreuve);
@@ -93,8 +123,8 @@
             ?>
             
             <?php
-                if(isset($_POST['validerSemestre'])){
-                    $coursesOfAProfessor = getCoursesByProfessorAndSemester($db, $_SESSION['id'],$_POST['semester']);
+                if(isset($_SESSION['idSemestre']) || isset($_POST['validerSemestre'])){
+                    $coursesOfAProfessor = getCoursesByProfessorAndSemester($db, $_SESSION['id'],$_SESSION['idSemestre']);
                     if($coursesOfAProfessor == null){
                         echo '<div class="alert alert-danger" role="alert">
                         Vous n\'avez pas de cours ni d\'épreuves à noter pour ce semestre.
@@ -134,6 +164,19 @@
                                             echo '<input type="submit" name="validerNote" value="Valider" id="center" class="btn btn-primary">';
                                             echo '</form>';
                                         echo '</div>';
+                                    }else{
+                                        echo '<h2>'.$epreuve['nom_epreuve'].'</h2>';
+                                        echo '<div class="alert alert-success" role="alert">
+                                        Vous avez noté tous les étudiants pour cette épreuve.
+                                        </div>';
+                                        echo '<form action="notes.php" method="post">';
+                                        echo '<h5>Coefficient : </h5>';
+                                        echo '<input type="number" name = "coefficient" class="form-control" id="exampleFormControlInput1" value = "'.$epreuve['coefficient'].'">';
+                                        echo '<br>';
+                                        echo '<input type="hidden" name="idEpreuve" value="'.$epreuve['id_epreuve'].'">';
+                                        echo '<input type="submit" name="validerCoeff" value="Valider" id="center" class="btn btn-primary">';
+                                        echo '</form>';
+                                        
                                     }
                                 }
                             echo '</div>';
