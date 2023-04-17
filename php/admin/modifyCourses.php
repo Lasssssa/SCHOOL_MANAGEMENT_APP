@@ -187,7 +187,7 @@
                 </div>';
                 echo '<br>';
                 echo '<label for="mail" class="form-label">Cycle</label>';
-                $cycles = getCycles($dbConnection);
+                $cycles = getAllCycles($dbConnection);
                 echo '<div><select class="form-select" aria-label="Default select example" name="cycle">';
                 echo '<option value="'.$cours['nom_cycle'].'">'.$cours['nom_cycle'].'</option>';
                 foreach($cycles as $cycle){
@@ -217,7 +217,7 @@
                             </div>
                             <div class="modal-body">
                                 <form action="modifyCourses.php" method="post">
-                                    <p>Êtes-vous sûr de vouloir supprimer cet enseignant ?</p>
+                                    <p>Êtes-vous sûr de vouloir supprimer ce cours ?</p>
                                     <input type="hidden" name="id_matiere" value="'.$cours['id_matiere'].'">
                                     <button type="submit" class="btn btn-success" name="supprimer">Supprimer</button>
                                     <button type="submit" class="btn btn-danger" name="retour">Retour</button>
@@ -302,7 +302,7 @@
                 <div id="choiceCycleCours">
                     <?php
                         $db = dbConnect();
-                        $cycles = getCycles($db);
+                        $cycles = getAllCycles($db);
                         echo '<select class="form-select" aria-label="Default select example" name="choice_cycle">';
                         echo '<option value="all">Tous les cycles</option>';
                         foreach($cycles as $cycle){

@@ -63,12 +63,12 @@
                 $_SESSION['idSemestre'] = $_POST['semester'];
                 $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
                 $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_semestre'] = getSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
             }else{
                 $_SESSION['idSemestre'] = $_SESSION['idSemestre'];
                 $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
                 $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_semestre'] = getSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
             }
         ?>
 
@@ -129,7 +129,7 @@
                     $db = dbConnect();
                     $student = getStudentById($db, $_SESSION['id']);
                     echo '<h4>'.$student['nom_cycle'].$student['annee_cursus'].' Nantes - Semestre '.$_SESSION['numero_semestre'].' | '.$_SESSION['numero_annee'].'</h4>';
-                    // $generalAverage = getGeneralAverage($db, $_SESSION['id'], $_SESSION['idSemestre']);
+                    // $generalAverage = getGeneralAverageInSemester($db, $_SESSION['id'], $_SESSION['idSemestre']);
                     // echo '<h5>Moyenne générale : '.$generalAverage.'</h5>';
                     // echo '<h5>Période validée : ';
                     // if($generalAverage >= 10){
@@ -149,19 +149,19 @@
                         foreach($allCourses as $course){
                             echo '<tr class="table-dark">';
                             echo '<td id="titleCours">'.$course['nom_matiere'].'</td>';
-                            $coeffcient  = getCoefOfCourse($db, $course['id_matiere']);
+                            $coeffcient  = getGeneralCoefficientOfCourse($db, $course['id_matiere']);
                             echo '<td>'.$coeffcient.'</td>';
-                            $moyenneMin = getMinAverageOfCourse($db, $course['id_matiere']);
-                            $moyenneMax = getMaxAverageOfCourse($db, $course['id_matiere']);
-                            $moyenne = getAverageOfCourse($db, $course['id_matiere']);
+                            $moyenneMin = getMinimalAverageOfCourse($db, $course['id_matiere']);
+                            $moyenneMax = getMaximalAverageOfCourse($db, $course['id_matiere']);
+                            $moyenne = getAverageNoteOfCourse($db, $course['id_matiere']);
                             echo '<td>'.number_format($moyenneMin,2).'</td>';
                             echo '<td>'.number_format($moyenneMax,2).'</td>';
                             echo '<td>'.number_format($moyenne,2).'</td>';
-                            $averageStudent = getAverageByStudentAndCourse($db, $_SESSION['id'], $course['id_matiere']);
+                            $averageStudent = getAverageNoteOfCourseOfStudent($db, $_SESSION['id'], $course['id_matiere']);
                             echo '<td>'.number_format($averageStudent,2).'</td>';
-                            $rank = getRankingByStudentAndCourseInClass($db, $_SESSION['id'], $course['id_matiere']);
+                            $rank = getRankOfCourse($db, $_SESSION['id'], $course['id_matiere']);
                             echo '<td>'.$rank.'</td>';
-                            $appreciation = getAppreciation($db, $_SESSION['id'], $course['id_matiere']);
+                            $appreciation = getAppreciationOfStudent($db, $_SESSION['id'], $course['id_matiere']);
                             if($appreciation == null){
                                 echo '<td>Aucune</td>';
                             }else{
@@ -175,19 +175,19 @@
                                 echo '<tr>';
                                 echo '<td id="epreuve">'.$epreuve['nom_epreuve'].'</td>';
                                 echo '<td>'.$epreuve['coefficient'].'</td>';
-                                $min = getMinNote($db, $epreuve['id_epreuve']);
-                                $max = getMaxNote($db, $epreuve['id_epreuve']);
-                                $moyenne = getAverageNote($db, $epreuve['id_epreuve']);
+                                $min = getMinimalNoteOfEpreuve($db, $epreuve['id_epreuve']);
+                                $max = getMaximalNoteOfEpreuve($db, $epreuve['id_epreuve']);
+                                $moyenne = getAverageNoteOfEpreuve($db, $epreuve['id_epreuve']);
                                 echo '<td>'.number_format($min,2).'</td>';
                                 echo '<td>'.number_format($max,2).'</td>';
                                 echo '<td>'.number_format($moyenne,2).'</td>';
-                                $averageStudent = getNoteOfEpreuve($db, $epreuve['id_epreuve'] , $_SESSION['id']);
+                                $averageStudent = getNoteOfEpreuveOfStudent($db, $epreuve['id_epreuve'] , $_SESSION['id']);
                                 if($averageStudent == null){
                                     echo '<td>Aucune</td>';
                                 }else{
                                     echo '<td>'.number_format($averageStudent['note'],2).'</td>';
                                 }
-                                $rank = getRankingOfNotes($db, $_SESSION['id'], $epreuve['id_epreuve']);
+                                $rank = getRankOfEpreuve($db, $_SESSION['id'], $epreuve['id_epreuve']);
                                 echo '<td>'.$rank.'</td>';
                                 echo '<td>/</td>';
                                 echo '</tr>';

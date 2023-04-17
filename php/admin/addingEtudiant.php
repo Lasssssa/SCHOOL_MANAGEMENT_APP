@@ -154,7 +154,7 @@
                             <?php
                                 require_once('../database.php');
                                 $db = dbConnect();
-                                $cycles = getCycles($db);
+                                $cycles = getAllCycles($db);
                                 echo '<select class="form-select" aria-label="Default select example" name="cycle">';
                                 foreach($cycles as $cycle){
                                     echo '<option value="'.$cycle['nom_cycle'].'">'.$cycle['nom_cycle'].'</option>';

@@ -61,12 +61,12 @@
                 $_SESSION['idSemestre'] = $_POST['semester'];
                 $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
                 $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_semestre'] = getSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
             }else{
                 $_SESSION['idSemestre'] = $_SESSION['idSemestre'];
                 $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
                 $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_semestre'] = getSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
             }
         ?>
 
@@ -107,13 +107,13 @@
                 if(isset($_POST['validerCoeff'])){
                     $id_epreuve = $_POST['idEpreuve'];
                     $coefficient = $_POST['coefficient'];
-                    changeCoefficient($db, $id_epreuve,$coefficient);
+                    updateCoefficient($db, $id_epreuve,$coefficient);
                 }
                 if(isset($_POST['validerNote'])){
                     $id_epreuve = $_POST['idEpreuve'];
                     $coefficient = $_POST['coefficient'];
-                    changeCoefficient($db, $id_epreuve, $coefficient);
-                    $studentNotNotedForm = getStudentNotNoted($db, $id_epreuve);
+                    updateCoefficient($db, $id_epreuve, $coefficient);
+                    $studentNotNotedForm = getStudentsNotNoted($db, $id_epreuve);
                     foreach($studentNotNotedForm as $student){
                         if(isset($_POST['etu_'.$student['id_etu']]) && isset($_POST['note_'.$student['id_etu']]) && $_POST['note_'.$student['id_etu']] != null){
                                 $noteAdded = addNoteToStudent($db, $student['id_etu'], $id_epreuve, $_POST['note_'.$student['id_etu']]);
@@ -143,7 +143,7 @@
                             echo '<div id="coursNotes">';
                                 echo '<h1>'.$course['nom_matiere'].'</h1>';
                                 foreach($epreuvesOfCourses as $epreuve){
-                                    $studentNotNoted = getStudentNotNoted($db, $epreuve['id_epreuve']);
+                                    $studentNotNoted = getStudentsNotNoted($db, $epreuve['id_epreuve']);
                                     if($studentNotNoted != null){
                                         echo '<div id="epreuveNotes">';
                                             echo '<h2>'.$epreuve['nom_epreuve'].'</h2>';

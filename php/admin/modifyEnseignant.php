@@ -63,7 +63,7 @@
             require_once('../database.php');
             $dbConnection = dbConnect();
             if(isset($_POST['modifier'])){
-                modifyProfessor($dbConnection, $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['id_prof']);
+                updateProfessor($dbConnection, $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['id_prof']);
                 echo '<div class="alert alert-success" role="alert">
                         L\'enseignant a bien été modifié.
                         </div>';

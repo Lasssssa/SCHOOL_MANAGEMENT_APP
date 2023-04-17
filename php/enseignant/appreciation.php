@@ -64,12 +64,12 @@
                 $_SESSION['idSemestre'] = $_POST['semester'];
                 $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
                 $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_semestre'] = getSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
             }else{
                 $_SESSION['idSemestre'] = $_SESSION['idSemestre'];
                 $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
                 $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_semestre'] = getSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
             }
         ?>
 
@@ -78,7 +78,7 @@
                 if(isset($_POST['validerAppreciation'])){
                     require_once('../database.php');
                     $db = dbConnect();
-                    $studentNotCommentedForm = getStudentOfCourseNotCommented($db, $_POST['id_matiere']);
+                    $studentNotCommentedForm = getStudentsNotCommented($db, $_POST['id_matiere']);
                     foreach($studentNotCommentedForm as $student){
                         if(isset($_POST['etu_'.$student['id_etu']]) && isset($_POST['appreciation_'.$student['id_etu']]) && $_POST['appreciation_'.$student['id_etu']] != ""){
                                 $appreciation = addAppreciationToStudent($db, $student['id_etu'], $_POST['id_matiere'], $_POST['appreciation_'.$student['id_etu']]);
@@ -138,7 +138,7 @@
                         foreach($coursesOfAProfessor as $course){
                             echo '<div id="coursNotes">';
                                 echo '<h1>'.$course['nom_matiere'].'</h1>';
-                                $studentOfCourseNotCommented = getStudentOfCourseNotCommented($db, $course['id_matiere']);
+                                $studentOfCourseNotCommented = getStudentsNotCommented($db, $course['id_matiere']);
                                 if($studentOfCourseNotCommented != null){
                                     echo '<div id="epreuveNotes">';
                                     echo '<form action="appreciation.php" method="post">';
@@ -146,7 +146,7 @@
                                     echo '<tr><th>Nom</th><th>Prénom</th><th>Moyenne</th><th>Commentaire</th></tr>';
                                     foreach($studentOfCourseNotCommented as $student){
                                         echo '<tr><td>'.$student['nom_etu'].'</td><td>'.$student['prenom_etu'].'</td>';
-                                        $moyenne = getAverageByStudentAndCourse($db, $student['id_etu'], $course['id_matiere']);
+                                        $moyenne = getAverageNoteOfCourseOfStudent($db, $student['id_etu'], $course['id_matiere']);
                                         if($moyenne == null){
                                             echo '<td>Note manquante</td>';
                                         }else{

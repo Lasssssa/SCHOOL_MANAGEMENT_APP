@@ -63,12 +63,12 @@
                 $_SESSION['idSemestre'] = $_POST['semester'];
                 $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
                 $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_semestre'] = getSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
             }else{
                 $_SESSION['idSemestre'] = $_SESSION['idSemestre'];
                 $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
                 $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_semestre'] = getSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
             }
         ?>
 
@@ -115,7 +115,7 @@
                                     ';
                                     $students = getStudentOfCourse($db, $cours['id_matiere']);
                                     foreach($students as $student){
-                                        $average = getAverageByStudentAndCourse($db, $student['id_etu'], $cours['id_matiere']);
+                                        $average = getAverageNoteOfCourseOfStudent($db, $student['id_etu'], $cours['id_matiere']);
                                         if($average < 10){
                                             echo '<tr><td>'.$student['nom_etu'].'</td><td>'.$student['prenom_etu'].'</td><td>'.$average.'</td></tr>';
                                         }
@@ -142,16 +142,19 @@
                                     <div class="modal-body" id="titre">
                                         <form action="consultation.php" method="post">';
                                         echo '<h2>'.$student['nom_etu'].' '.$student['prenom_etu'].'</h2>';
-                                        $nb_DS = getNumberOfDS($db, $cours['id_matiere'])['nb'];
-                                        for($i = 1; $i <= $nb_DS; $i++){
-                                            $note = getNoteByStudentAndCourseAndDS($db, $student['id_etu'], $cours['id_matiere'],$i);
+                                        // $nb_DS = getNumberOfDS($db, $cours['id_matiere'])['nb'];
+                                        $epreuves = getEpreuvesOfACourse($db, $cours['id_matiere']);
+
+                                        foreach($epreuves as $epreuve){
+                                            $note = getNoteOfEpreuveOfStudent($db, $epreuve['id_epreuve'], $student['id_etu']);
                                             if($note != null){
-                                                echo '<h4>DS '.$i.'</h4>';
-                                                echo '<input type="number" class="form-control" min="0" max="20" step="0.05" name="note_'.$i.'" value="'.$note['note'].'"><br>';	
+                                                echo '<h4>'.$epreuve['nom_epreuve'].'</h4>';
+                                                echo '<input type="number" class="form-control" min="0" max="20" step="0.05" name="note_'.$epreuve['id_epreuve'].'" value="'.$note['note'].'"><br>';	
                                             }
                                         }
+
                                         echo '<h4>Appréciation</h4>';
-                                        $appreciation = getAppreciation($db, $student['id_etu'], $cours['id_matiere']);
+                                        $appreciation = getAppreciationOfStudent($db, $student['id_etu'], $cours['id_matiere']);
                                         if($appreciation != null){
                                             echo '<input type="text" class="form-control" name="appreciation" value="'.$appreciation['commentaire'].'"><br>';
                                         }
@@ -226,7 +229,7 @@
                         </div>';
 
                         foreach($coursesOfAProfessor as $course){
-                            echo '<div id="coursAppreciation">';
+                                echo '<div id="coursAppreciation">';
                                 echo '<h1>'.$course['nom_matiere'].'</h1>';
                                 $studentOfCourse = getStudentOfCourse($db, $course['id_matiere']);
                                 if($studentOfCourse != null){
@@ -240,22 +243,23 @@
                                     echo '<th>Moyenne</th>
                                     <th>Classement</th><th>Modification</th></tr>';
                                     foreach($studentOfCourse as $student){
-                                        $average = getAverageByStudentAndCourse($db, $student['id_etu'], $course['id_matiere']);
+                                        $average = getAverageNoteOfCourseOfStudent($db, $student['id_etu'], $course['id_matiere']);
                                         if($average != null){
                                             if($average < 10 ){
                                                 echo '<tr class="table-danger">';
                                             }
                                         }
                                         echo '<td>'.$student['id_etu'].'</td><td>'.$student['nom_etu'].'</td><td>'.$student['prenom_etu'].'</td><td>'.$student['mail_etu'].'<td>'.$student['nom_cycle'].$student['annee_cursus'].'</td>';
-                                        $appreciation = getAppreciation($db, $student['id_etu'], $course['id_matiere']);
+                                        $appreciation = getAppreciationOfStudent($db, $student['id_etu'], $course['id_matiere']);
                                         if($appreciation == null){
                                             echo '<td>Non renseigné</td>';
                                         }
                                         else{
                                             echo '<td>'.$appreciation['commentaire'].'</td>';
                                         }
-                                        for($i = 1; $i <= $numberOfDS['nb']; $i++){
-                                            $note = getNoteByStudentAndCourseAndDS($db, $student['id_etu'], $course['id_matiere'],$i);
+                                        $epreuves = getEpreuvesOfACourse($db, $course['id_matiere']);
+                                        foreach($epreuves as $epreuve){
+                                            $note = getNoteOfEpreuveOfStudent($db, $epreuve['id_epreuve'], $student['id_etu']);
                                             if($note == null){
                                                 echo '<td>Non renseigné</td>';
                                             }
@@ -269,7 +273,7 @@
                                         else{
                                             echo '<td>'.number_format($average,2).'</td>';
                                         }
-                                        $ranking = getRankingByStudentAndCourseInClass($db, $student['id_etu'], $course['id_matiere']);
+                                        $ranking = getRankOfCourse($db, $student['id_etu'], $course['id_matiere']);
                                         if($ranking == null){
                                             echo '<td>Non renseigné</td>';
                                         }

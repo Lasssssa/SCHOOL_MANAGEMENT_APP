@@ -65,7 +65,7 @@
             $dbConnection = dbConnect();
             if(isset($_POST['modifier'])){
                 $id_classe = getIdClassWithYearAndCycle($dbConnection, $_POST['annee_cursus'], $_POST['cycle']);
-                modifyStudent($dbConnection, $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['id_etu'], $id_classe);
+                updateStudent($dbConnection, $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['id_etu'], $id_classe);
                 echo '<div class="alert alert-success" role="alert">
                         L\'étudiant a bien été modifié.
                         </div>';
@@ -129,7 +129,7 @@
                                     </div>';
                                     echo '<br>';
                                     echo '<label for="mail" class="form-label">Cycle</label>';
-                                    $cycles = getCycles($dbConnection);
+                                    $cycles = getAllCycles($dbConnection);
                                     echo '<div><select class="form-select" aria-label="Default select example" name="cycle">';
                                         echo '<option value="'.$student['nom_cycle'].'">'.$student['nom_cycle'].'</option>';
                                     foreach($cycles as $cycle){
@@ -182,7 +182,7 @@
                 <div id="choiceCycleSelect">
                 <?php
                         $db = dbConnect();
-                        $cycles = getCycles($db);
+                        $cycles = getAllCycles($db);
                        
                         echo '<select class="form-select" aria-label="Default select example" name="choice_cycle">';
                         echo '<option value="all">Tous les cycles</option>';

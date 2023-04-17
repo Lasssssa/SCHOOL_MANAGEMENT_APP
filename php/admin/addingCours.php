@@ -53,6 +53,7 @@
                 
             </div>
         </nav>
+
         <div id ="board">
             <a href="addingCours.php">Ajout</a>
             <a href="modifyCourses.php">Modification</a>
@@ -65,20 +66,23 @@
                 $id_classe = getIdClassWithYearAndCycle($db, $_POST['annee'], $_POST['cycle']);
                 $cours = addCours($db, $_POST['nom_matiere'], $_POST['duree'], $_POST['enseignant'], $_POST['semestre'], $id_classe);
                 if($cours){
-                    echo '<div class="alert alert-success" role="alert">
-                            Le cours a bien été ajouté !
-                            </div>';
+                    echo '
+                    <div class="alert alert-success" role="alert">
+                        Le cours a bien été ajouté !
+                    </div>';
                 }
                 else{
-                    echo '<div class="alert alert-danger" role="alert">
-                            Le cours n\'a pas pu être ajouté !
-                            </div>';
+                    echo '
+                    <div class="alert alert-danger" role="alert">
+                        Le cours n\'a pas pu être ajouté !
+                    </div>';
                 }
             }
             else if(isset($_POST['envoyer'])){
-                echo '<div class="alert alert-danger" role="alert">
-                        Le cours n\'a pas pu être ajouté !
-                        </div>';
+                echo '
+                <div class="alert alert-danger" role="alert">
+                    Le cours n\'a pas pu être ajouté !
+                </div>';
             }
         ?>
 
@@ -143,7 +147,7 @@
                     </div>';
                     echo '<br>';
                     echo '<label for="mail" class="form-label">Cycle</label>';
-                    $cycles = getCycles($db);
+                    $cycles = getAllCycles($db);
                     echo '<div><select class="form-select" aria-label="Default select example" name="cycle">';
                     echo '<option value="impossible">Choisir un cycle</option>';
                     foreach($cycles as $cycle){
