@@ -130,8 +130,34 @@
     
 }
 
+#big{
+    font-size: 25px;
+    font-style: bold;
+    font-family: 'Roboto', sans-serif;
+    color: #1E559C;
+}
+
 #recapBulletin{
     border: 1px solid black;
     margin: 2%;
     padding: 1%;
+}
+#recap{
+    margin: 2%;
+    padding: 1%;
+}
+
+#tableBulletin{
+    margin: 2%;
+    padding: 1%;
+}
+
+#epreuve{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+}
+#titleCours{
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
 }

@@ -119,8 +119,10 @@
             <hr>
             <p id="center" class="boldTitle">Bulletin de notes de l'année scolaire <?php echo $_SESSION['numero_annee']; ?></p>
             <hr>
-            <h1>Monsieur <?php echo strtoupper($_SESSION['nom']).' '.$_SESSION['prenom']; ?></h1>
-            <p>Édité le <?php echo date('d/m/Y'); ?></p>
+            <div id="recap">
+                <h1>Monsieur <?php echo strtoupper($_SESSION['nom']).' '.$_SESSION['prenom']; ?></h1>
+                <p>Édité le <?php echo date('d/m/Y'); ?></p>
+            </div>
             <div id="recapBulletin">
                 <?php
                     require_once('../database.php');
@@ -137,7 +139,65 @@
                     // }
                     // echo '</h5>';
                 ?>
-            <div>
+            </div>
+            <div id="tableBulletin">
+                
+                <table class="table table-striped">
+                    <tr class ="table-primary" id="big"><th>Module</th><th>Coefficient</th><th>Minimum</th><th>Maximum</th><th>Moyenne</th><th>Note initiale<th>Classement</th><th>Appréciation</th></tr>
+                    <?php
+                        $allCourses = getAllCoursesOfStudentsInSemester($db, $_SESSION['id'], $_SESSION['idSemestre']);
+                        foreach($allCourses as $course){
+                            echo '<tr class="table-dark">';
+                            echo '<td id="titleCours">'.$course['nom_matiere'].'</td>';
+                            $coeffcient  = getCoefOfCourse($db, $course['id_matiere']);
+                            echo '<td>'.$coeffcient.'</td>';
+                            $moyenneMin = getMinAverageOfCourse($db, $course['id_matiere']);
+                            $moyenneMax = getMaxAverageOfCourse($db, $course['id_matiere']);
+                            $moyenne = getAverageOfCourse($db, $course['id_matiere']);
+                            echo '<td>'.number_format($moyenneMin,2).'</td>';
+                            echo '<td>'.number_format($moyenneMax,2).'</td>';
+                            echo '<td>'.number_format($moyenne,2).'</td>';
+                            $averageStudent = getAverageByStudentAndCourse($db, $_SESSION['id'], $course['id_matiere']);
+                            echo '<td>'.number_format($averageStudent,2).'</td>';
+                            $rank = getRankingByStudentAndCourseInClass($db, $_SESSION['id'], $course['id_matiere']);
+                            echo '<td>'.$rank.'</td>';
+                            $appreciation = getAppreciation($db, $_SESSION['id'], $course['id_matiere']);
+                            if($appreciation == null){
+                                echo '<td>Aucune</td>';
+                            }else{
+                                echo '<td>'.$appreciation['commentaire'].'</td>';
+                            }
+                            echo '</tr>';
+                            $epreuves = getEpreuvesOfACourse($db, $course['id_matiere']);
+                            $k = 1;
+                            echo '<div id="epreuve">';
+                            foreach($epreuves as $epreuve){
+                                echo '<tr>';
+                                echo '<td id="epreuve">'.$epreuve['nom_epreuve'].'</td>';
+                                echo '<td>'.$epreuve['coefficient'].'</td>';
+                                $min = getMinNote($db, $epreuve['id_epreuve']);
+                                $max = getMaxNote($db, $epreuve['id_epreuve']);
+                                $moyenne = getAverageNote($db, $epreuve['id_epreuve']);
+                                echo '<td>'.number_format($min,2).'</td>';
+                                echo '<td>'.number_format($max,2).'</td>';
+                                echo '<td>'.number_format($moyenne,2).'</td>';
+                                $averageStudent = getNoteOfEpreuve($db, $epreuve['id_epreuve'] , $_SESSION['id']);
+                                if($averageStudent == null){
+                                    echo '<td>Aucune</td>';
+                                }else{
+                                    echo '<td>'.number_format($averageStudent['note'],2).'</td>';
+                                }
+                                $rank = getRankingOfNotes($db, $_SESSION['id'], $epreuve['id_epreuve']);
+                                echo '<td>'.$rank.'</td>';
+                                echo '<td>/</td>';
+                                echo '</tr>';
+                                $k++;
+                            }
+                            echo '</div>';
+                        }
+                    ?>
+                </table>
+            </div>
         </div>
 
 

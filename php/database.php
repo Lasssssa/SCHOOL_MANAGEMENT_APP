@@ -397,54 +397,6 @@
         }
     }
 
-    function getStudentsInCourse($dbConnection, $id){
-        try{
-            $query = 'SELECT * FROM participe p JOIN etudiant e ON e.id_etu = p.id_etu JOIN cours c ON c.id_matiere = p.id_matiere WHERE p.id_matiere = :id';
-            $statement = $dbConnection->prepare($query);
-            $statement->bindParam(':id', $id);
-            $statement->execute();
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
-        }catch(Exception $e){
-            echo $e->getMessage();
-        }
-    }
-    function getStudentsNotInCourse($dbConnection, $id){
-        try{
-            $query = 'SELECT * FROM etudiant WHERE id_etu NOT IN (SELECT id_etu FROM participe WHERE id_matiere = :id)';
-            $statement = $dbConnection->prepare($query);
-            $statement->bindParam(':id', $id);
-            $statement->execute();
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
-        }catch(Exception $e){
-            echo $e->getMessage();
-        }
-    }
-
-    function addStudentToCourse($dbConnection, $id_etu, $id_matiere){
-        try{
-            $query = 'INSERT INTO participe (id_etu, id_matiere) VALUES (:id_etu, :id_matiere)';
-            $statement = $dbConnection->prepare($query);
-            $statement->bindParam(':id_etu', $id_etu);
-            $statement->bindParam(':id_matiere', $id_matiere);
-            $statement->execute();
-        }catch(Exception $e){
-            echo $e->getMessage();
-        }
-    }
-
-    function deleteStudentFromCourse($dbConnection, $id_etu, $id_matiere){
-        try{
-            $query = 'DELETE FROM participe WHERE id_etu = :id_etu AND id_matiere = :id_matiere';
-            $statement = $dbConnection->prepare($query);
-            $statement->bindParam(':id_etu', $id_etu);
-            $statement->bindParam(':id_matiere', $id_matiere);
-            $statement->execute();
-        }catch(Exception $e){
-            echo $e->getMessage();
-        }
-    }
 
     function getAllClass($dbConnection){
         try{
@@ -756,22 +708,6 @@
         }
     }
 
-    function getAverageByStudentAndCourse($db,$id_etu,$id_cours){
-        $arrayOfNotes = getArrayNotesOfStudent($db,$id_etu,$id_cours);
-        $sum = 0;
-        $sumCoef = 0;
-        if(count($arrayOfNotes) == 0){
-            return null;
-        }
-        else{
-            foreach($arrayOfNotes as $note){
-                $sum += $note['note'] * $note['coefficient'];
-                $sumCoef += $note['coefficient'];
-            }
-            return $sum/$sumCoef;
-        }
-    }
-
     function getAverageOfCourse($db,$id_cours){
         $students = getStudentOfCourse($db,$id_cours);
         $sum = 0;
@@ -895,6 +831,37 @@
             echo $e->getMessage();
         }
     }
+
+    function getNoteOfEpreuve($db,$id_epreuve,$id_etu){
+        try{
+            $query = 'SELECT note FROM fait_epreuve WHERE id_epreuve = :id_epreuve AND id_etu = :id_etu';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id_epreuve', $id_epreuve);
+            $statement->bindParam(':id_etu', $id_etu);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    function getRankingOfNotes($db, $id_etu, $id_epreuve){
+        $allNotes = getAllNotesOfEpreuves($db,$id_epreuve);
+        $arrayOfNotes = array();
+        foreach($allNotes as $note){
+            $arrayOfNotes[$note['id_etu']] = $note['note'];
+        }
+        arsort($arrayOfNotes);
+        $i = 1;
+        foreach($arrayOfNotes as $key => $value){
+            if($key == $id_etu){
+                return $i;
+            }
+            $i++;
+        }
+        
+    }
     
     function getRankingByStudentAndCourseInClass($db,$id_etu,$id_cours){
         $students = getStudentOfCourse($db,$id_cours);
@@ -951,6 +918,100 @@
             $i++;
         }
         return $sum/$i;
+    }
+
+    function getCoefOfCourse($db,$id_cours){
+        $allDs = getEpreuvesOfACourse($db,$id_cours);
+        $sum = 0;
+        foreach($allDs as $ds){
+            $sum += $ds['coefficient'];
+        }
+        return $sum;
+    }
+
+    function getAllNotesOfEpreuves($db,$id_epreuve){
+        try{
+            $query = 'SELECT * FROM fait_epreuve WHERE id_epreuve = :id_epreuve';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id_epreuve', $id_epreuve);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    function getMinNote($db,$id_epreuve){
+        $allNotes = getAllNotesOfEpreuves($db,$id_epreuve);
+        $min = 20;
+        foreach($allNotes as $note){
+            if($note['note'] < $min){
+                $min = $note['note'];
+            }
+        }
+        return $min;
+    }
+
+    function getMaxNote($db, $id_epreuve){
+        $allNotes = getAllNotesOfEpreuves($db,$id_epreuve);
+        $max = 0;
+        foreach($allNotes as $note){
+            if($note['note'] > $max){
+                $max = $note['note'];
+            }
+        }
+        return $max;
+    }
+    function getAverageNote($db,$id_epreuve){
+        $allNotes = getAllNotesOfEpreuves($db,$id_epreuve);
+        $sum = 0;
+        $i = 0;
+        foreach($allNotes as $note){
+            $sum += $note['note'];
+            $i++;
+        }
+        return $sum/$i;
+    }
+
+    function getAverageByStudentAndCourse($db,$id_etu,$id_cours){
+        $arrayOfNotes = getArrayNotesOfStudent($db,$id_etu,$id_cours);
+        $sum = 0;
+        $sumCoef = 0;
+        if(count($arrayOfNotes) == 0){
+            return null;
+        }
+        else{
+            foreach($arrayOfNotes as $note){
+                $sum += $note['note'] * $note['coefficient'];
+                $sumCoef += $note['coefficient'];
+            }
+            return $sum/$sumCoef;
+        }
+    }
+
+    function getMinAverageOfCourse($db,$id_cours){
+        $studentsOfCourse = getStudentOfCourse($db,$id_cours);
+        $min = 20;
+        foreach($studentsOfCourse as $student){
+            $average = getAverageByStudentAndCourse($db,$student['id_etu'],$id_cours);
+            if($average < $min){
+                $min = $average;
+            }
+        }
+        return $min;
+    }
+
+    function getMaxAverageOfCourse($db,$id_cours){
+        $studentsOfCourse = getStudentOfCourse($db,$id_cours);
+        $max = 0;
+        foreach($studentsOfCourse as $student){
+            $average = getAverageByStudentAndCourse($db,$student['id_etu'],$id_cours);
+            if($average > $max){
+                $max = $average;
+            }
+        }
+        return $max;
     }
 
     ?>
