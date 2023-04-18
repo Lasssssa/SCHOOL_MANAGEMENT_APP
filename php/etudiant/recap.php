@@ -64,8 +64,13 @@
                 $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
                 $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
                 $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
-            }else{
+            }else if(isset($_SESSION['idSemestre'])){
                 $_SESSION['idSemestre'] = $_SESSION['idSemestre'];
+                $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
+                $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
+            }else{
+                $_SESSION['idSemestre'] = 1;
                 $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
                 $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
                 $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);

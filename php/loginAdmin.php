@@ -31,7 +31,6 @@
         if(isset($_POST['envoyer']) && isset($_POST['email']) && isset($_POST['password'])){
            $email = $_POST['email'];
            $table = "administrateur";
-           
            if(isValidUser($email, $dbConnection,$table)){
                 $encryptedPassword = getEncryptedPassword($email, $dbConnection,$table);
                 if(password_verify($_POST['password'], $encryptedPassword)){
