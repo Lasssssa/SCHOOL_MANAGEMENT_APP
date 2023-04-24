@@ -34,9 +34,12 @@
 }
 
 #blockCard{
-    height: 350px;
-    width: auto;
+    height: 1fr;
+    width: 1fr;
+    margin: 10%;
+    border-radius: 10%;
 }
+
 #container a:link{
     text-decoration: none;
 }

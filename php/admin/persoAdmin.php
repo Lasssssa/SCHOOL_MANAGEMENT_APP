@@ -58,34 +58,37 @@
 
         <div id="container">
             <a href="addingEnseignant.php">
-                <div class="card text-bg-primary mb-3" style="max-width: 18rem;" id="blockCard">
+                <div class="card text-bg-primary mb-3" id="blockCard">
                     <div class="card-header">
+                        <span class="material-symbols-outlined" style="font-size : 400%">person_add</span>
                         <h4>Enseignants</h4>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Primary card title</h5>
+                    <h5 class="card-title">Ajouter / Modifier des enseignants</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     </div>
                 </div>
             </a>
             <a href="addingEtudiant.php">
-                <div class="card text-bg-danger mb-3" style="max-width: 18rem;" id="blockCard">
+                <div class="card text-bg-danger mb-3" id="blockCard">
                     <div class="card-header">
-                        <h4>Élève</h4>
+                    <span class="material-symbols-outlined" style="font-size : 400%">group</span>
+                        <h4>Étudiants</h4>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Danger card title</h5>
+                        <h5 class="card-title">Ajouter / Modifier des étudiants</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     </div>
                 </div>
             </a>
             <a href="addingCours.php">
-                <div class="card text-bg-dark mb-3" style="max-width: 18rem;"id="blockCard">
+                <div class="card text-bg-dark mb-3" id="blockCard">
                     <div class="card-header">
+                        <span class="material-symbols-outlined" style="font-size : 400%">settings</span>
                         <h4>Cours</h4>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Danger card title</h5>
+                        <h5 class="card-title">Ajouter / Modifier des cours</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     </div>
                 </div>
