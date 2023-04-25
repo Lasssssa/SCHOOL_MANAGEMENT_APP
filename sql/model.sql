@@ -49,7 +49,7 @@ CREATE TABLE public.enseignant(
 ------------------------------------------------------------
 CREATE TABLE public.annee(
 	id_annee       SERIAL NOT NULL ,
-	numero_annee   INT  NOT NULL  ,
+	numero_annee   VARCHAR (10) NOT NULL  ,
 	CONSTRAINT annee_PK PRIMARY KEY (id_annee)
 )WITHOUT OIDS;
 

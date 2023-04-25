@@ -254,7 +254,11 @@
                 $statement->bindParam(':id_semestre', $id_semestre);
                 $statement->bindParam(':id_classe', $id_classe);
                 $statement->execute();
-                return true;
+                if($statement->rowCount() > 0){
+                    return true;
+                }else{
+                    return false;
+                }
             }catch(Exception $e){
                 echo $e->getMessage();
             }

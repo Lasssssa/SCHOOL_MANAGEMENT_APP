@@ -3,7 +3,7 @@ DELETE FROM enseignant;
 DELETE FROM etudiant;
 DELETE FROM cycle;
 
-INSERT INTO annee (numero_annee) VALUES (2022),(2023);
+INSERT INTO annee (numero_annee) VALUES ('2021-2022'),('2022-2023');
 INSERT INTO semestre (numero_semestre,id_annee) VALUES (1,2),(2,2),(1,1),(2,1);
 
 INSERT INTO administrateur (nom_admin,prenom_admin,telephone_admin,mail_admin,password_admin) VALUES 
@@ -24,7 +24,8 @@ INSERT INTO cycle(nom_cycle) VALUES
 ('CENT'),
 ('BIOST'),
 ('MECA'),
-('BIAST');
+('BIAST'),
+('MASTER');
 
 INSERT INTO classe(annee_cursus,nom_cycle) VALUES
 (1,'CIR'),
@@ -47,7 +48,9 @@ INSERT INTO classe(annee_cursus,nom_cycle) VALUES
 (3,'CENT'),
 (3,'BIOST'),
 (3,'MECA'),
-(3,'BIAST');
+(3,'BIAST'),
+(4,'MASTER'),
+(5,'MASTER');
 
 INSERT INTO etudiant (nom_etu,prenom_etu,mail_etu,password_etu,id_classe) VALUES
 ('Croguennoc','Romain','romain.croguennoc@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),

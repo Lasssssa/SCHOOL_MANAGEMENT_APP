@@ -139,13 +139,18 @@
                     <div class="row">
                         <div class="col">
                             <h4>Année</h4>
-                            <select class="form-select" aria-label="Default select example" name="annee">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
+                            <?php 
+                            require_once('../database.php');
+                            $db = dbConnect();
+                            echo '<select class="form-select" aria-label="Default select example" name="annee">';
+                                echo '<option value="impossible">Choisir une année</option>';
+                                $allYears = getAllYearsClass($db);
+                                foreach($allYears as $year){
+                                    echo '<option value="'.$year['annee_cursus'].'">'.$year['annee_cursus'].'</option>';
+                                }
+                                echo '
+                            </select>';
+                            ?>
                         </div>
                     </div>
                     <div class="row">
