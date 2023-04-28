@@ -127,6 +127,8 @@
 
 
 
+
+
                 <?php
                  if(isset($_SESSION['idSemestre']) || isset($_POST['validerSemestre'])){
                     $coursesOfAProfessor = getCoursesByProfessorAndSemester($db, $_SESSION['id'],$_SESSION['idSemestre']);
@@ -140,9 +142,21 @@
                         Vous avez des cours pour ce semestre.
                         </div>';
 
+                        echo '<div id="coursAppreciation"> 
+                              <div class="accordion" id="accordionPanelsStayOpenExample">';
+                        $i = 1;
+                        
                         foreach($coursesOfAProfessor as $course){
-                            echo '<div id="coursNotes">';
-                                echo '<h1>'.$course['nom_matiere'].'</h1>';
+                                $i++;
+                                echo '<div class="accordion-item" id="borderFull">';
+                                echo '<h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse'.$i.'" aria-expanded="false" aria-controls="collapse'.$i.'">
+                                    <h1>'.$course['nom_matiere'].'</h1>
+                                    </button>
+                                    </h2>';
+                                // echo '<h1>'.$course['nom_matiere'].'</h1>';
+                                echo '<div id="collapse'.$i.'" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">';
                                 $studentOfCourseNotCommented = getStudentsNotCommented($db, $course['id_matiere']);
                                 if($studentOfCourseNotCommented != null){
                                     echo '<div id="epreuveNotes">';
@@ -175,7 +189,12 @@
                                     
                                 }
                                 echo '</div>';
+                                echo '</div>';
+                                echo '</div>';
+                                echo '<br>';
                         }
+                        echo '</div>';
+                        echo '</div>';
                         }
                     }
             ?>
