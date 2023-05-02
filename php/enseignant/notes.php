@@ -126,6 +126,9 @@
                         }
                 }
             ?>
+
+
+
             
             <?php
                 if(isset($_SESSION['idSemestre']) || isset($_POST['validerSemestre'])){
@@ -140,18 +143,41 @@
                         Vous avez des épreuves à noter pour ce semestre.
                         </div>';
 
+                        echo '<div id="coursAppreciation"> 
+                              <div class="accordion" id="accordionPanelsStayOpenExample">';
+                        $i = 1;
+                        $j = 100;
                         foreach($coursesOfAProfessor as $course){
                             require_once('../database.php');
                             $db = dbConnect();
                             $epreuvesOfCourses = getEpreuvesOfACourse($db, $course['id_matiere']);
-
-                            echo '<div id="coursNotes">';
-                                echo '<h1>'.$course['nom_matiere'].'</h1>';
+                            $i++;
+                                echo '<div class="accordion-item" id="borderFull">';
+                                echo '<h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse'.$i.'" aria-expanded="false" aria-controls="collapse'.$i.'">
+                                    <h1>'.$course['nom_matiere'].'</h1>
+                                    </button>
+                                    </h2>';
+                                // echo '<h1>'.$course['nom_matiere'].'</h1>';
+                                echo '<div id="collapse'.$i.'" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">';
+                            // echo '<div id="coursNotes">';
+                            //     echo '<h1>'.$course['nom_matiere'].'</h1>';
                                 foreach($epreuvesOfCourses as $epreuve){
+                                    $j++;
+                                    echo '<div class="accordion-item">';
+                                    echo '<h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse'.$j.'" aria-expanded="false" aria-controls="collapse'.$j.'">
+                                        <h1>'.$epreuve['nom_epreuve'].'</h1>
+                                        </button>
+                                        </h2>';
+                                    // echo '<h1>'.$course['nom_matiere'].'</h1>';
+                                    echo '<div id="collapse'.$j.'" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">';
                                     $studentNotNoted = getStudentsNotNoted($db, $epreuve['id_epreuve']);
                                     if($studentNotNoted != null){
                                         echo '<div id="epreuveNotes">';
-                                            echo '<h2>'.$epreuve['nom_epreuve'].'</h2>';
+                                            // echo '<h2>'.$epreuve['nom_epreuve'].'</h2>';
                                             echo '<form action="notes.php" method="post">';
                                             echo '<table class="table table-striped">';
                                             echo '<tr><th>Nom</th><th>Prénom</th><th>Note</th></tr>';
@@ -170,7 +196,7 @@
                                             echo '</form>';
                                         echo '</div>';
                                     }else{
-                                        echo '<h2>'.$epreuve['nom_epreuve'].'</h2>';
+                                        // echo '<h2>'.$epreuve['nom_epreuve'].'</h2>';
                                         echo '<div class="alert alert-success" role="alert">
                                         Vous avez noté tous les étudiants pour cette épreuve.
                                         </div>';
@@ -183,9 +209,18 @@
                                         echo '</form>';
                                         
                                     }
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo '<br>';
                                 }
-                            echo '</div>';
+                                echo '</div>';
+                                echo '</div>';
+                                echo '</div>';
+                                echo '<br>';
                         }
+                        echo '</div>';
+                        echo '</div>';
                     }
                 }
             ?>

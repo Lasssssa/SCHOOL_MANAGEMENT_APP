@@ -58,6 +58,10 @@
     grid-column-start: 1;
     grid-column-end: 1;
 }
+#borderFull{
+    border: solid 1px black;
+
+}
 #selectSemestre{
     grid-column-start: 1;
     grid-column-end: 1;
@@ -69,18 +73,18 @@
 }
 #coursAppreciation{
     margin: 25px;
-    border: solid 1px black;
+    /* border: solid 1px black; */
     padding: 25px ;
 }
-#coursAppreciation h2{
+/* #coursAppreciation h1{
     font-family: 'Roboto', sans-serif;
     font-size: 35px;
     color: #478AF7;
     padding-top: 10px;
-}
+} */
 #coursAppreciation h1{
     font-family: 'Roboto', sans-serif;
-    font-size: 45px;
+    font-size: 35px;
     color: #1E559C;
     text-align: center;
     align-items: center;
@@ -88,7 +92,7 @@
 }
 #coursNotes{
     margin: 50px;
-    border: solid 1px black;
+    /* border: solid 1px black; */
     padding: 50px ;
 
 }
