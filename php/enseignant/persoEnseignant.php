@@ -57,6 +57,9 @@
             </div>
         </nav>
 
+        <?php
+            echo "salut";
+        ?>
 
         
     </body>
