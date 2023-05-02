@@ -1,7 +1,7 @@
 <?php 
     session_start();
         if($_SESSION['identifiedEnseignant'] == false || !isset($_SESSION['identifiedEnseignant'])){
-            header("Location: ../loginEnseignant.php");
+            header("Location: ../loginPage.php");
         exit;
     }
 ?>
@@ -49,7 +49,7 @@
                             <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
                         </button>
                     </a>
-                    <a href="../loginEnseignant.php">
+                    <a href="../loginPage.php">
                         <button type="button" class="btn btn-danger"><span class="material-symbols-outlined">logout</span></button>
                     </a>
                 </div>
