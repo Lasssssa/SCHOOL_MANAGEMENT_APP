@@ -21,3 +21,4 @@ function togglePassword2() {
         x.type = "password";
     }
 }
+

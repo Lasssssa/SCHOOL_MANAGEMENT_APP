@@ -22,11 +22,11 @@ body{
     grid-column-end: 3;
 }
 #chooseRole{
-    word-spacing: 40px;
+    /* word-spacing: 40px; */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    padding-left: 25%;
-    padding-right: 25%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 /*
     A    VOIR POUR CHANGER LA COULEUR : BLACK
@@ -42,6 +42,7 @@ body{
     text-align: center;
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
+    padding: 7%;
 }
 
 .colorRole{
@@ -49,6 +50,8 @@ body{
     text-align: center;
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
+    padding: 7%;
+    /* background-color: red; */
 }
 #white{
     color: white;
@@ -68,12 +71,8 @@ a:link{
     grid-column-end: 2;
     background-color: white;
     border-radius: 10px;
-    padding: 20px;
-    padding-top: 30px;
-    padding-bottom: 20px;
-    margin-bottom: 10%;
-    margin-left: 10%;
-    margin-right: 10%;
+    padding: 8%;
+    margin: 3%;
 }
 
 #test{
@@ -117,3 +116,4 @@ a:link{
     grid-column-start: 2;
     grid-column-end: 2;
 }
+
