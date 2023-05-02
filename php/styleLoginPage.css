@@ -1,6 +1,14 @@
-body{
-    background: linear-gradient(.25turn, #1E559C, #478AF7);
+
+/* background: linear-gradient(.25turn, #1E559C, #478AF7); */
+    /* background-color: rgba(0, 0, 0, 0.0392156862745098);
+    background: linear-gradient(.25turn, rgba(16, 0, 78, 0.3686274509803922), rgba(10, 4, 81, 0)); */
+    /* background-color: #F8F3F3; */
+    /* background: linear-gradient(.25turn, #F8F3F3, #FFFFFF); */
+body {
+    background-color: #F8F3F3;
 }
+
+
 #bodyLogin{
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
@@ -15,7 +23,7 @@ body{
     grid-column-start: 2;
     grid-column-end: 2;
     text-align: center;
-    padding-top: 20%;
+    padding-top: 5%;
 }
 #rightLogin{
     grid-column-start: 3;
@@ -25,24 +33,27 @@ body{
     /* word-spacing: 40px; */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 8%;
+    padding-right: 8%;
+    padding-top: 8%;
 }
 /*
     A    VOIR POUR CHANGER LA COULEUR : BLACK
 */
-#chooseRole a:hover{
+/* #chooseRole a:hover{
     color: black;
 }
 #black{
     color: black;
-}
+} */
 .colorRoleCurrent{
     border-bottom: solid 3px black;
     text-align: center;
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
     padding: 7%;
+    /* border-radius: 5%; */
+    /* background-color: white; */
 }
 
 .colorRole{
@@ -54,7 +65,7 @@ body{
     /* background-color: red; */
 }
 #white{
-    color: white;
+    /* color: white; */
 }
 a:link{
     text-decoration: none;
@@ -69,7 +80,7 @@ a:link{
 #loginBox{
     grid-column-start: 2;
     grid-column-end: 2;
-    background-color: white;
+    /* background-color: white; */
     border-radius: 10px;
     padding: 8%;
     margin: 3%;
@@ -96,7 +107,7 @@ a:link{
     grid-column-start: 2;
     grid-column-end: 2;
     text-align: center;
-    margin-top: 10%;
+    margin-top: 2%;
 }
 #titleLogin p{
     text-align: center;
@@ -117,3 +128,15 @@ a:link{
     grid-column-end: 2;
 }
 
+a:link{
+    text-decoration: none;
+}
+
+
+/* 
+BLANC : #F8F3F3 
+BLEU : #5FC2BA
+#3B556B
+#1C2942
+#0B162C
+*/

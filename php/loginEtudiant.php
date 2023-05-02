@@ -12,12 +12,12 @@
     <head>
         <meta charset="utf-8">
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-        <link href="styleLoginPage.css" rel="stylesheet">
         <title>Connexion Étudiant </title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
+        <link href="styleLoginPage.css" rel="stylesheet">
         <script src="script.js"></script>
     </head>   
     <body>
@@ -53,23 +53,22 @@
             ?>
         <div id="bodyLogin">
             <div id="leftLogin">
-                <img src="images/logoIsen.png" width="220px">
+                
             </div>
             <div id="centerLogin">
+            <img src="images/logoIsenTest.png" width="275px">
                 <div id="chooseRole">
-                    <div class="colorRole">
-                        <a href="loginEnseignant.php" id="white">Enseignant</a>
-                    </div>
-                    <div class="colorRole">
-                        <a href="loginAdmin.php" id="white">Administrateur</a>
-                    </div>
-                    <div class="colorRoleCurrent">
-                        <a href="loginEtudiant.php" id="black">Étudiant</a>
-                    </div>
+                    <!-- <a href="loginEnseignant.php">Enseignant</a> -->
+                    <!-- <a href="loginEnseignant.php">Enseignant</a> -->
+                    <!-- <a href="loginEtudiant.php" >Étudiant</a> -->
+                    <button type="button" class="btn btn-dark"><a href="loginEnseignant.php">Enseignant</a></button>
+                    <button type="button" class="btn btn-dark">Administrateur</button>
+                    <button type="button" class="btn btn-dark">Élève</button>
+                    
                 </div>
                 <div id="contentLogin">
                     <div id="titleLogin">
-                        <p>Me connecter</p>
+                        <img src="images/logoM.png" width="50px">
                     </div>
                     <div id="loginBox">
                         <form action="loginEtudiant.php" method="post">

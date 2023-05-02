@@ -54,9 +54,10 @@
     <body>
         <div id="bodyLogin">
             <div id="leftLogin">
-                <img src="images/logoIsen.png" width="220px">
+                
             </div>
             <div id="centerLogin">
+                <img src="images/logoIsen.png" width="220px">
                 <div id="chooseRole">
                     <div class="colorRole">
                         <a href="loginEnseignant.php" id="white">Enseignant</a>
@@ -70,7 +71,7 @@
                 </div>
                 <div id="contentLogin">
                     <div id="titleLogin">
-                        <p>Me connecter</p>
+                        <img src="images/logoM.png" width="50px">
                     </div>
                     <div id="loginBox">
                         <form action="loginAdmin.php" method="post">
