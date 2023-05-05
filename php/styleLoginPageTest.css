@@ -23,8 +23,6 @@
         box-sizing: border-box;
         grid-column-start: 2;
         grid-column-end: 2;
-        background-image: url("images/isenPhoto.png");
-        /* filter: blur(5px); */
     }
     #image{
         grid-column-start: 1;
