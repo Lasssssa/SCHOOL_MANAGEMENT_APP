@@ -1,5 +1,6 @@
 <?php 
     session_start();
+    $_SESSION['erreurIdentification'] = false;
       if($_SESSION['identifiedAdmin'] == false || !isset($_SESSION['identifiedAdmin'])){
         header("Location: ../loginPage.php");
         exit;

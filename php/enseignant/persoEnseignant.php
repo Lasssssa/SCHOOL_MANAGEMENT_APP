@@ -1,5 +1,6 @@
 <?php 
     session_start();
+        $_SESSION['erreurIdentification'] = false;
         if($_SESSION['identifiedEnseignant'] == false || !isset($_SESSION['identifiedEnseignant'])){
             header("Location: ../loginPage.php");
         exit;
