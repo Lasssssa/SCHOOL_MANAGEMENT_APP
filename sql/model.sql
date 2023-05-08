@@ -98,6 +98,7 @@ CREATE TABLE public.etudiant(
 	prenom_etu     VARCHAR (50) NOT NULL ,
 	mail_etu       VARCHAR (50) NOT NULL ,
 	password_etu   VARCHAR (60) NOT NULL ,
+	telephone_etu   VARCHAR (25) NOT NULL ,
 	id_classe      INT  NOT NULL  ,
 	CONSTRAINT etudiant_PK PRIMARY KEY (id_etu)
 

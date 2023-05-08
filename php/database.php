@@ -200,7 +200,7 @@
         }
     }
 
-    function addStudent($dbConnection, $prenom, $nom, $mail, $password,$id_classe){
+    function addStudent($dbConnection, $prenom, $nom, $mail, $password,$id_classe, $telephone){
         try{
             $queryTest = 'SELECT * FROM etudiant WHERE mail_etu = :mail';
             $statementTest = $dbConnection->prepare($queryTest);
@@ -214,13 +214,14 @@
             return false;
         }else{
             try{
-                $query = 'INSERT INTO etudiant (nom_etu, prenom_etu, mail_etu, password_etu, id_classe) VALUES (:nom, :prenom, :mail, :passwordetu, :id_classe)';
+                $query = 'INSERT INTO etudiant (nom_etu, prenom_etu, mail_etu, password_etu, id_classe, telephone_etu) VALUES (:nom, :prenom, :mail, :passwordetu, :id_classe, :telephone)';
                 $statement = $dbConnection->prepare($query);
                 $statement->bindParam(':nom', $nom);
                 $statement->bindParam(':prenom', $prenom);
                 $statement->bindParam(':mail', $mail);
                 $statement->bindParam(':passwordetu', $password);
                 $statement->bindParam(':id_classe', $id_classe);
+                $statement->bindParam(':telephone', $telephone);
                 $statement->execute();
                 return true;
             }catch(Exception $e){
@@ -518,15 +519,16 @@
         }
     }
     
-    function updateStudent($dbConnection, $nom, $prenom, $mail,$id,$id_classe){
+    function updateStudent($dbConnection, $nom, $prenom, $mail,$id,$id_classe,$telephone){
         try{
-            $query = 'UPDATE etudiant SET nom_etu = :nom, prenom_etu = :prenom, mail_etu = :mail, id_classe = :id_classe WHERE id_etu = :id';
+            $query = 'UPDATE etudiant SET nom_etu = :nom, prenom_etu = :prenom, mail_etu = :mail, id_classe = :id_classe, telephone_etu = :telephone WHERE id_etu = :id';
             $statement = $dbConnection->prepare($query);
             $statement->bindParam(':nom', $nom);
             $statement->bindParam(':prenom', $prenom);
             $statement->bindParam(':mail', $mail);
             $statement->bindParam(':id_classe', $id_classe);
             $statement->bindParam(':id', $id);
+            $statement->bindParam(':telephone', $telephone);
             $statement->execute();
         }catch(Exception $e){
             echo $e->getMessage();

@@ -76,7 +76,7 @@
             $dbConnection = dbConnect();
             if(isset($_POST['modifier'])){
                 $id_classe = getIdClassWithYearAndCycle($dbConnection, $_POST['annee_cursus'], $_POST['cycle']);
-                updateStudent($dbConnection, $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['id_etu'], $id_classe);
+                updateStudent($dbConnection, $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['id_etu'], $id_classe, $_POST['telephone']);
                 echo '<div class="alert alert-success" role="alert">
                         L\'étudiant a bien été modifié.
                         </div>';
@@ -122,6 +122,10 @@
                                     <div class="mb-3">
                                         <label for="mail" class="form-label">Mail</label>
                                         <input type="email" class="form-control" id="mail" name="mail" value="'.$student['mail_etu'].'">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="telephone" class="form-label">Téléphone</label>
+                                        <input type="tel" class="form-control" id="telephone" name="telephone" value="'.$student['telephone_etu'].'">
                                     </div>
                                     <div class="row">
                                         <div class="col">';
@@ -184,7 +188,7 @@
         }
        ?>
         <?php
-            if(isset($_POST['envoyer']) && isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['email']) && isset($_POST['emailConfirmed']) && isset($_POST['password']) && isset($_POST['passwordConfirmed']) && isset($_POST['annee']) && isset($_POST['cycle'])){
+            if(isset($_POST['envoyer']) && isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['email']) && isset($_POST['emailConfirmed']) && isset($_POST['password']) && isset($_POST['passwordConfirmed']) && isset($_POST['annee']) && isset($_POST['cycle']) && isset($_POST['telephone'])){
                 if($_POST['email']!= $_POST['emailConfirmed']){
                     echo '<div class="alert alert-danger" role="alert">
                     Les emails ne correspondent pas
@@ -196,6 +200,7 @@
                     </div>';
                 }
                 else{
+                    $telephone = $_POST['telephone'];
                     $prenom = $_POST['prenom'];
                     $nom = $_POST['nom'];
                     $email = $_POST['email'];
@@ -205,7 +210,7 @@
                     require_once('../database.php');
                     $db = dbConnect();
                     $id_classe = getIdClassWithYearAndCycle($db, $annee, $cycle);
-                    $isAddedStudent = addStudent($db, $prenom, $nom, $email, $password,$id_classe);
+                    $isAddedStudent = addStudent($db, $prenom, $nom, $email, $password,$id_classe, $telephone);
                     if($isAddedStudent){
                         echo '<div class="alert alert-success" role="alert">
                         L\'élève a bien été ajouté
@@ -262,6 +267,13 @@
                                                 <input class="form-check-input" type="checkbox" role="switch" id="showPassword2" onchange="togglePassword2()">
                                                 <label class="form-check-label" for="flexSwitchCheckChecked">Afficher votre mot de passe</label>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h4>Numéro de téléphone</h4>
+                                            <input type="number" class="form-control" name = "telephone">
                                         </div>
                                     </div>
                                     <br>
@@ -359,10 +371,10 @@
                                     else{
                                         $allStudents = getAllStudents($dbConnection);
                                     }
-                                    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Mail</th><th>Classe</th><th>Modification</th><th>Supression</th></tr>';
+                                    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Mail</th><th>Téléphone</th><th>Classe</th><th>Modification</th><th>Supression</th></tr>';
                                     foreach($allStudents as $student){
                                         echo '<tr><td>'.$student['id_etu'].'</td><td>'.$student['nom_etu'].'</td><td>'.$student['prenom_etu'].'</td><td>'.
-                                        $student['mail_etu'].'</td><td>'.$student['nom_cycle'].' '.$student['annee_cursus'].'</td>
+                                        $student['mail_etu'].'</td><td>'.$student['telephone_etu'].'</td><td>'.$student['nom_cycle'].' '.$student['annee_cursus'].'</td>
                                         <td>
                                             <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal_'.$student['id_etu'].'" name="'.$student['id_etu'].'">
                                             Modifier

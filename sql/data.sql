@@ -52,24 +52,24 @@ INSERT INTO classe(annee_cursus,nom_cycle) VALUES
 (4,'MASTER'),
 (5,'MASTER');
 
-INSERT INTO etudiant (nom_etu,prenom_etu,mail_etu,password_etu,id_classe) VALUES
-('Croguennoc','Romain','romain.croguennoc@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
-('Pajdak','Antoine','antoine.pajdak@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
-('Porodo','Theo','theo.porodo@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
-('Paitier','Mathias','mathias.paitier@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
-('Meunier','Mathis','mathis.meunier@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
-('Le Pan', 'Ethan', 'ethan.le-pan@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
-('Kebci','Paul','paul.kebci@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
-('Sermon','Goustan','goustan.sermon@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
-('Rena','Dorian','dorian.rena@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8),
-('Rimbert','Sibylle','sibylle.rimbert@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',10),
-('Vrain','Raphael','raphael.vrain@isne-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',10),
-('Edet','Victor','victor.edet@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',10),
-('Gadras','Erine','erine.gadras@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',10),
-('Rabussier','Océane','oceane.rabussier@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',2),
-('Le Floch','Léonore','leonore.le-floch@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',2),
-('Grimaud','Alex','alex.grimaud@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',2),
-('Petry','Guillaume','guillaume.petry@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',2);
+INSERT INTO etudiant (nom_etu,prenom_etu,mail_etu,password_etu,id_classe,telephone_etu) VALUES
+('Croguennoc','Romain','romain.croguennoc@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8,'0781963512'),
+('Pajdak','Antoine','antoine.pajdak@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8,'0785363512'),
+('Porodo','Theo','theo.porodo@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8,'0781463512'),
+('Paitier','Mathias','mathias.paitier@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8,'0725963512'),
+('Meunier','Mathis','mathis.meunier@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8,'0621963512'),
+('Le Pan', 'Ethan', 'ethan.le-pan@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8,'0736963512'),
+('Kebci','Paul','paul.kebci@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8,'0782563512'),
+('Sermon','Goustan','goustan.sermon@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8,'0712963512'),
+('Rena','Dorian','dorian.rena@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',8,'0781963102'),
+('Rimbert','Sibylle','sibylle.rimbert@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',10,'0730963512'),
+('Vrain','Raphael','raphael.vrain@isne-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',10,'0720963512'),
+('Edet','Victor','victor.edet@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',10,'0781251412'),
+('Gadras','Erine','erine.gadras@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',10,'0781926512'),
+('Rabussier','Océane','oceane.rabussier@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',2,'0781263512'),
+('Le Floch','Léonore','leonore.le-floch@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',2,'0681962512'),
+('Grimaud','Alex','alex.grimaud@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',2,'0781963366'),
+('Petry','Guillaume','guillaume.petry@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.',2,'0781965912');
 
 INSERT INTO cours (nom_matiere,duree,id_prof,id_semestre,id_classe) VALUES
 ('PHP CIR2', 60, 1, 2, 8),
