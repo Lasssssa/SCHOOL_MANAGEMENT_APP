@@ -1,10 +1,60 @@
+ /* 
+    BLANC : #F8F3F3 
+    BLEU : #5FC2BA
+    #3B556B
+    #1C2942
+    #0B162C
+    */
+    
+    /*
+    E0E2E8
+    B0C0D4
+    5DA5B3
+    394054
+    1C1C1F
+    */
+    /* body{
+        background-color: #F8F3F3;
+    } */
 #header{
-    padding-left: 1%;
-    padding-right: 1%;
-    background: linear-gradient(.25turn, #1E559C, #478AF7);
+    padding-left: 2%;
+    padding-right: 2%;
+    /* background: linear-gradient(.25turn, #1E559C, #478AF7); */
+    background: linear-gradient(.25turn, #394054, #394054);
+    font-size: small;
 }
+.colorSe{
+    /* background: linear-gradient(.25turn, red, #3B556B);
+     */
+
+    background: linear-gradient(.25turn, #3B556B, #3B556B);
+}
+.pageEnseignant{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+h6{
+    font-family: 'Roboto', sans-serif;
+    font-size: 32px;
+    color: #F8F3F3;
+    text-align: center;
+    align-items: center;
+    padding-top: 2%; 
+}
+h5{
+    font-family: 'Roboto', sans-serif;
+    font-size: 25;
+    color: #3B556B;
+}
+
+#navbarEns{
+    max-height: 100px;
+}
+
 #bodyNotes{
-    margin: 30px;
+    margin-top: 120px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 #header a:link{
     text-decoration: none;
@@ -14,7 +64,12 @@
     font-size: 30px;
     color: white;
 }
-
+#menu a:link{
+    font-size: 25px;
+}
+#dropD a:link{
+    font-size: 20px;
+}
 #ecart{
     padding-left: 4%;
     padding-right: 4%;
@@ -39,7 +94,7 @@
 #choixSemestre{
     display: grid;
     grid-template-columns: 2fr 1fr;
-    margin: 30px;
+    margin: 2%;
 }
 
 #formSemestre{
@@ -66,22 +121,18 @@
     grid-column-start: 1;
     grid-column-end: 1;
 }
+#infoPerso{
+    margin-top: 150px;
+}
 #buttonSemestre{
     grid-column-start: 2;
     grid-column-end: 2;
     margin-left: 50px;
 }
 #coursAppreciation{
-    margin: 25px;
-    /* border: solid 1px black; */
-    padding: 25px ;
+    margin: 2%;
 }
-/* #coursAppreciation h1{
-    font-family: 'Roboto', sans-serif;
-    font-size: 35px;
-    color: #478AF7;
-    padding-top: 10px;
-} */
+
 #coursAppreciation h1{
     font-family: 'Roboto', sans-serif;
     font-size: 35px;

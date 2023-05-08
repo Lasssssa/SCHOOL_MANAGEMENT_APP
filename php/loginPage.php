@@ -19,7 +19,8 @@
         <link href="styleLoginPage.css" rel="stylesheet">
     </head>   
     <body>
-        <?php
+
+    <?php
                 ini_set('display_errors', 1);
                 error_reporting(E_ALL);
                 require_once("database.php");
@@ -70,8 +71,8 @@
                     }
                 }
             ?>
-        
-        <div id="bodyLogin">
+
+    <div id="bodyLogin">
             <div id="leftLogin">
                 <!-- DIV VIDE -->
             </div>
@@ -80,9 +81,9 @@
                 <div id="contentLogin">
                     <div id="center">
                         <img src="images/logoM.png" width="100px">
-                        <div class="slider">
-                            <div class="slider_content">
-                                <div class="slider__item">
+                        <div id="carouselExample" class="carousel slide">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
                                     <div id="loginBox" class ="shadow">
                                         <h1>Connexion Étudiant</h1>
                                         <form action="loginPage.php" method="post">
@@ -117,7 +118,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="slider__item">
+                                <div class="carousel-item">
                                     <div id="loginBox" class ="shadow">
                                         <h1>Connexion Administrateur</h1>
                                         <form action="loginPage.php" method="post">
@@ -152,7 +153,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="slider__item">
+                                <div class="carousel-item">
                                     <div id="loginBox" class ="shadow">
                                         <h1>Connexion Enseignant</h1>
                                         <form action="loginPage.php" method="post">
@@ -188,14 +189,14 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="split">
-                            <button onclick="previous()" class="slider__nav__button slider__nav__button--prev" aria-label="Previous slide" id="left">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </button>
-                            <button onclick="next()" class="slider__nav__button slider__nav__button--next" aria-label="Next slide" id="right">
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                    <!-- <span class="carousel-control-prev-icon" aria-hidden="true" id="test2"></span> -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                <!-- <span class="carousel-control-next-icon" aria-hidden="true" id="test2"></span> -->
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
@@ -208,7 +209,7 @@
                 <!-- DIV VIDE -->
             </div>
         </div>
-
+        
 
         
     </body>

@@ -1,8 +1,18 @@
+
+/* body{
+    background-color: #F8F3F3;
+} */
 #header{
-    padding-left: 1%;
-    padding-right: 1%;
-    background: linear-gradient(.25turn, #1E559C, #478AF7);
+    padding-left: 2%;
+    padding-right: 2%;
+    /* background: linear-gradient(.25turn, #1E559C, #478AF7); */
+    background: linear-gradient(.25turn, #394054, #394054);
+    font-size: small;
 }
+#navbarEns{
+    max-height: 100px;
+}
+
 
 #ecart{
     padding-left: 4%;
@@ -63,6 +73,12 @@
     width: 300px;
     text-align: left;
 }
+#menu a:link{
+    font-size: 25px;
+}
+#dropD a:link{
+    font-size: 20px;
+}
 #choixSemestre{
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -96,8 +112,10 @@
 }
 
 #bulletin{
-    margin: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
     border: solid 1px #1E559C;
+    background-color: white;
 }
 
 #headerBulletin{
@@ -129,7 +147,11 @@
     font-style: bold;
     
 }
-
+#bodyBulletin{
+    margin-top: 120px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
 #big{
     font-size: 25px;
     font-style: bold;

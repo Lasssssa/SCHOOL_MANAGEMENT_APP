@@ -9,6 +9,13 @@ function togglePassword() {
     let j = document.getElementById("showPassword2");
     let k = document.getElementById("password3");
     let l = document.getElementById("showPassword3");
+    let m = document.getElementById("password5");
+    let n = document.getElementById("showPassword5");
+    if(n.checked) {
+        m.type = "text";
+    } else {
+        m.type = "password";
+    }
     if (y.checked) {
         x.type = "text";
     } else {
@@ -51,11 +58,6 @@ function isNotMultiple(a, b){
     }
 }
 
-let currentWidth = document.querySelector('.slider_content').scrollLeft;
-    const widthSlider = document.querySelector('.slider_content').offsetWidth;
-    const slider_content = document.querySelector('.slider_content');
-    console.log(widthSlider);
-    console.log(currentWidth);
 
 function previous(){
     let currentWidth = document.querySelector('.slider_content').scrollLeft;
@@ -115,4 +117,9 @@ setTimeout(function() {
     let erreurParagraphe = document.querySelector('#erreurParagraphe');
         console.log(erreurParagraphe);
         erreurParagraphe.style.display = "none";
-}, 3000);
+}, 5000);
+
+setTimeout(function() {
+    let cours = document.getElementById('cours');
+    cours.style.display = "none";
+}, 5000);
