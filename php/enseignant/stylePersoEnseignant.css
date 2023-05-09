@@ -86,6 +86,16 @@ h5{
     align-items: center;
 }
 
+#infoPerso{
+    margin-top: 120px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.pp{
+    border-radius: 50%;
+    max-width: 200px;
+    max-height: 200px;
+}
 
 #header a:hover{
     color: black;

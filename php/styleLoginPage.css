@@ -39,7 +39,7 @@
     #contentLogin{
         margin-top: 5%;
         display: grid;
-        grid-template-columns: 1fr 2.5fr 1fr;
+        grid-template-columns: 1fr 4fr 1fr;
     }
     
     #erreurParagraphe{

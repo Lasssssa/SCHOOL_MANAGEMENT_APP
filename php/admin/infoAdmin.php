@@ -65,7 +65,55 @@
                     </div>
                 </div>
             </nav>
-        </div>
+    </div>
+
+    <?php
+            if(isset($_POST['submit_photo'])){
+                move_uploaded_file($_FILES['photo_profil']['tmp_name'],"../photo_profil/".$_SESSION['nom'].'_'.$_SESSION['prenom'].".png");
+                echo $_FILES['photo_profil']['name'];
+            }
+
+        ?>
+        <div id="infoPerso">
+            <div class="title">
+                <h1>Votre compte</h1>
+                <div class="pp">
+                    <?php
+                        $name = $_SESSION['nom'].'_'.$_SESSION['prenom'];
+                        require_once('../database.php');
+                        $img = getProfilPicture($name);
+                        if($img != null){
+                            echo '<img src="../photo_profil/'.$img.'" class="pp" alt="photo de profil">';
+                        }else{
+                            echo '<img src="../images/profil_defaut.png" class="pp" alt="photo de profil">';
+                        }
+                    ?>
+                </div>
+                <br>
+                <h5>Importer votre photo de profil</h5>
+            </div>
+            <div class="import">
+                <form action="infoAdmin.php" method="post" enctype="multipart/form-data">
+                    <input type="file" name="photo_profil" id="fileToUpload">
+                    <br>
+                    <button type="submit" class="btn btn-primary" name="submit_photo">Importer</button>
+                </form>
+            </div>
+
+        
+
+            <div class="info">
+                <hr>
+                <h5>Informations personnelles</h5>
+                <hr>
+                <h2>Nom</h2>
+                <p><?php echo $_SESSION['nom']; ?></p>
+                <h2>Prénom</h2>
+                <p><?php echo $_SESSION['prenom']; ?></p>
+                <h2>Adresse mail</h2>
+                <p><?php echo $_SESSION['email']; ?></p>
+            </div>
+        </div> 
 
         
     </body>

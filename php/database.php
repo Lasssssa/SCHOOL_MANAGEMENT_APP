@@ -3,6 +3,23 @@
     error_reporting(E_ALL);
     require_once("constants.php");
     
+    function getProfilPicture($lastname_firstname){
+        //Récupérer une image de profil dans le dossier photo_profil
+        $dir = '../photo_profil';
+        $files = scandir($dir);
+        $img = null;
+        foreach($files as $file){
+            if($file != '.' && $file != '..'){
+                $name = explode('.',$file)[0];
+                if($name == $lastname_firstname){
+                    $img = $file;
+                }
+
+            }
+        }
+        return $img;
+    }
+
     function dbConnect(){
         $dsn = 'pgsql:dbname='.DB_NAME.';host='.DB_SERVER.';port='.DB_PORT;
         $user = DB_USER;
