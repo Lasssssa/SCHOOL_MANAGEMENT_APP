@@ -85,7 +85,7 @@ CREATE TABLE public.classe(
 	nom_cycle      VARCHAR (20) NOT NULL  ,
 	CONSTRAINT classe_PK PRIMARY KEY (id_classe)
 
-	,CONSTRAINT classe_cycle_FK FOREIGN KEY (nom_cycle) REFERENCES public.cycle(nom_cycle)
+	,CONSTRAINT classe_cycle_FK FOREIGN KEY (nom_cycle) REFERENCES public.cycle(nom_cycle) ON DELETE CASCADE
 )WITHOUT OIDS;
 
 

@@ -32,22 +32,27 @@
                     </button>
                     <div class="offcanvas offcanvas-end text-bg-dark colorSe" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                         <div class="offcanvas-header"> 
+                            <a class="navbar-brand" href="persoAdmin.php">
                             <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu Administrateur</h5>
+                            </a>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body" id="menu">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="enseignant.php">Enseignants</a>
+                                <a class="nav-link active hovered" aria-current="page" href="enseignant.php"><span class="material-symbols-outlined">supervisor_account</span><?php echo"&nbsp&nbsp&nbsp";?>Enseignants</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="etudiant.php">Étudiants</a>
+                                <a class="nav-link hovered" href="etudiant.php"><span class="material-symbols-outlined">school</span><?php echo"&nbsp&nbsp&nbsp";?> Étudiants</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="cours.php">Cours</a>
+                                <a class="nav-link hovered" href="cours.php"><span class="material-symbols-outlined">auto_stories</span><?php echo"&nbsp&nbsp&nbsp";?> Cours</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link hovered" href="cursus.php"><span class="material-symbols-outlined">settings</span><?php echo"&nbsp&nbsp&nbsp";?> Cursus</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle hovered" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
                                 </a>
                                 <div id="dropD">
@@ -65,18 +70,25 @@
                     </div>
                 </div>
             </nav>
-    </div>
+        </div>
 
     <?php
             if(isset($_POST['submit_photo'])){
                 move_uploaded_file($_FILES['photo_profil']['tmp_name'],"../photo_profil/".$_SESSION['nom'].'_'.$_SESSION['prenom'].".png");
-                echo $_FILES['photo_profil']['name'];
+                // echo $_FILES['photo_profil']['name'];
             }
 
         ?>
         <div id="infoPerso">
-            <div class="title">
-                <h1>Votre compte</h1>
+            
+            <div class="titlePerso">
+                <div class="titlePage">
+                    <div></div>
+                    <div class="title">
+                        <h1>VOTRE COMPTE</h1>
+                    </div>    
+                    <div></div>
+                </div>
                 <div class="pp">
                     <?php
                         $name = $_SESSION['nom'].'_'.$_SESSION['prenom'];
@@ -90,30 +102,39 @@
                     ?>
                 </div>
                 <br>
-                <h5>Importer votre photo de profil</h5>
-            </div>
-            <div class="import">
-                <form action="infoAdmin.php" method="post" enctype="multipart/form-data">
-                    <input type="file" name="photo_profil" id="fileToUpload">
-                    <br>
-                    <button type="submit" class="btn btn-primary" name="submit_photo">Importer</button>
-                </form>
-            </div>
+                <div class="import">
+                    <div class="infoPerso">
+                        <h5>Importer votre photo de profil</h5>
+                        <form action="infoAdmin.php" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <input class="form-control" type="file" name="photo_profil" id="fileToUpload">
+                            </div>
+                            <button type="submit" class="btn btn-primary" name="submit_photo">Importer</button>
+                        </form>
+                    </div>
+                </div>
+            
+            
 
         
 
-            <div class="info">
-                <hr>
-                <h5>Informations personnelles</h5>
-                <hr>
-                <h2>Nom</h2>
-                <p><?php echo $_SESSION['nom']; ?></p>
-                <h2>Prénom</h2>
-                <p><?php echo $_SESSION['prenom']; ?></p>
-                <h2>Adresse mail</h2>
-                <p><?php echo $_SESSION['email']; ?></p>
-            </div>
-        </div> 
+                <div class="info">
+                    <div class="infoPerso">
+                        <hr>
+                        <h5>Informations personnelles</h5>
+                        <hr>
+                        <h2>Nom</h2>
+                        <input class="form-control" type="text" placeholder="<?php echo $_SESSION['nom']; ?>" aria-label="Disabled input example" disabled>
+                        <h2>Prénom</h2>
+                        <input class="form-control" type="text" placeholder="<?php echo $_SESSION['prenom']; ?>" aria-label="Disabled input example" disabled>
+                        <h2>Adresse mail</h2>
+                        <input class="form-control" type="text" placeholder="<?php echo $_SESSION['email']; ?>" aria-label="Disabled input example" disabled>
+                        <h2>Numéro de téléphone</h2>
+                        <input class="form-control" type="text" placeholder="<?php echo $_SESSION['telephone']; ?>" aria-label="Disabled input example" disabled>
+                    </div>
+                </div>
+            </div> 
+        </div>
 
         
     </body>

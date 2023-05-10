@@ -51,6 +51,7 @@
                             $_SESSION['nom'] = $user['nom_'.$suffixe];
                             $_SESSION['prenom'] = $user['prenom_'.$suffixe];
                             $_SESSION['id'] = $user['id_'.$suffixe];
+                            $_SESSION['tel'] = $user['telephone_'.$suffixe];
                             if($suffixe == 'etu'){
                                 header("Location: etudiant/persoEtudiant.php");
                             }

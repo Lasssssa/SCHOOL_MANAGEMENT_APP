@@ -187,7 +187,71 @@
         }
         return $result;
     }
-    
+
+    function addClass($db, $nom_cycle, $annee_cursus){
+        try{
+            $query = "INSERT INTO classe (nom_cycle, annee_cursus) VALUES (:nom_cycle, :annee_cursus)";
+            $statement = $db->prepare($query);
+            $statement->bindParam(':nom_cycle', $nom_cycle);
+            $statement->bindParam(':annee_cursus', $annee_cursus);
+            $statement->execute();
+        }catch(exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    function addCycle($db,$nom_cyle){
+        try{
+            $query = "SELECT * FROM cycle WHERE nom_cycle = :nom_cycle";
+            $statement = $db->prepare($query);
+            $statement->bindParam(':nom_cycle', $nom_cyle);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        }catch(exception $e) {
+            echo $e->getMessage();
+        }
+        if(count($result) > 0){
+            return false;
+        }else{
+            try{
+                $query = "INSERT INTO cycle (nom_cycle) VALUES (:nom_cycle)";
+                $statement = $db->prepare($query);
+                $statement->bindParam(':nom_cycle', $nom_cyle);
+                $statement->execute();
+            }catch(exception $e) {
+                echo $e->getMessage();
+            }
+            return true;
+        }
+    }
+
+    function addYear($db, $year){
+        try{
+            $query = "SELECT * FROM annee WHERE numero_annee = :year";
+            $statement = $db->prepare($query);
+            $statement->bindParam(':year', $year);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch(exception $e) {
+            echo $e->getMessage();
+        }
+        if(count($result) > 0){
+            return false;
+        }else{
+            try{
+                $query = "INSERT INTO annee (numero_annee) VALUES (:year)";
+                $statement = $db->prepare($query);
+                $statement->bindParam(':year', $year);
+                $statement->execute();
+            }
+            catch(exception $e) {
+                echo $e->getMessage();
+            }
+            return true;
+        }
+    }
+
     function addProfessor($dbConnection, $nom, $prenom, $mail, $password, $telephone){
         try{
             $queryTest = 'SELECT * FROM enseignant WHERE mail_prof = :mail';
@@ -334,6 +398,84 @@
             $statement->execute();
         }catch(exception $e){
             echo $e->getMessage();
+        }
+    }
+
+    function addSemester($db,$id_annee, $numero_semestre ){
+        if($numero_semestre > 2 || $numero_semestre < 1){
+            return false;
+        }
+        try{
+            $query = 'SELECT * FROM semestre WHERE id_annee = :id_annee AND numero_semestre = :numero_semestre';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id_annee', $id_annee);
+            $statement->bindParam(':numero_semestre', $numero_semestre);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+        if(count($result) > 0){
+            return false;
+        }else{
+            try{
+                $query = 'INSERT INTO semestre (id_annee,numero_semestre) VALUES (:id_annee,:numero_semestre)';
+                $statement = $db->prepare($query);
+                $statement->bindParam(':id_annee', $id_annee);
+                $statement->bindParam(':numero_semestre', $numero_semestre);
+                $statement->execute();
+                return true;
+            }catch(exception $e){
+                echo $e->getMessage();
+            }
+        }
+    }
+
+    function deleteCycle($db,$nom_cycle){
+        try{
+            $query = 'DELETE FROM cycle WHERE nom_cycle = :nom_cycle';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':nom_cycle', $nom_cycle);
+            $statement->execute();
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+        if($statement->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function deleteSemester($db,$semester){
+        try{
+            $query = 'DELETE FROM semestre WHERE id_semestre = :id';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id', $semester);
+            $statement->execute();
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+        if($statement->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function deleteYear($db,$id_annee){
+        try{
+            $query = 'DELETE FROM annee WHERE id_annee = :id';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id', $id_annee);
+            $statement->execute();
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+        if($statement->rowCount() > 0){
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -552,6 +694,18 @@
         }
     }
     
+    function getClassesByCycle($db, $nom_cycle){
+        try{
+            $query = 'SELECT * FROM classe c JOIN cycle cy ON c.nom_cycle = cy.nom_cycle WHERE cy.nom_cycle = :nom_cycle';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':nom_cycle', $nom_cycle);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+        return $result;
+    }
     function getCoursWithId($dbConnection, $id){
         try{
             $query = 'SELECT * FROM cours c JOIN enseignant e ON c.id_prof = e.id_prof JOIN semestre s ON c.id_semestre = s.id_semestre JOIN annee a ON s.id_annee = a.id_annee WHERE id_matiere = :id';

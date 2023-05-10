@@ -18,15 +18,42 @@
 #header a:visited{
     color: white;
 }
+.titlePerso{
+    grid-column-start: 2;
+    grid-column-end: 2;
+    /* display : grid; */
+    /* grid-template-columns: 50% 50%; */
+}
+.import{
+    grid-column-start: 2;
+    grid-column-end: 2;
+    margin-top: 3%;
+}
+.info{
+    grid-column-start: 2;
+    grid-column-end: 2;
+}
 #infoPerso{
     margin-top: 120px;
     margin-left: 50px;
     margin-right: 50px;
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+}
+.infoPerso{
+    max-width: 500px;
 }
 .pp{
     border-radius: 50%;
     width: 200px;
     height: 200px;
+    padding-top:3%;
+}
+.hovered:hover{
+    text-decoration: none;
+    color: #F8F3F3;
+    margin-left: 5%;
+    transform: scale(1.1);
 }
 #menu a:link{
     font-size: 25px;
@@ -64,9 +91,21 @@
     margin-right: 50px;
     margin-top: 50px;
 }
-#titlePage{
+.titlePage{
     text-align: center;
     margin-top: 2%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.title{
+    border:solid 1px #3B556D;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+    padding: 10px;
+}
+.title h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    color: #394054;
 }
 #blockCard{
     height: 1fr;
@@ -107,7 +146,39 @@
     border-radius: 10px;
     margin: 5px;
 }
+.colored{
+    background-color: #5FC2BA;
+    border-color: #5FC2BA;
+}
+.coloredV2{
+    background-color: #709CA7;
+    border-color: #709CA7;
+}
 
+.colored:hover{
+    background-color: #394054;
+    border-color: #394054;
+}
+.coloredV2:hover{
+    background-color: #394054;
+    border-color: #394054;
+}
+.coloredV3{
+    background-color: #137C8B;
+    border-color: #137C8B;
+}
+.coloredV3:hover{
+    background-color: #394054;
+    border-color: #394054;
+}
+.coloredV4{
+    background-color: #3B556D;
+    border-color: #3B556D;
+}
+.coloredV4:hover{
+    background-color: #394054;
+    border-color: #394054;
+}
 
 #board3{
     text-align: center;
@@ -218,13 +289,13 @@
     grid-column-end: 2;
     margin: 20px;
     padding: 5%;
-    border: solid 2px #478AF7;
+    border: solid 4px #3B556D;
     border-radius: 3%;
 }
 #formAdding h2{
     font-family: 'Roboto', sans-serif;
-    font-size: 35px;
-    color: #1E559C;
+    font-size: 30px;
+    color: #1C2942;
     padding: 10px;
     margin: 0;
     text-align: center;
@@ -232,10 +303,9 @@
 #formAdding h4{
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
-    color: #478AF7;
+    color: #3B556D;
     padding: 10px;
     margin: 0;
-    text-decoration: underline;
 }
 #mainAdding{
     display: grid;
@@ -248,13 +318,11 @@
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
 }
-#titleChoice{
-    grid-column-start: 1;
-    grid-column-end: 2;
+#titleChoice h2{
     font-family: 'Roboto', sans-serif;
-    font-size: 20px;
-    color: #478AF7;
-    text-align: center;
+    font-size: 40px;
+    color: #0B162C;
+    padding: 10px;
 }
 #choiceSubmitStudent{
     grid-column-start: 3;
@@ -297,9 +365,19 @@
 #filtreCours h2{
     font-family: 'Roboto', sans-serif;
     font-size: 40px;
-    color: #478AF7;
+    color: #0B162C;
     padding: 10px;
 }
+
+.coloredV5{
+    background-color: #1C2942;
+    border-color: #1C2942;
+}
+.coloredV5:hover{
+    background-color: #394054;
+    border-color: #394054;
+}
+
 
 #titreCours{
     grid-column-start: 1;
@@ -328,10 +406,6 @@
     grid-column-end: 5;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
-#header a:hover{
-    color: black;
-}
-
 svg{
     width: 50px;
     height: 50px;
@@ -353,4 +427,28 @@ svg path{
     max-height: 50px;
     margin-left: 1%;
     margin-right: 1%;
+}
+
+.testV1:hover{
+    background-color: #394054;
+}
+
+.gestion{
+    margin:3%;
+    padding:2%;
+}
+
+.gestion h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    color: #3B556D;
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+}
+.liste_annee{
+    padding:2%;
+}
+.space{
+    max-width: 400px;
 }

@@ -123,3 +123,9 @@ setTimeout(function() {
     let cours = document.getElementById('cours');
     cours.style.display = "none";
 }, 5000);
+
+setTimeout(function() {
+    let deleteAnnne = document.getElementById('deleteAnnee');
+    console.log(deleteAnnne);
+    deleteAnnne.style.display = "none";
+}, 5000);

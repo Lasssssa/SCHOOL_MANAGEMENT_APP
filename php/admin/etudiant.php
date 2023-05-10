@@ -34,22 +34,27 @@
                     </button>
                     <div class="offcanvas offcanvas-end text-bg-dark colorSe" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                         <div class="offcanvas-header"> 
+                            <a class="navbar-brand" href="persoAdmin.php">
                             <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu Administrateur</h5>
+                            </a>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body" id="menu">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="enseignant.php">Enseignants</a>
+                                <a class="nav-link active hovered" aria-current="page" href="enseignant.php"><span class="material-symbols-outlined">supervisor_account</span><?php echo"&nbsp&nbsp&nbsp";?>Enseignants</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="etudiant.php">Étudiants</a>
+                                <a class="nav-link hovered" href="etudiant.php"><span class="material-symbols-outlined">school</span><?php echo"&nbsp&nbsp&nbsp";?> Étudiants</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="cours.php">Cours</a>
+                                <a class="nav-link hovered" href="cours.php"><span class="material-symbols-outlined">auto_stories</span><?php echo"&nbsp&nbsp&nbsp";?> Cours</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link hovered" href="cursus.php"><span class="material-symbols-outlined">settings</span><?php echo"&nbsp&nbsp&nbsp";?> Cursus</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle hovered" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
                                 </a>
                                 <div id="dropD">
@@ -104,7 +109,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modification d\'un élève</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">MODIFICATION D\'UN ÉLÈVES</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
@@ -154,7 +159,7 @@
                                         }
                                     }
                                     echo '</select></div><br>';
-                                    echo '<button type="submit" class="btn btn-primary" name="modifier">Modifier</button>
+                                    echo '<button type="submit" class="btn btn-primary coloredV2" name="modifier">Modifier</button>
                                     <input type="hidden" name="id_etu" value="'.$student['id_etu'].'" name="id_etu">
                                 </form>
                             </div>
@@ -168,7 +173,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Suppression d\'un élève</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">SUPPRESSION D\'UN ÉLÈVES</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
@@ -177,8 +182,8 @@
                                 <form action="etudiant.php" method="post">
                                     <p>Êtes-vous sûr de vouloir supprimer cet élève ?</p>
                                     <input type="hidden" name="id_etu" value="'.$student['id_etu'].'">
-                                    <button type="submit" class="btn btn-success" name="supprimer">Supprimer</button>
-                                    <button type="submit" class="btn btn-danger" name="retour">Retour</button>
+                                    <button type="submit" class="btn btn-success colored" name="supprimer">Supprimer</button>
+                                    <button type="submit" class="btn btn-danger coloredV4" name="retour">Retour</button>
                                 </form>
                             </div>
                         </div>
@@ -228,12 +233,16 @@
             <div class="carousel-inner">
                 <div class="carousel-item">
                     <div class="ecart">
-                        <div id="titlePage">
-                            <h1>Ajout des élèves</h1>
+                        <div class="titlePage">
+                            <div></div>
+                            <div class="title">
+                                <h1>AJOUT DES ÉLÈVES</h1>
+                            </div>    
+                            <div></div>
                         </div>
                         <div id="mainAdding">
                             <div id="formAdding">
-                                <h2>Formulaire d'ajout</h2>
+                                <h2>FORMULAIRE</h2>
                                 <form action="etudiant.php" method="post">
                                     <div class="row">
                                         <div class="col">
@@ -310,7 +319,7 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <button type="submit" class="btn btn-primary" name ="envoyer">Inscrire un nouvel élève</button>
+                                    <button type="submit" class="btn btn-primary coloredV2" name ="envoyer">Inscrire un nouvel élève</button>
                                 </form>
                             </div>
                         </div>
@@ -318,11 +327,15 @@
                 </div>
                 <div class="carousel-item active">
                     <div class="ecart">
+                        <div class="titlePage">
+                            <div></div>
+                            <div class="title">
+                                <h1>MODIFICATION DES ÉLÈVES</h1>
+                            </div>    
+                            <div></div>
+                        </div>
                         <div id="middleChoiceStudents">
-                            <div id="titlePage">
-                                <h1>Modification des élèves</h1>
-                            </div>
-                            <form action="etudiant.php" method ="post" id="formCycle">
+                        <form action="etudiant.php" method ="post" id="formCycle">
                                 <div id="titleChoice">
                                     <h2>Filtre de tri</h2>
                                 </div>
@@ -350,7 +363,7 @@
                                     </select>
                                 </div>
                                 <div id="choiceSubmitStudent">
-                                    <button type="submit" class="btn btn-primary" name="submitCycle">Appliquer des filtres</button>
+                                    <button type="submit" class="btn btn-primary coloredV5" name="submitCycle">Appliquer des filtres</button>
                                 </div>
                             </form>
                         </div>
@@ -371,17 +384,22 @@
                                     else{
                                         $allStudents = getAllStudents($dbConnection);
                                     }
-                                    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Mail</th><th>Téléphone</th><th>Classe</th><th>Modification</th><th>Supression</th></tr>';
+                                    echo '<tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Mail</th><th>Téléphone</th><th>Classe</th><th>Modification</th><th>Suppression</th></tr>';
                                     foreach($allStudents as $student){
                                         echo '<tr><td>'.$student['id_etu'].'</td><td>'.$student['nom_etu'].'</td><td>'.$student['prenom_etu'].'</td><td>'.
                                         $student['mail_etu'].'</td><td>'.$student['telephone_etu'].'</td><td>'.$student['nom_cycle'].' '.$student['annee_cursus'].'</td>
                                         <td>
-                                            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal_'.$student['id_etu'].'" name="'.$student['id_etu'].'">
-                                            Modifier
+                                            <button type="submit" class="btn btn-success colored" data-bs-toggle="modal" data-bs-target="#modal_'.$student['id_etu'].'" name="'.$student['id_etu'].'">
+                                            <span class="material-symbols-outlined">
+                                        update
+                                        </span> Modifier
                                             </button>
                                         </td>
                                         <td>  
-                                            <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalSupp_'.$student['id_etu'].'" name="supp_'.$student['id_etu'].'">Supprimer
+                                            <button type="submit" class="btn btn-danger coloredV2" data-bs-toggle="modal" data-bs-target="#modalSupp_'.$student['id_etu'].'" name="supp_'.$student['id_etu'].'">
+                                            <span class="material-symbols-outlined">
+                                            delete
+                                            </span> Supprimer 
                                             </button>    
                                         </td>
                                         </tr>';
