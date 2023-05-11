@@ -93,7 +93,7 @@
 }
 .titlePage{
     text-align: center;
-    margin-top: 2%;
+    margin-top: 5%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
@@ -101,11 +101,13 @@
     border:solid 1px #3B556D;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
     padding: 10px;
+    text-align: center;
 }
 .title h1{
     font-family: 'Roboto', sans-serif;
     font-size: 30px;
     color: #394054;
+    text-align: center;
 }
 #blockCard{
     height: 1fr;
