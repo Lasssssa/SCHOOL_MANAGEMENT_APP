@@ -25,7 +25,7 @@
     <!-- A voir pour plutot avoir un récapitulatif en fonction de ce que l'on demande -->
 
     <body>
-        <div id="navbarEns">
+    <div id="navbarEns">
             <nav class="navbar navbar-dark bg-dark fixed-top left" id="header">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="persoEnseignant.php">
@@ -36,22 +36,24 @@
                     </button>
                     <div class="offcanvas offcanvas-end text-bg-dark colorSe" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                         <div class="offcanvas-header"> 
-                            <h6 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu Enseignant</h6>
+                            <a class="navbar-brand" href="persoEnseignant.php">
+                            <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu Enseignant</h5>
+                            </a>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body" id="menu">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="consultation.php">Consultation</a>
+                                <a class="nav-link active hovered" aria-current="page" href="consultation.php"><span class="material-symbols-outlined">supervisor_account</span><?php echo"&nbsp&nbsp&nbsp";?>Consultation</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="notes.php">Notes</a>
+                                <a class="nav-link hovered" href="notes.php"><span class="material-symbols-outlined">school</span><?php echo"&nbsp&nbsp&nbsp";?> Notes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="appreciation.php">Appréciations</a>
+                                <a class="nav-link hovered" href="appreciation.php"><span class="material-symbols-outlined">auto_stories</span><?php echo"&nbsp&nbsp&nbsp";?> Appréciations</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle hovered" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
                                 </a>
                                 <div id="dropD">
@@ -70,39 +72,6 @@
                 </div>
             </nav>
         </div>
-
-        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light" id="header">
-            <div class="container-fluid" id="space">
-                <a class="navbar-brand" href="persoEnseignant.php">
-                    <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item" id="ecart">
-                            <a href="consultation.php">Consultation</a>
-                        </li>
-                        <li class="nav-item" id="ecart">
-                            <a href="notes.php">Notes</a>
-                        </li>
-                        <li class="nav-item" id="ecart">
-                            <a href="appreciation.php">Appréciations</a>
-                        </li>
-                    </ul>
-                    <a href="infoAdmin.php">
-                        <button type="button" class="btn btn-secondary">
-                            <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
-                        </button>
-                    </a>
-                    <a href="../loginPage.php">
-                        <button type="button" class="btn btn-danger"><span class="material-symbols-outlined">logout</span></button>
-                    </a>
-                </div>
-                
-            </div>
-        </nav> -->
         
     </body>
 </html>

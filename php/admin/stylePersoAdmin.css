@@ -444,11 +444,6 @@ svg path{
     max-width: 400px;
 }
 
-.diviser{
-    display: grid;
-    grid-template-columns: 50% 50%;
-}
-
 .ppV2{
     text-align: center;
     align-items: center;
