@@ -34,22 +34,24 @@
                     </button>
                     <div class="offcanvas offcanvas-end text-bg-dark colorSe" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                         <div class="offcanvas-header"> 
-                            <h6 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu Enseignant</h6>
+                            <a class="navbar-brand" href="persoEnseignant.php">
+                            <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu Enseignant</h5>
+                            </a>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body" id="menu">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="consultation.php">Consultation</a>
+                                <a class="nav-link active hovered" aria-current="page" href="consultation.php"><span class="material-symbols-outlined">supervisor_account</span><?php echo"&nbsp&nbsp&nbsp";?>Consultation</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="notes.php">Notes</a>
+                                <a class="nav-link hovered" href="notes.php"><span class="material-symbols-outlined">school</span><?php echo"&nbsp&nbsp&nbsp";?> Notes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="appreciation.php">Appréciations</a>
+                                <a class="nav-link hovered" href="appreciation.php"><span class="material-symbols-outlined">auto_stories</span><?php echo"&nbsp&nbsp&nbsp";?> Appréciations</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle hovered" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
                                 </a>
                                 <div id="dropD">
@@ -68,7 +70,6 @@
                 </div>
             </nav>
         </div>
-    
 
         <?php
             require_once('../database.php');

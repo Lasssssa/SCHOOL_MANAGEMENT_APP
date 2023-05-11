@@ -49,7 +49,7 @@
                                 <a class="nav-link hovered" href="cours.php"><span class="material-symbols-outlined">auto_stories</span><?php echo"&nbsp&nbsp&nbsp";?> Cours</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link hovered" href="cursus.php"><span class="material-symbols-outlined">settings</span><?php echo"&nbsp&nbsp&nbsp";?> Cursus</a>
+                                <a class="nav-link hovered" href="cursus.php"><span class="material-symbols-outlined">medical_information</span><?php echo"&nbsp&nbsp&nbsp";?> Cursus</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle hovered" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -73,6 +73,8 @@
         </div>
 
     <?php
+       
+
             if(isset($_POST['submit_photo'])){
                 move_uploaded_file($_FILES['photo_profil']['tmp_name'],"../photo_profil/".$_SESSION['nom'].'_'.$_SESSION['prenom'].".png");
                 // echo $_FILES['photo_profil']['name'];
@@ -89,51 +91,119 @@
                     </div>    
                     <div></div>
                 </div>
-                <div class="pp">
-                    <?php
-                        $name = $_SESSION['nom'].'_'.$_SESSION['prenom'];
-                        require_once('../database.php');
-                        $img = getProfilPicture($name);
-                        if($img != null){
-                            echo '<img src="../photo_profil/'.$img.'" class="pp" alt="photo de profil">';
-                        }else{
-                            echo '<img src="../images/profil_defaut.png" class="pp" alt="photo de profil">';
-                        }
-                    ?>
-                </div>
-                <br>
-                <div class="import">
-                    <div class="infoPerso">
-                        <h5>Importer votre photo de profil</h5>
-                        <form action="infoAdmin.php" method="post" enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <input class="form-control" type="file" name="photo_profil" id="fileToUpload">
+            <?php   
+
+            require_once('../database.php');
+            $db = dbConnect();
+            echo "<br>";
+            if(isset($_POST['submit_password']) && isset($_POST['old_password']) && isset($_POST['new_password'])){
+                $table = "administrateur";
+                $suffixe = "admin";
+                $user = getUser($_SESSION['email'],$db,$table);
+                $encryptedPassword = getEncryptedPassword($_SESSION['email'], $db,$table);
+                if(password_verify($_POST['old_password'], $encryptedPassword)){
+                    $new_encrypt = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+                    $valid = updatePassword($_SESSION['id'], $new_encrypt, $db,$table,"admin");
+                    echo '<div class="alert alert-success" role="alert" id="deleteAnnee">
+                        Mot de passe modifié avec succès !
+                        </div>';
+                }else{
+                    echo '<div class="alert alert-danger" role="alert" id="deleteAnnee">
+                        Ancien mot de passe incorrect !
+                        </div>';
+                }
+            }
+            ?>
+
+
+                <div id="mainAdding">
+                            <div id="formAdding">
+                                <h2>INFORMATIONS PERSONNELLES</h2>
+                                <br>
+                                    <div class="ppV2">
+                                        <?php
+                                            $name = $_SESSION['nom'].'_'.$_SESSION['prenom'];
+                                            require_once('../database.php');
+                                            $img = getProfilPicture($name);
+                                            if($img != null){
+                                                echo '<img src="../photo_profil/'.$img.'" class="pp" alt="photo de profil">';
+                                            }else{
+                                                echo '<img src="../images/profil_defaut.png" class="pp" alt="photo de profil">';
+                                            }
+                                        ?>
+                                    </div>
+                                    <br>
+                                    <div class="import">
+                                        
+                                        <h5>Importer votre photo de profil</h5>
+                                                <form action="infoAdmin.php" method="post" enctype="multipart/form-data">
+                                                    <div class="mb-3">
+                                                        <input class="form-control" type="file" name="photo_profil" id="fileToUpload">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary coloredV2" name="submit_photo">Importer</button>
+                                                </form>
+                                            <br>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h4>Prénom</h4>
+                                            <input class="form-control" type="text" placeholder="<?php echo $_SESSION['prenom']; ?>" aria-label="Disabled input example" disabled>
+                                        </div>
+                                        <div class="col">
+                                            <h4>Nom</h4>
+                                            <input class="form-control" type="text" placeholder="<?php echo $_SESSION['nom']; ?>" aria-label="Disabled input example" disabled>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h4>Numéro de téléphone</h4>
+                                            <input class="form-control" type="text" placeholder="<?php echo $_SESSION['telephone']; ?>" aria-label="Disabled input example" disabled>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <h4>Email</h4>
+                                            <input class="form-control" type="text" placeholder="<?php echo $_SESSION['email']; ?>" aria-label="Disabled input example" disabled>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <h4>Mot de passe</h4>
+                                            <input class="form-control" type="text" placeholder="********" aria-label="Disabled input example" disabled>
+                                        </div>
+                                        <br>
+                                        <div class="accordion" id="accordionPanelsStayOpenExample">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                                    MODIFICATION DU MOT DE PASSE
+                                                </button>
+                                                </h2>
+                                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                                                    <div class="accordion-body">
+                                                    <form action="infoAdmin.php" method="post">
+                                                        <div class="form-group">
+                                                            <h4>Ancien mot de passe</h4>
+                                                            <input type="password" class="form-control" id="password5" name="old_password">
+                                                            <h4>Nouveau mot de passe</h4>
+                                                            <input type="password" class="form-control" id="password2" name="new_password">
+                                                        </div>
+                                                        <br>
+                                                        <button type="submit" class="btn btn-primary coloredV2" name="submit_password">Modifier</button>
+                                                    </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+
                             </div>
-                            <button type="submit" class="btn btn-primary" name="submit_photo">Importer</button>
-                        </form>
-                    </div>
-                </div>
-            
-            
-
-        
-
-                <div class="info">
-                    <div class="infoPerso">
-                        <hr>
-                        <h5>Informations personnelles</h5>
-                        <hr>
-                        <h2>Nom</h2>
-                        <input class="form-control" type="text" placeholder="<?php echo $_SESSION['nom']; ?>" aria-label="Disabled input example" disabled>
-                        <h2>Prénom</h2>
-                        <input class="form-control" type="text" placeholder="<?php echo $_SESSION['prenom']; ?>" aria-label="Disabled input example" disabled>
-                        <h2>Adresse mail</h2>
-                        <input class="form-control" type="text" placeholder="<?php echo $_SESSION['email']; ?>" aria-label="Disabled input example" disabled>
-                        <h2>Numéro de téléphone</h2>
-                        <input class="form-control" type="text" placeholder="<?php echo $_SESSION['telephone']; ?>" aria-label="Disabled input example" disabled>
-                    </div>
-                </div>
-            </div> 
+                        </div>   
+                </div> 
+            </div>
         </div>
 
         

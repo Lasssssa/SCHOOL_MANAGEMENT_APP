@@ -663,6 +663,20 @@
         }
     }
 
+    function updatePassword($id,$encrypt, $db,$table,$suffixe){
+        try{
+            $query = 'UPDATE '.$table.' SET password_'.$suffixe.' = :encrypt WHERE id_'.$suffixe.' = :id';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id', $id);
+            $statement->bindParam(':encrypt', $encrypt);
+            $statement->execute();
+        }catch(exception $e){
+            echo $e->getMessage();
+        }
+        return true;
+
+    }
+
     function updateProfessor($dbConnection, $nom, $prenom, $mail, $telephone,$id){
         try{
             $query = 'UPDATE enseignant SET nom_prof = :nom, prenom_prof = :prenom, mail_prof = :mail, telephone_prof = :telephone WHERE id_prof = :id';

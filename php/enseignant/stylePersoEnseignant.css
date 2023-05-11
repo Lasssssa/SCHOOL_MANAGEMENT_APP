@@ -16,19 +16,7 @@
     /* body{
         background-color: #F8F3F3;
     } */
-#header{
-    padding-left: 2%;
-    padding-right: 2%;
-    /* background: linear-gradient(.25turn, #1E559C, #478AF7); */
-    background: linear-gradient(.25turn, #394054, #394054);
-    font-size: small;
-}
-.colorSe{
-    /* background: linear-gradient(.25turn, red, #3B556B);
-     */
 
-    background: linear-gradient(.25turn, #3B556B, #3B556B);
-}
 .pageEnseignant{
     display: grid;
     grid-template-columns: 1fr 5fr;
@@ -41,9 +29,14 @@ h6{
     align-items: center;
     padding-top: 2%; 
 }
-h5{
+.accordion-item h5{
     font-family: 'Roboto', sans-serif;
-    font-size: 25;
+    font-size: 25px;
+    color: #3B556B;
+}
+.modal-title h5{
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
     color: #3B556B;
 }
 
@@ -56,12 +49,21 @@ h5{
     margin-left: 50px;
     margin-right: 50px;
 }
+#header{ 
+    padding-left: 2%;
+    padding-right: 2%;
+    /* background: linear-gradient(.25turn, #1E559C, #478AF7); */
+    background: linear-gradient(.25turn, #394054, #394054);
+    /* font-size: small; */
+}
 #header a:link{
     text-decoration: none;
-    padding-left: 10px;
-    padding-top: 10px;
+    padding-left: 1%;
     font-family: 'Roboto', sans-serif;
-    font-size: 30px;
+    font-size: 35px;
+    color: white;
+}
+#header a:visited{
     color: white;
 }
 #menu a:link{
@@ -73,9 +75,6 @@ h5{
 #ecart{
     padding-left: 4%;
     padding-right: 4%;
-}
-#header a:visited{
-    color: white;
 }
 #account a:link{
     color: white;
@@ -95,10 +94,6 @@ h5{
     border-radius: 50%;
     max-width: 200px;
     max-height: 200px;
-}
-
-#header a:hover{
-    color: black;
 }
 
 #choixSemestre{
@@ -189,4 +184,11 @@ h5{
     /* border: solid 1px black; */
     padding: 20px ;
     align-items: center;
+}
+
+.hovered:hover{
+    text-decoration: none;
+    color: #F8F3F3;
+    margin-left: 5%;
+    transform: scale(1.1);
 }
