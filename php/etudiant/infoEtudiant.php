@@ -26,9 +26,7 @@
     <div id="navbarEns">
             <nav class="navbar navbar-dark bg-dark fixed-top left" id="header">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="persoEtudiant.php">
-                        <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
-                    </a>
+                    <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
@@ -40,16 +38,13 @@
                         <div class="offcanvas-body" id="menu">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="recap.php">Récapitulatif</a>
+                                <a class="nav-link active hovered" aria-current="page" href="recap.php"><span class="material-symbols-outlined">supervisor_account</span><?php echo"&nbsp&nbsp&nbsp";?>Récapitulatif</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="bulletin.php">Bulletins</a>
+                                <a class="nav-link hovered" href="bulletin.php"><span class="material-symbols-outlined">school</span><?php echo"&nbsp&nbsp&nbsp";?>Bulletins</a>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link" href="appreciation.php">Appréciations</a>
-                            </li> -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle hovered" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
                                 </a>
                                 <div id="dropD">
@@ -68,27 +63,131 @@
                 </div>
             </nav>
         </div>
+        <div id="infoPerso">
+            
+            <div class="titlePerso">
+                <div class="titlePage">
+                    <div></div>
+                    <div class="title">
+                        <h1>VOTRE COMPTE</h1>
+                    </div>    
+                    <div></div>
+                </div>
+            <?php   
 
-        <?php
             require_once('../database.php');
             $db = dbConnect();
-            if(isset($_POST['validerSemestre'])){
-                $_SESSION['idSemestre'] = $_POST['semester'];
-                $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
-            }else if(isset($_SESSION['idSemestre'])){
-                $_SESSION['idSemestre'] = $_SESSION['idSemestre'];
-                $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
-            }else{
-                $_SESSION['idSemestre'] = 1;
-                $_SESSION['idAnnee'] = getIdYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_annee'] = getYearOfSemester($db, $_SESSION['idSemestre']);
-                $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
+            echo "<br>";
+            if(isset($_POST['submit_password']) && isset($_POST['old_password']) && isset($_POST['new_password'])){
+                $table = "etudiant";
+                $suffixe = "etu";
+                $user = getUser($_SESSION['email'],$db,$table);
+                $encryptedPassword = getEncryptedPassword($_SESSION['email'], $db,$table);
+                if(password_verify($_POST['old_password'], $encryptedPassword)){
+                    $new_encrypt = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+                    $valid = updatePassword($_SESSION['id'], $new_encrypt, $db,$table,"etu");
+                    echo '<div class="alert alert-success" role="alert" id="deleteAnnee">
+                        Mot de passe modifié avec succès !
+                        </div>';
+                }else{
+                    echo '<div class="alert alert-danger" role="alert" id="deleteAnnee">
+                        Ancien mot de passe incorrect !
+                        </div>';
+                }
             }
-        ?>
+            ?>
+
+
+                <div id="mainAdding">
+                            <div id="formAdding">
+                                <h2>INFORMATIONS PERSONNELLES</h2>
+                                <br>
+                                    <div class="ppV2">
+                                        <?php
+                                            $name = $_SESSION['nom'].'_'.$_SESSION['prenom'];
+                                            require_once('../database.php');
+                                            $img = getProfilPicture($name);
+                                            if($img != null){
+                                                echo '<img src="../photo_profil/'.$img.'" class="pp" alt="photo de profil">';
+                                            }else{
+                                                echo '<img src="../images/profil_defaut.png" class="pp" alt="photo de profil">';
+                                            }
+                                        ?>
+                                    </div>
+                                    <br>
+                                    <div class="import">
+                                        
+                                        <h5>Importer votre photo de profil</h5>
+                                                <form action="infoAdmin.php" method="post" enctype="multipart/form-data">
+                                                    <div class="mb-3">
+                                                        <input class="form-control" type="file" name="photo_profil" id="fileToUpload">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary coloredV2" name="submit_photo">Importer</button>
+                                                </form>
+                                            <br>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h4>Prénom</h4>
+                                            <input class="form-control" type="text" placeholder="<?php echo $_SESSION['prenom']; ?>" aria-label="Disabled input example" disabled>
+                                        </div>
+                                        <div class="col">
+                                            <h4>Nom</h4>
+                                            <input class="form-control" type="text" placeholder="<?php echo $_SESSION['nom']; ?>" aria-label="Disabled input example" disabled>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h4>Numéro de téléphone</h4>
+                                            <input class="form-control" type="text" placeholder="<?php echo $_SESSION['telephone']; ?>" aria-label="Disabled input example" disabled>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <h4>Email</h4>
+                                            <input class="form-control" type="text" placeholder="<?php echo $_SESSION['email']; ?>" aria-label="Disabled input example" disabled>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <h4>Mot de passe</h4>
+                                            <input class="form-control" type="text" placeholder="********" aria-label="Disabled input example" disabled>
+                                        </div>
+                                        <br>
+                                        <div class="accordion" id="accordionPanelsStayOpenExample">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                                    MODIFICATION DU MOT DE PASSE
+                                                </button>
+                                                </h2>
+                                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                                                    <div class="accordion-body">
+                                                    <form action="infoEtudiant.php" method="post">
+                                                        <div class="form-group">
+                                                            <h4>Ancien mot de passe</h4>
+                                                            <input type="password" class="form-control" id="password5" name="old_password">
+                                                            <h4>Nouveau mot de passe</h4>
+                                                            <input type="password" class="form-control" id="password2" name="new_password">
+                                                        </div>
+                                                        <br>
+                                                        <button type="submit" class="btn btn-primary coloredV2" name="submit_password">Modifier</button>
+                                                    </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+
+                            </div>
+                        </div>   
+                </div> 
+            </div>
+        </div>
+         
 
 
     </body>

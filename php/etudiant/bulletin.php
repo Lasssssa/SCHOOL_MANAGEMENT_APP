@@ -26,9 +26,7 @@
     <div id="navbarEns">
             <nav class="navbar navbar-dark bg-dark fixed-top left" id="header">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="persoEtudiant.php">
-                        <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
-                    </a>
+                    <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
@@ -40,16 +38,13 @@
                         <div class="offcanvas-body" id="menu">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="recap.php">Récapitulatif</a>
+                                <a class="nav-link active hovered" aria-current="page" href="recap.php"><span class="material-symbols-outlined">supervisor_account</span><?php echo"&nbsp&nbsp&nbsp";?>Récapitulatif</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="bulletin.php">Bulletins</a>
+                                <a class="nav-link hovered" href="bulletin.php"><span class="material-symbols-outlined">school</span><?php echo"&nbsp&nbsp&nbsp";?>Bulletins</a>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link" href="appreciation.php">Appréciations</a>
-                            </li> -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle hovered" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php echo '<span class="material-symbols-outlined">account_circle</span>&nbsp&nbsp&nbsp'.$_SESSION['prenom'][0].'.'.$_SESSION['nom'].''; ?>
                                 </a>
                                 <div id="dropD">
@@ -92,7 +87,7 @@
         <div id="bodyBulletin">
             <form action="bulletin.php" method="post">
                 <div id="choixSemestre">
-                    <h1 id="titleSemestre">Choix du semestre</h1>
+                    <h1 id="titleSemestre">CHOIX DU SEMESTRE</h1>
                         <?php
                             require_once('../database.php');
                             $db = dbConnect();
@@ -115,7 +110,7 @@
                             echo '</div>';
                         ?>
                         <div id="buttonSemestre">
-                            <input type="submit" name="validerSemestre" value="Valider" class="btn btn-primary">
+                            <input type="submit" name="validerSemestre" value="Valider" class="btn btn-primary coloredV5">
                         </div>
                 </div>
             </form>
@@ -148,15 +143,15 @@
                     $db = dbConnect();
                     $student = getStudentById($db, $_SESSION['id']);
                     echo '<h4>'.$student['nom_cycle'].$student['annee_cursus'].' Nantes - Semestre '.$_SESSION['numero_semestre'].' | '.$_SESSION['numero_annee'].'</h4>';
-                    // $generalAverage = getGeneralAverageInSemester($db, $_SESSION['id'], $_SESSION['idSemestre']);
-                    // echo '<h5>Moyenne générale : '.$generalAverage.'</h5>';
-                    // echo '<h5>Période validée : ';
-                    // if($generalAverage >= 10){
-                    //     echo 'Oui';
-                    // }else{
-                    //     echo 'Non';
-                    // }
-                    // echo '</h5>';
+                    $generalAverage = getGeneralAverageInSemester($db, $_SESSION['id'], $_SESSION['idSemestre']);
+                    echo '<h5>Moyenne générale : '.$generalAverage.'</h5>';
+                    echo '<h5>Période validée : ';
+                    if($generalAverage >= 10){
+                        echo 'Oui';
+                    }else{
+                        echo 'Non';
+                    }
+                    echo '</h5>';
                 ?>
             </div>
             <div id="tableBulletin">
@@ -207,7 +202,11 @@
                                     echo '<td>'.number_format($averageStudent['note'],2).'</td>';
                                 }
                                 $rank = getRankOfEpreuve($db, $_SESSION['id'], $epreuve['id_epreuve']);
-                                echo '<td>'.$rank.'</td>';
+                                if($rank == null){
+                                    echo '<td>Note manquante</td>';
+                                }else{
+                                    echo '<td>'.$rank.'</td>';
+                                }
                                 echo '<td>/</td>';
                                 echo '</tr>';
                                 $k++;

@@ -38,10 +38,17 @@ function togglePassword() {
 function togglePassword2() {
     let x = document.getElementById("password2");
     let y = document.getElementById("showPassword2");
+    let a = document.getElementById("password1");
+    let b = document.getElementById("showPassword1");
     if (y.checked) {
         x.type = "text";
     } else {
         x.type = "password";
+    }
+    if(b.checked) {
+        a.type = "text";
+    }else{
+        a.type = "password";
     }
 }
 

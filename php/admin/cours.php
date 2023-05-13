@@ -26,17 +26,13 @@
     <div id="navbarEns">
             <nav class="navbar navbar-dark bg-dark fixed-top left" id="header">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="persoAdmin.php">
-                        <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
-                    </a>
+                    <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="offcanvas offcanvas-end text-bg-dark colorSe" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                         <div class="offcanvas-header"> 
-                            <a class="navbar-brand" href="persoAdmin.php">
                             <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu Administrateur</h5>
-                            </a>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body" id="menu">
@@ -351,14 +347,20 @@
                             <div id="formAdding">
                                 <h2>FORMULAIRE</h2>
                                 <form action="cours.php" method="post">
-                                    <div class="form-group">
-                                        <h4>Nom de la matière</h4>
-                                        <input type="text" class="form-control" name ="nom_matiere">
+                                    <div class="row">
+                                        <div class="col"> 
+                                            <h4><span class="material-symbols-outlined">
+                                            public
+                                            </span>&nbspNom de la matière</h4>
+                                            <input type="text" class="form-control" name ="nom_matiere">
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="col">
-                                            <h4>Nombre d'heures de cours</h4>
+                                            <h4><span class="material-symbols-outlined">
+                                            schedule
+                                            </span>&nbspNombre d'heures de cours</h4>
                                             <input type="number" class="form-control" name = "duree">
                                         </div>
                                     </div>
@@ -368,7 +370,9 @@
                                         $professors = getAllProfessors($db);
                                         if($professors){
                                             echo '<div class="form-group">
-                                            <h4>Enseignant responsable</h4>
+                                            <h4><span class="material-symbols-outlined">
+                                            person
+                                            </span>&nbspEnseignant responsable</h4>
                                             <select class="form-control" name="enseignant">';
                                             echo '<option value="impossible">Choisir un enseignant</option>';
                                             foreach($professors as $professor){
@@ -381,7 +385,9 @@
                                         $dateOfTheCours = getAllSemesters($db);
                                         if($dateOfTheCours){
                                             echo '<div class="form-group">
-                                            <h4>Semestre</h4>
+                                            <h4><span class="material-symbols-outlined">
+                                            calendar_apps_script
+                                            </span>&nbspSemestre</h4>
                                             <select class="form-control" name="semestre">';
                                             echo '<option value="impossible">Choisir un semestre</option>';
                                             foreach($dateOfTheCours as $date){
@@ -395,7 +401,9 @@
                                         <div class="row">
                                             <div class="col">';
                                         echo '
-                                        <h4>Année du cursus</h4>';
+                                        <h4><span class="material-symbols-outlined">
+                                        terminal
+                                        </span>&nbspAnnée du cursus</h4>';
                                         echo '      <select class="form-select" aria-label="Default select example" name="annee">';
                                                 echo '<option value="impossible">Choisir une année</option>';
                                                 $allYears = getAllYearsClass($db);
@@ -407,7 +415,9 @@
                                         </div>
                                     </div>';
                                     echo '<br>';
-                                    echo '<h4>Cycle</h4>';
+                                    echo '<h4><span class="material-symbols-outlined">
+                                    school
+                                    </span>&nbspCycle</h4>';
                                     $cycles = getAllCycles($db);
                                     echo '<div><select class="form-select" aria-label="Default select example" name="cycle">';
                                     echo '<option value="impossible">Choisir un cycle</option>';

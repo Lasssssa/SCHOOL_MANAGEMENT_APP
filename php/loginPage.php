@@ -53,15 +53,15 @@
                             $_SESSION['id'] = $user['id_'.$suffixe];
                             $_SESSION['tel'] = $user['telephone_'.$suffixe];
                             if($suffixe == 'etu'){
-                                header("Location: etudiant/persoEtudiant.php");
+                                header("Location: etudiant/infoEtudiant.php");
                             }
                             if($suffixe == 'prof'){
                                 $_SESSION['telephone'] = $user['telephone_prof'];
-                                header("Location: enseignant/persoEnseignant.php");
+                                header("Location: enseignant/infoEnseignant.php");
                             }
                             if($suffixe == 'admin'){
                                 $_SESSION['telephone'] = $user['telephone_admin'];
-                                header("Location: admin/persoAdmin.php");
+                                header("Location: admin/infoAdmin.php");
                             }
                             // exit;
                         }else{

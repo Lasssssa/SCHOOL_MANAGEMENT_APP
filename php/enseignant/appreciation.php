@@ -26,17 +26,13 @@
         <div id="navbarEns">
             <nav class="navbar navbar-dark bg-dark fixed-top left" id="header">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="persoEnseignant.php">
-                        <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
-                    </a>
+                    <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="offcanvas offcanvas-end text-bg-dark colorSe" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                         <div class="offcanvas-header"> 
-                            <a class="navbar-brand" href="persoEnseignant.php">
                             <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu Enseignant</h5>
-                            </a>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body" id="menu">
@@ -109,9 +105,9 @@
 
 
         <div id="bodyNotes">
-            <form action="appreciation.php" method="post">
+            <form action="consultation.php" method="post">
             <div id="choixSemestre">
-                    <h1 id="titleSemestre">Choix du semestre</h1>
+                    <h1 id="titleSemestre">CHOIX DU SEMESTRE</h1>
                         <?php
                             require_once('../database.php');
                             $db = dbConnect();
@@ -134,7 +130,7 @@
                             echo '</div>';
                         ?>
                         <div id="buttonSemestre">
-                            <input type="submit" name="validerSemestre" value="Valider" class="btn btn-primary">
+                            <input type="submit" name="validerSemestre" value="Valider" class="btn btn-primary coloredV5">
                         </div>
                 </div>
                 </form>
@@ -165,7 +161,10 @@
                                 echo '<div class="accordion-item" id="borderFull">';
                                 echo '<h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse'.$i.'" aria-expanded="false" aria-controls="collapse'.$i.'">
-                                    <h1>'.$course['nom_matiere'].'</h1>
+                                    <h1>
+                                    <span class="material-symbols-outlined">
+                                    clinical_notes
+                                    </span>&nbsp&nbsp&nbsp'.$course['nom_matiere'].'</h1>
                                     </button>
                                     </h2>';
                                 // echo '<h1>'.$course['nom_matiere'].'</h1>';
@@ -191,7 +190,7 @@
                                     }
                                     echo '</table>';
                                     echo '<input type="hidden" name="id_matiere" value="'.$course['id_matiere'].'">';
-                                    echo '<input type="submit" name="validerAppreciation" value="Valider" id="center" class="btn btn-primary">';
+                                    echo '<input type="submit" name="validerAppreciation" value="Valider" id="center" class="btn btn-primary coloredV4">';
                                     echo '</form>';
                                     echo '</div>';
                                     

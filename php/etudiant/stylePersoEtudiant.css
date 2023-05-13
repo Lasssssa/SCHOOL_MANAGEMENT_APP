@@ -2,12 +2,12 @@
 /* body{
     background-color: #F8F3F3;
 } */
-#header{
+#header{ 
     padding-left: 2%;
     padding-right: 2%;
     /* background: linear-gradient(.25turn, #1E559C, #478AF7); */
     background: linear-gradient(.25turn, #394054, #394054);
-    font-size: small;
+    /* font-size: small; */
 }
 #navbarEns{
     max-height: 100px;
@@ -20,14 +20,19 @@
 }
 #header a:link{
     text-decoration: none;
-    padding-left: 10px;
-    padding-top: 10px;
+    padding-left: 1%;
     font-family: 'Roboto', sans-serif;
-    font-size: 30px;
+    font-size: 35px;
     color: white;
 }
 #header a:visited{
     color: white;
+}
+#menu a:link{
+    font-size: 25px;
+}
+#dropD a:link{
+    font-size: 20px;
 }
 #account a:link{
     color: white;
@@ -62,7 +67,8 @@
 
 #tabPerso{
     text-align: center;
-    margin: 50px;
+    margin-left: 8%;
+    margin-right: 8%;
 }
 
 #selectPerso {
@@ -93,8 +99,8 @@
 }
 #titleSemestre{
     font-family: 'Roboto', sans-serif;
-    font-size: 35px;
-    color: #1E559C;
+    font-size: 30px;
+    color: #0B162C;
     text-align: center;
     align-items: center;
     padding-top: 10px;
@@ -108,13 +114,16 @@
 #buttonSemestre{
     grid-column-start: 2;
     grid-column-end: 2;
-    margin-left: 50px;
+    margin-left: 2%;
 }
-
+#coursAppreciation{
+    text-align: left;
+}
 #bulletin{
     margin-left: 10%;
     margin-right: 10%;
-    border: solid 1px #1E559C;
+    /* padding: 5%; */
+    border: solid 3px #3B556D;
     background-color: white;
 }
 
@@ -128,7 +137,7 @@
     padding: 3%;
     font-family: 'Roboto', sans-serif;
     font-size: 30px;
-    color: #1E559C;
+    color: #0B162C;
 }
 #contactStudent{
     display: grid;
@@ -168,6 +177,12 @@
     margin: 2%;
     padding: 1%;
 }
+#recap h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 32px;
+    color: #394054;
+    text-align: center;
+}
 
 #tableBulletin{
     margin: 2%;
@@ -182,4 +197,124 @@
 #titleCours{
     font-family: 'Roboto', sans-serif;
     font-size: 25px;
+}
+.title h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    color: #394054;
+    text-align: center;
+}
+
+#formAdding{
+    grid-column-start: 2;
+    grid-column-end: 2;
+    margin: 20px;
+    padding: 5%;
+    border: solid 4px #3B556D;
+    border-radius: 3%;
+}
+#formAdding h2{
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    color: #1C2942;
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+}
+
+.ppV2{
+    text-align: center;
+    align-items: center;
+}
+.pp{
+    border-radius: 50%;
+    width: 180px;
+    height: 180px;
+}
+#formAdding h4{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    color: #3B556D;
+    padding: 10px;
+    margin: 0;
+}
+#infoPerso{
+    margin-top: 120px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.import{
+    margin-top: 3%;
+    
+}
+.info{
+    grid-column-start: 2;
+    grid-column-end: 2;
+}
+.titlePage{
+    text-align: center;
+    margin-top: 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+#mainAdding{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    margin: 50px;
+}
+.title{
+    border:solid 1px #3B556D;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    text-align: center;
+}
+
+.hovered:hover{
+    text-decoration: none;
+    color: #F8F3F3;
+    margin-left: 5%;
+    transform: scale(1.1);
+}
+
+/* Colored */
+.colored{
+    background-color: #5FC2BA;
+    border-color: #5FC2BA;
+}
+.coloredV2{
+    background-color: #709CA7;
+    border-color: #709CA7;
+}
+
+.colored:hover{
+    background-color: #394054;
+    border-color: #394054;
+}
+.coloredV2:hover{
+    background-color: #394054;
+    border-color: #394054;
+}
+.coloredV3{
+    background-color: #137C8B;
+    border-color: #137C8B;
+}
+.coloredV3:hover{
+    background-color: #394054;
+    border-color: #394054;
+}
+.coloredV4{
+    background-color: #3B556D;
+    border-color: #3B556D;
+}
+.coloredV4:hover{
+    background-color: #394054;
+    border-color: #394054;
+}
+.coloredV5{
+    background-color: #1C2942;
+    border-color: #1C2942;
+}
+.coloredV5:hover{
+    background-color: #394054;
+    border-color: #394054;
 }

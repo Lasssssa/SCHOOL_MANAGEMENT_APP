@@ -82,6 +82,19 @@
         }
     }
 
+    function getNumberOfStudentOfCourse($db, $id_matiere){
+        try{
+            $query = 'SELECT COUNT(*) FROM etudiant e JOIN classe c ON e.id_classe = c.id_classe JOIN cours co ON c.id_classe = co.id_classe WHERE co.id_matiere = :id_matiere';
+            $statement = $db->prepare($query);
+            $statement->bindParam(':id_matiere', $id_matiere);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+        return $result[0]['count'];
+    }
+
     function getUser($email, $dbConnection,$table){
         if($table=="administrateur"){
             $tableRaccourci = "admin";

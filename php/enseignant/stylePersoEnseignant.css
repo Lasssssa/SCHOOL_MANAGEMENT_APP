@@ -154,6 +154,13 @@ h6{
     text-align: center;
 }
 
+.notes h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    color: #394054;
+    text-align: center;
+}
+
 #choixSemestre{
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -168,8 +175,8 @@ h6{
 }
 #titleSemestre{
     font-family: 'Roboto', sans-serif;
-    font-size: 35px;
-    color: #1E559C;
+    font-size: 30px;
+    color: #0B162C;
     text-align: center;
     align-items: center;
     padding-top: 10px;
@@ -190,7 +197,7 @@ h6{
 #buttonSemestre{
     grid-column-start: 2;
     grid-column-end: 2;
-    margin-left: 50px;
+    margin-left: 2%;
 }
 #coursAppreciation{
     margin: 2%;
@@ -199,7 +206,7 @@ h6{
 #coursAppreciation h1{
     font-family: 'Roboto', sans-serif;
     font-size: 35px;
-    color: #1E559C;
+    color: #1C2942;
     text-align: center;
     align-items: center;
     padding-top: 10px;
@@ -213,27 +220,19 @@ h6{
 
 #titre h2{
     font-family: 'Roboto', sans-serif;
-    font-size: 35px;
-    color: #1E559C;
-    padding-top: 10px;
+    font-size: 25px;
+    color: #1C2942;
+    padding: 1%;
 }
 #titre h4{
     font-family: 'Roboto', sans-serif;
-    font-size: 25px;
-    padding-top: 10px;
+    font-size: 20px;
+    color: #1C2942;
+    padding: 1%;
 }
-#coursNotes h1{
-    font-family: 'Roboto', sans-serif;
-    font-size: 45px;
-    color: #1E559C;
-    text-align: center;
-    align-items: center;
-    padding-top: 10px;
-}
-
 #coursNotes h2{
     font-family: 'Roboto', sans-serif;
-    font-size: 35px;
+    font-size: 20px;
     color: #478AF7;
     padding-top: 10px;
 }

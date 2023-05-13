@@ -26,17 +26,13 @@
     <div id="navbarEns">
             <nav class="navbar navbar-dark bg-dark fixed-top left" id="header">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="persoAdmin.php">
-                        <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
-                    </a>
+                    <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="offcanvas offcanvas-end text-bg-dark colorSe" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                         <div class="offcanvas-header"> 
-                            <a class="navbar-brand" href="persoAdmin.php">
                             <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu Administrateur</h5>
-                            </a>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body" id="menu">
@@ -226,31 +222,43 @@
                                 <form action="enseignant.php" method="post">
                                     <div class="row">
                                         <div class="col">
-                                            <h4>Prénom</h4>
+                                            <h4><span class="material-symbols-outlined">
+                                            badge
+                                            </span>&nbspPrénom</h4>
                                             <input type="text" class="form-control" name ="prenom">
                                         </div>
                                         <div class="col">
-                                            <h4>Nom</h4>
+                                            <h4><span class="material-symbols-outlined">
+                                        badge
+                                        </span>&nbspNom</h4>
                                             <input type="text" class="form-control" name ="nom">
                                         </div>
                                     </div>
                                     <br>
                                     <div class="form-row">
                                         <div class="form-group">
-                                            <h4>Email</h4>
+                                            <h4><span class="material-symbols-outlined">
+                                                mail
+                                                </span>&nbspEmail</h4>
                                             <input type="email" class="form-control" id="inputEmail4" name ="email">
-                                            <h4>Confirmation email</h4>
+                                            <h4><span class="material-symbols-outlined">
+                                                mail
+                                                </span>&nbspConfirmation email</h4>
                                             <input type="email" class="form-control" id="inputEmail4" name ="emailConfirmed">
                                         </div>
                                         <br>
                                         <div class="form-group">
-                                            <h4>Mot de passe</h4>
-                                            <input type="password" class="form-control" id="password" name="password">
+                                            <h4><span class="material-symbols-outlined">
+                                            lock
+                                            </span>&nbspMot de passe</h4>
+                                            <input type="password" class="form-control" name="password" id="password1">
                                             <div class="form-check form-switch" id="ecarted">
-                                                <input class="form-check-input" type="checkbox" role="switch" id="showPassword" onchange="togglePassword()">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="showPassword1" onchange="togglePassword2()">
                                                 <label class="form-check-label" for="flexSwitchCheckChecked">Afficher votre mot de passe</label>
                                             </div>
-                                            <h4>Confirmation mot de passe</h4>
+                                            <h4><span class="material-symbols-outlined">
+                                            lock
+                                            </span>&nbspConfirmation Mot de passe</h4>
                                             <input type="password" class="form-control" id="password2" name="passwordConfirmed">
                                             <div class="form-check form-switch" id="ecarted">
                                                 <input class="form-check-input" type="checkbox" role="switch" id="showPassword2" onchange="togglePassword2()">
@@ -261,7 +269,9 @@
                                     <br>
                                     <div class="row">
                                         <div class="col">
-                                            <h4>Numéro de téléphone</h4>
+                                            <h4><span class="material-symbols-outlined">
+                                            call
+                                            </span>&nbspNuméro de téléphone</h4>
                                             <input type="number" class="form-control" name = "telephone">
                                         </div>
                                     </div>
