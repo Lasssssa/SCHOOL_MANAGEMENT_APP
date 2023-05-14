@@ -7,7 +7,7 @@ INSERT INTO annee (numero_annee) VALUES ('2021-2022'),('2022-2023');
 INSERT INTO semestre (numero_semestre,id_annee) VALUES (1,2),(2,2),(1,1),(2,1);
 
 INSERT INTO administrateur (nom_admin,prenom_admin,telephone_admin,mail_admin,password_admin) VALUES 
-('Nourry','Cédric','0781908419','admin@mail.com','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.');
+('Nourry','Cédric','0781908419','admin@isen-ouest.yncrea.fr','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.');
 
 INSERT INTO enseignant (nom_prof,prenom_prof,telephone_prof,password_prof,mail_prof) VALUES 
 ('Karine','Ayoub','0675859647','$2y$10$fcTvVJwjFE73oS3elixLRux6zpnHh9Z66.Nefm.FLczB7YNLHSGv.','ayoub.karine@isen-ouest.yncrea.fr'),
