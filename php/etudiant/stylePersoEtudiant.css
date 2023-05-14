@@ -141,11 +141,11 @@
 }
 #contactStudent{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1.5fr;
 }
 #containerContact{
     border: solid 1px black;
-    margin-right: 15%;
+    margin-right: 10%;
     margin-bottom: 15%;
     text-align: left;
     padding: 2%;
@@ -156,7 +156,7 @@
     font-style: bold;
     
 }
-#bodyBulletin{
+#Bulletin{
     margin-top: 120px;
     margin-left: 50px;
     margin-right: 50px;
@@ -259,7 +259,7 @@
 }
 #mainAdding{
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 25% 50% 25%;
     margin: 50px;
 }
 .title{
