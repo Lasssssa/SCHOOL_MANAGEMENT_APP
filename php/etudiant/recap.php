@@ -85,6 +85,9 @@
             }
         ?>
 
+<div id="board">
+
+        </div>
         <div id = "tabPerso">
             <div id="bodyBulletin">
                 <form action="recap.php" method="post">

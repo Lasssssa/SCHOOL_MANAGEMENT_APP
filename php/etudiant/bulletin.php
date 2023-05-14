@@ -84,6 +84,9 @@
                 $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
             }
         ?>
+        <div id="board">
+
+        </div>
         <div id="bodyBulletin">
             <form action="bulletin.php" method="post">
                 <div id="choixSemestre">
