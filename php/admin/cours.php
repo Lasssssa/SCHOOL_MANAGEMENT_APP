@@ -23,7 +23,7 @@
     <!-- A réadapter -->
 
     <body>
-    <div id="navbarEns">
+        <div id="navbarEns">
             <nav class="navbar navbar-dark bg-dark fixed-top left" id="header">
                 <div class="container-fluid">
                     <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
@@ -99,7 +99,7 @@
             }
         ?>
 
-<?php
+        <?php
             require_once('../database.php');
             $dbConnection = dbConnect();
             if(isset($_POST['modifier'])){
@@ -143,7 +143,7 @@
                 </div>';
                 unset($_POST['supprimer_epreuve']);
             }
-            ?>
+        ?>
 
         <?php
             $dbConnection = dbConnect();
@@ -325,13 +325,9 @@
                         </div>
                     </div>
                 </div>
-                ';
-                
+                ';  
             }
-
         ?>
-
-
         <div id="carouselExample" class="carousel slide">
             <div class="carousel-inner">
                 <div class="carousel-item">
@@ -492,8 +488,6 @@
                                 </div>
                             </form>
                         </div>
-
-
                         <div id="modifyEnseignant">
                             <table class="table table-striped">
                                 <?php
@@ -566,19 +560,15 @@
                 </div>
             </div>
             <div class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" id="dropDE">
-                <!-- <span class="carousel-control-prev-icon" aria-hidden="true" id="test2"></span> -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
             <div class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" id="dropDE"> 
-                <!-- <span class="carousel-control-next-icon" aria-hidden="true" id="test2"></span> -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
-        </div>
-
-        
+        </div>        
     </body>
 </html>

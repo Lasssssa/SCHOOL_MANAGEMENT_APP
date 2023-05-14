@@ -23,7 +23,7 @@
     <!-- A réadapter -->
 
     <body>
-    <div id="navbarEns">
+        <div id="navbarEns">
             <nav class="navbar navbar-dark bg-dark fixed-top left" id="header">
                 <div class="container-fluid">
                     <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
@@ -70,10 +70,8 @@
             </nav>
         </div>
         <div id ="board">
-            
+            <!-- DIV VIDE -->
         </div>
-        
-
         <?php 
             require_once('../database.php');
             $dbConnection = dbConnect();
@@ -99,9 +97,8 @@
             }
 
         ?>
-        
         <?php
-        require_once('../database.php');
+            require_once('../database.php');
             $dbConnection = dbConnect();
             $allProfessors = getAllProfessors($dbConnection);
             foreach($allProfessors as $enseignant){
@@ -167,7 +164,7 @@
                 </div>
                 ';
             }
-       ?>
+        ?>
 
         <?php
             if(isset($_POST['envoyer']) && isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['email']) && isset($_POST['emailConfirmed']) && isset($_POST['password']) && isset($_POST['passwordConfirmed']) && isset($_POST['telephone'])){
@@ -203,7 +200,6 @@
                 }
             }
         ?>
-
 
         <div id="carouselExample" class="carousel slide">
             <div class="carousel-inner">
@@ -323,19 +319,15 @@
                 </div>
             </div>
             <div class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" id="dropDE">
-                <!-- <span class="carousel-control-prev-icon" aria-hidden="true" id="test2"></span> -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
             <div class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" id="dropDE"> 
-                <!-- <span class="carousel-control-next-icon" aria-hidden="true" id="test2"></span> -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
         </div>
-
-        
     </body>
 </html>

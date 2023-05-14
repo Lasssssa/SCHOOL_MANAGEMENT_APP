@@ -66,7 +66,6 @@
                 </div>
             </nav>
         </div>
-
         <?php
             require_once('../database.php');
             $db = dbConnect();
@@ -88,6 +87,23 @@
             }
         ?>
 
+            <?php 
+                    if(isset($_POST['modifier'])){
+                        $id_etu = $_POST['id_etu'];
+                        $id_matiere = $_POST['id_matiere'];
+                        if(isset($_POST['appreciation'])){
+                            $appreciation = $_POST['appreciation'];
+                            updateAppreciation($db, $id_etu, $id_matiere, $appreciation);
+                        }
+                        $nbDs = getNumberOfDS($db, $id_matiere)['nb'];
+                        for($i = 1; $i <= $nbDs; $i++){
+                            if(isset($_POST['note_'.$i])){
+                                $note = $_POST['note_'.$i];
+                                updateNoteByStudentAndCourse($db, $id_etu, $id_matiere, $i, $note);
+                            }
+                        }
+                    }
+                ?>
         <?php
             $allSemesters = getAllSemesters($db);
             foreach($allSemesters as $semester){
@@ -178,56 +194,36 @@
             }
 
         ?>
-
-
         <div id="bodyNotes">
             <form action="consultation.php" method="post">
-            <div id="choixSemestre">
+                <div id="choixSemestre">
                     <h1 id="titleSemestre">CHOIX DU SEMESTRE</h1>
-                        <?php
-                            require_once('../database.php');
-                            $db = dbConnect();
-                            $allSemesters = getAllSemesters($db);
-                            echo '<div id="selectSemestre">';
-                            echo '<select class="form-select" aria-label="Default select example" name="semester">';
+                    <?php
+                        require_once('../database.php');
+                        $db = dbConnect();
+                        $allSemesters = getAllSemesters($db);
+                        echo '<div id="selectSemestre">';
+                        echo '<select class="form-select" aria-label="Default select example" name="semester">';
+                        if(isset($_SESSION['idSemestre'])){
+                            echo '<option value="'.$_SESSION['idSemestre'].'">Semestre '.$_SESSION['numero_semestre'].' | Année '.$_SESSION['numero_annee'].'</option>';
+                        }
+                        foreach($allSemesters as $semester){
                             if(isset($_SESSION['idSemestre'])){
-                                echo '<option value="'.$_SESSION['idSemestre'].'">Semestre '.$_SESSION['numero_semestre'].' | Année '.$_SESSION['numero_annee'].'</option>';
-                            }
-                            foreach($allSemesters as $semester){
-                                if(isset($_SESSION['idSemestre'])){
-                                    if($semester['id_semestre'] != $_SESSION['idSemestre']){
-                                        echo '<option value="'.$semester['id_semestre'].'">Semestre '.$semester['numero_semestre'].' | Année '.$semester['numero_annee'].'</option>';
-                                    }
-                                }else{
+                                if($semester['id_semestre'] != $_SESSION['idSemestre']){
                                     echo '<option value="'.$semester['id_semestre'].'">Semestre '.$semester['numero_semestre'].' | Année '.$semester['numero_annee'].'</option>';
                                 }
+                            }else{
+                                echo '<option value="'.$semester['id_semestre'].'">Semestre '.$semester['numero_semestre'].' | Année '.$semester['numero_annee'].'</option>';
                             }
-                            echo '</select>';
-                            echo '</div>';
-                        ?>
-                        <div id="buttonSemestre">
-                            <input type="submit" name="validerSemestre" value="Valider" class="btn btn-primary coloredV5">
-                        </div>
+                        }
+                        echo '</select>';
+                        echo '</div>';
+                    ?>
+                    <div id="buttonSemestre">
+                        <input type="submit" name="validerSemestre" value="Valider" class="btn btn-primary coloredV5">
+                    </div>
                 </div>
-                </form>
-
-                <?php 
-                    if(isset($_POST['modifier'])){
-                        $id_etu = $_POST['id_etu'];
-                        $id_matiere = $_POST['id_matiere'];
-                        if(isset($_POST['appreciation'])){
-                            $appreciation = $_POST['appreciation'];
-                            updateAppreciation($db, $id_etu, $id_matiere, $appreciation);
-                        }
-                        $nbDs = getNumberOfDS($db, $id_matiere)['nb'];
-                        for($i = 1; $i <= $nbDs; $i++){
-                            if(isset($_POST['note_'.$i])){
-                                $note = $_POST['note_'.$i];
-                                updateNoteByStudentAndCourse($db, $id_etu, $id_matiere, $i, $note);
-                            }
-                        }
-                    }
-                ?>
+            </form>
                 <?php
                 if(isset($_SESSION['idSemestre']) || isset($_POST['validerSemestre'])){
                     $coursesOfAProfessor = getCoursesByProfessorAndSemester($db, $_SESSION['id'],$_SESSION['idSemestre']);
@@ -329,13 +325,10 @@
                                     }
                         }
                         echo '</div>';
-                        echo '</div>';
-                        
-                        }
+                        echo '</div>'; 
                     }
+                }
             ?>
         </div>
-
-        
     </body>
 </html>

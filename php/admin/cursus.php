@@ -21,11 +21,8 @@
         <link href="stylePersoAdmin.css" rel="stylesheet">
     </head>
     
-    <!-- A voir pour plutot avoir un récapitulatif en fonction de ce que l'on demande -->
-
     <body>
-
-    <div id="navbarEns">
+        <div id="navbarEns">
             <nav class="navbar navbar-dark bg-dark fixed-top left" id="header">
                 <div class="container-fluid">
                     <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
@@ -71,10 +68,6 @@
                 </div>
             </nav>
         </div>
-        
-
-
-
         <?php
             require_once('../database.php');
             $db = dbConnect();
@@ -155,14 +148,9 @@
                 ';
             }
         ?>
-
-
         <div id ="board">
             
         </div>
-
-    
-
         <div class="titlePage">
             <div></div>
             <div class="title">
@@ -170,124 +158,116 @@
             </div>    
             <div></div>
         </div>
-
-
-        
-
         <div class="gestion">
+            <!-- Suppression des années -->
+            <?php 
+                require_once('../database.php');
+                $db = dbConnect();
+                if(isset($_POST['supprimer'])){
+                    $delete = deleteYear($db, $_POST['id_annee']);
+                    if($delete){
+                        echo '
+                        <div class="alert alert-success" role="alert" id="deleteAnnee">
+                            L\'année universitaire a bien été supprimée.
+                        </div>';
+                    }else{
+                        echo '
+                        <div class="alert alert-danger" role="alert" id="deleteAnnee">
+                            L\'année universitaire n\'a pas pu être supprimée.
+                            <br>
+                            Des cours sont dispensés pendant cette année !
+                        </div>';
+                    }
+                    unset($_POST['supprimer']);
+                }
+                if(isset($_POST['supp_semestre'])){
+                    $delete = deleteSemester($db, $_POST['id_semestre']);
+                    if($delete){
+                        echo '
+                        <div class="alert alert-success" role="alert" id="deleteAnnee">
+                            Le semestre universitaire a bien été supprimé.
+                        </div>';
+                    }else{
+                        echo '
+                        <div class="alert alert-danger" role="alert" id="deleteAnnee">
+                            Le semestre universitaire n\'a pas pu être supprimé.
+                            <br>
+                            Des cours sont dispensés pendant ce semestre !
+                        </div>';
+                    }
+                    unset($_POST['supp_semestre']);
+                }
+                if(isset($_POST['supp_cycle'])){
+                    $delete = deleteCycle($db, $_POST['nom_cycle']);
+                    if($delete){
+                        echo '
+                        <div class="alert alert-success" role="alert" id="deleteAnnee">
+                            Le cycle d\'étude a bien été supprimé.
+                        </div>';
+                    }else{
+                        echo '
+                        <div class="alert alert-danger" role="alert" id="deleteAnnee">
+                            Le cycle d\'étude n\'a pas pu être supprimé.
+                            <br>
+                            Vous avez encore des classes contenant des élèves !
+                        </div>';
+                    }
+                    unset($_POST['supp_cycle']);
+                }
 
-        <!-- Suppression des années -->
-        <?php 
-            require_once('../database.php');
-            $db = dbConnect();
-            if(isset($_POST['supprimer'])){
-                $delete = deleteYear($db, $_POST['id_annee']);
-                if($delete){
-                    echo '
-                    <div class="alert alert-success" role="alert" id="deleteAnnee">
-                        L\'année universitaire a bien été supprimée.
-                    </div>';
-                }else{
-                    echo '
-                    <div class="alert alert-danger" role="alert" id="deleteAnnee">
-                        L\'année universitaire n\'a pas pu être supprimée.
-                        <br>
-                        Des cours sont dispensés pendant cette année !
-                    </div>';
+            ?>
+            <!-- Ajout des années -->
+            <?php
+                
+                if(isset($_POST['submit_annee']) && isset($_POST['annee'])){
+                    $valid = addYear($db, $_POST['annee']);
+                    if($valid){
+                        echo '<div class="alert alert-success" role="alert" id="deleteAnnee">
+                        L\'année universitaire a bien été ajoutée !
+                        </div>';
+                    }
+                    else{
+                        echo '<div class="alert alert-danger" role="alert" id="deleteAnnee">
+                        L\'année universitaire n\'a pas pu être ajoutée !
+                        </div>';
+                    }
+                    unset($_POST['submit_annee']);
                 }
-                unset($_POST['supprimer']);
-            }
-            if(isset($_POST['supp_semestre'])){
-                $delete = deleteSemester($db, $_POST['id_semestre']);
-                if($delete){
-                    echo '
-                    <div class="alert alert-success" role="alert" id="deleteAnnee">
-                        Le semestre universitaire a bien été supprimé.
-                    </div>';
-                }else{
-                    echo '
-                    <div class="alert alert-danger" role="alert" id="deleteAnnee">
-                        Le semestre universitaire n\'a pas pu être supprimé.
-                        <br>
-                        Des cours sont dispensés pendant ce semestre !
-                    </div>';
-                }
-                unset($_POST['supp_semestre']);
-            }
-            if(isset($_POST['supp_cycle'])){
-                $delete = deleteCycle($db, $_POST['nom_cycle']);
-                if($delete){
-                    echo '
-                    <div class="alert alert-success" role="alert" id="deleteAnnee">
-                        Le cycle d\'étude a bien été supprimé.
-                    </div>';
-                }else{
-                    echo '
-                    <div class="alert alert-danger" role="alert" id="deleteAnnee">
-                        Le cycle d\'étude n\'a pas pu être supprimé.
-                        <br>
-                        Vous avez encore des classes contenant des élèves !
-                    </div>';
-                }
-                unset($_POST['supp_cycle']);
-            }
 
-        ?>
-
-        <!-- Ajout des années -->
-
-        <?php
-            
-            if(isset($_POST['submit_annee']) && isset($_POST['annee'])){
-                $valid = addYear($db, $_POST['annee']);
-                if($valid){
-                    echo '<div class="alert alert-success" role="alert" id="deleteAnnee">
-                    L\'année universitaire a bien été ajoutée !
-                    </div>';
+                if(isset($_POST['submit_semestre']) && isset($_POST['semestre'])){
+                    $valid = addSemester($db,$_POST['id_anneeS'], $_POST['semestre']);
+                    if($valid){
+                        echo '<div class="alert alert-success" role="alert" id="deleteAnnee">
+                        Le semestre universitaire a bien été ajouté !
+                        </div>';
+                    }
+                    else{
+                        echo '<div class="alert alert-danger" role="alert" id="deleteAnnee">
+                        Le semestre universitaire n\'a pas pu être ajouté !
+                        </div>';
+                    }
+                    unset($_POST['submit_semestre']);
                 }
-                else{
-                    echo '<div class="alert alert-danger" role="alert" id="deleteAnnee">
-                    L\'année universitaire n\'a pas pu être ajoutée !
-                    </div>';
-                }
-                unset($_POST['submit_annee']);
-            }
 
-            if(isset($_POST['submit_semestre']) && isset($_POST['semestre'])){
-                $valid = addSemester($db,$_POST['id_anneeS'], $_POST['semestre']);
-                if($valid){
-                    echo '<div class="alert alert-success" role="alert" id="deleteAnnee">
-                    Le semestre universitaire a bien été ajouté !
-                    </div>';
-                }
-                else{
-                    echo '<div class="alert alert-danger" role="alert" id="deleteAnnee">
-                    Le semestre universitaire n\'a pas pu être ajouté !
-                    </div>';
-                }
-                unset($_POST['submit_semestre']);
-            }
-
-            if(isset($_POST['submit_cycle']) && isset($_POST['nom_cycle'])){
-                $add = addCycle($db, $_POST['nom_cycle']);
-                if($add){
-                    echo '<div class="alert alert-success" role="alert" id="deleteAnnee">
-                    Le cycle a bien été ajouté avec les classes correspondantes !
-                    </div>';
-                    for($i=1;$i<=5;$i++){
-                        if(isset($_POST['annee_cursus'.$i])){
-                            addClass($db,$_POST['nom_cycle'], $i);
+                if(isset($_POST['submit_cycle']) && isset($_POST['nom_cycle'])){
+                    $add = addCycle($db, $_POST['nom_cycle']);
+                    if($add){
+                        echo '<div class="alert alert-success" role="alert" id="deleteAnnee">
+                        Le cycle a bien été ajouté avec les classes correspondantes !
+                        </div>';
+                        for($i=1;$i<=5;$i++){
+                            if(isset($_POST['annee_cursus'.$i])){
+                                addClass($db,$_POST['nom_cycle'], $i);
+                            }
                         }
                     }
+                    else{
+                        echo '<div class="alert alert-danger" role="alert" id="deleteAnnee">
+                        Le cycle n\'a pas pu être ajouté !
+                        </div>';
+                    }
                 }
-                else{
-                    echo '<div class="alert alert-danger" role="alert" id="deleteAnnee">
-                    Le cycle n\'a pas pu être ajouté !
-                    </div>';
-                }
-            }
-        ?>
-
+            ?>
             <div class="accordion" id="accordionPanelsStayOpenExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
@@ -480,14 +460,6 @@
                     </div>
                 </div>
             </div>
-
-
-        </div>
-
-
-
-        
-
-        
+        </div>    
     </body>
 </html>

@@ -23,7 +23,7 @@
     <!-- A réadapter -->
 
     <body>
-    <div id="navbarEns">
+        <div id="navbarEns">
             <nav class="navbar navbar-dark bg-dark fixed-top left" id="header">
                 <div class="container-fluid">
                     <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
@@ -85,9 +85,10 @@
             }
         ?>
 
-<div id="board">
+        <div id="board">
 
         </div>
+
         <div id = "tabPerso">
             <div id="bodyBulletin">
                 <form action="recap.php" method="post">
@@ -135,7 +136,6 @@
                     ?>
                 </div>
             </div>
-
 
             <div class="tableauNote">
                 <table class="table table-striped"> 
@@ -187,7 +187,6 @@
                             echo '</tr>';
                         }
                     ?>
-
                 </table>
             </div>
         </div>

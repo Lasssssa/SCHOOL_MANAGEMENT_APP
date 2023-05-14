@@ -5,7 +5,6 @@
         exit;
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -23,7 +22,7 @@
     <!-- A réadapter -->
 
     <body>
-    <div id="navbarEns">
+        <div id="navbarEns">
             <nav class="navbar navbar-dark bg-dark fixed-top left" id="header">
                 <div class="container-fluid">
                     <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
@@ -119,7 +118,6 @@
             </form>
         </div>
 
-
         <div id="bulletin">
             <div id="headerBulletin">
                 <img src="../images/logoISENCouleur.png" width="300px" id="contact">
@@ -157,8 +155,7 @@
                     echo '</h5>';
                 ?>
             </div>
-            <div id="tableBulletin">
-                
+            <div id="tableBulletin"> 
                 <table class="table table-striped">
                     <tr class ="table-primary" id="big"><th>Module</th><th>Coefficient</th><th>Minimum</th><th>Maximum</th><th>Moyenne</th><th>Note initiale<th>Classement</th><th>Appréciation</th></tr>
                     <?php
@@ -220,7 +217,5 @@
                 </table>
             </div>
         </div>
-
-
     </body>
 </html>

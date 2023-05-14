@@ -64,7 +64,6 @@
                 </div>
             </nav>
         </div>
-
         <?php
             require_once('../database.php');
             $db = dbConnect();
@@ -87,8 +86,8 @@
         ?>
 
         <div id="bodyNotes">
-            <form action="consultation.php" method="post">
-            <div id="choixSemestre">
+            <form action="notes.php" method="post">
+                <div id="choixSemestre">
                     <h1 id="titleSemestre">CHOIX DU SEMESTRE</h1>
                         <?php
                             require_once('../database.php');
@@ -115,7 +114,7 @@
                             <input type="submit" name="validerSemestre" value="Valider" class="btn btn-primary coloredV5">
                         </div>
                 </div>
-                </form>
+            </form>
 
             <?php
                 require_once('../database.php');
@@ -137,10 +136,6 @@
                         }
                 }
             ?>
-
-
-
-            
             <?php
                 if(isset($_SESSION['idSemestre']) || isset($_POST['validerSemestre'])){
                     $coursesOfAProfessor = getCoursesByProfessorAndSemester($db, $_SESSION['id'],$_SESSION['idSemestre']);
@@ -172,11 +167,8 @@
                                     </span>&nbsp&nbsp&nbsp'.$course['nom_matiere'].'</h1>
                                     </button>
                                     </h2>';
-                                // echo '<h1>'.$course['nom_matiere'].'</h1>';
                                 echo '<div id="collapse'.$i.'" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">';
-                            // echo '<div id="coursNotes">';
-                            //     echo '<h1>'.$course['nom_matiere'].'</h1>';
                                 foreach($epreuvesOfCourses as $epreuve){
                                     $j++;
                                     echo '<div class="accordion-item notes">';
@@ -188,7 +180,6 @@
                                         </span>&nbsp&nbsp&nbsp'.$epreuve['nom_epreuve'].'</h1>
                                         </button>
                                         </h2>';
-                                    // echo '<h1>'.$course['nom_matiere'].'</h1>';
                                     echo '<div id="collapse'.$j.'" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">';
                                     $studentNotNoted = getStudentsNotNoted($db, $epreuve['id_epreuve']);
@@ -241,9 +232,6 @@
                     }
                 }
             ?>
-       
-
-    
         </div>
     </body>
 </html>

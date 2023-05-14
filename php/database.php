@@ -640,14 +640,37 @@
     
     function updateAppreciation($db,$id_etu,$id_cours,$appreciation){
         try{
-            $query = 'UPDATE recoit_appreciation SET commentaire = :appreciation WHERE id_etu = :id_etu AND id_matiere = :id_cours';
+            $query = "SELECT * FROM recoit_appreciation WHERE id_etu = :id_etu AND id_matiere = :id_cours";
             $statement = $db->prepare($query);
             $statement->bindParam(':id_etu', $id_etu);
             $statement->bindParam(':id_cours', $id_cours);
-            $statement->bindParam(':appreciation', $appreciation);
             $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         }catch(exception $e){
             echo $e->getMessage();
+        }
+        if(count($result) == 0){
+            try{
+                $query = 'INSERT INTO recoit_appreciation(id_etu,id_matiere,commentaire) VALUES(:id_etu,:id_cours,:appreciation)';
+                $statement = $db->prepare($query);
+                $statement->bindParam(':id_etu', $id_etu);
+                $statement->bindParam(':id_cours', $id_cours);
+                $statement->bindParam(':appreciation', $appreciation);
+                $statement->execute();
+            }catch(exception $e){
+                echo $e->getMessage();
+            }
+        }else{
+            try{
+                $query = 'UPDATE recoit_appreciation SET commentaire = :appreciation WHERE id_etu = :id_etu AND id_matiere = :id_cours';
+                $statement = $db->prepare($query);
+                $statement->bindParam(':id_etu', $id_etu);
+                $statement->bindParam(':id_cours', $id_cours);
+                $statement->bindParam(':appreciation', $appreciation);
+                $statement->execute();
+            }catch(exception $e){
+                echo $e->getMessage();
+            }
         }
     }
 

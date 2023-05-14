@@ -1,12 +1,8 @@
-/* /* body{
-    background-color: #F8F3F3;
-} */
+
 #header{ 
     padding-left: 2%;
     padding-right: 2%;
-    /* background: linear-gradient(.25turn, #1E559C, #478AF7); */
     background: linear-gradient(.25turn, #394054, #394054);
-    /* font-size: small; */
 }
 #header a:link{
     text-decoration: none;
@@ -24,7 +20,6 @@
 }
 .import{
     margin-top: 3%;
-    
 }
 .info{
     grid-column-start: 2;
@@ -34,9 +29,6 @@
     margin-top: 120px;
     margin-left: 50px;
     margin-right: 50px;
-}
-.infoPerso{
-    max-width: 500px;
 }
 .hovered:hover{
     text-decoration: none;
@@ -56,23 +48,6 @@
 #ecart{
     padding-left: 4%;
     padding-right: 4%;
-}
-#account a:link{
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size: 23px;
-    padding-top: 10px;
-    text-align: center;
-    align-items: center;
-}
-#container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: center;
-    margin-top: 120px;
-    margin-left: 50px;
-    margin-right: 50px;
 }
 
 #middleChoiceStudents{
@@ -97,45 +72,6 @@
     font-size: 30px;
     color: #394054;
     text-align: center;
-}
-#blockCard{
-    height: 1fr;
-    width: 1fr;
-    margin: 10%;
-    border-radius: 10%;
-}
-
-#container a:link{
-    text-decoration: none;
-}
-#container a:visited{
-    text-decoration: none;
-}
-#container a:hover{
-    text-decoration: none;
-}
-#recap{
-    margin: 2%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr ;
-    grid-template-rows: 100%;
-    text-align: center;
-}
-#recap h1{
-    font-family: 'Roboto', sans-serif;
-    font-size: 30px;
-    color: #478AF7;
-    padding: 10px;
-    margin: 0;
-}
-#bouton{
-    padding: 10px;
-    margin: 10px;
-}
-#afficher{
-    border: solid 1px #478AF7;
-    border-radius: 10px;
-    margin: 5px;
 }
 .colored{
     background-color: #5FC2BA;
@@ -170,111 +106,18 @@
     background-color: #394054;
     border-color: #394054;
 }
-
-#board3{
-    text-align: center;
-    margin: 15px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    background-color: #478AF7;
-    border-radius: 10%;
+.coloredV5{
+    background-color: #1C2942;
+    border-color: #1C2942;
 }
-
-#board3 a:link{
-    text-decoration: none;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size: 23px;
-    padding-top: 10px;
-    text-align: center;
-    align-items: center;
+.coloredV5:hover{
+    background-color: #394054;
+    border-color: #394054;
 }
-#board3 a:visited{
-    color: white;
-}
-
-
-#board2{
-    text-align: center;
-    margin: 15px;
-    display: grid;
-    background-color: #478AF7;
-    border-radius: 10%;
-}
-#board2 h1{
-    font-family: 'Roboto', sans-serif;
-    font-size: 30px;
-    color: white;
-    padding: 10px;
-    margin: 0;
-    text-decoration: underline;
-    /* background: linear-gradient(.25turn,#478AF7, #1E559C); */
-}
-#board h1{
-    font-family: 'Roboto', sans-serif;
-    font-size: 30px;
-    color: white;
-    padding: 10px;
-    margin: 0;
-    text-decoration: underline;
-    /* background: linear-gradient(.25turn,#478AF7, #1E559C); */
-}
-#board a:link{
-    text-decoration: none;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size: 23px;
-    padding-top: 10px;
-    text-align: center;
-    align-items: center;
-}
-#board a:visited{
-    color: white;
-}
-
 #modifyEnseignant{
     text-align: center;
     margin: 50px;
 }
-#modificationProf{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-#modifProf{
-    margin: 50px;
-    align-items: center;
-    text-align: center;
-}
-#modif2{
-    background-color: #478AF7;
-    border-radius: 5%;
-    padding: 10px;
-    grid-column-start: 2;
-    text-align: center;
-    grid-column-end: 2;
-}
-#modifCenter{
-    border-radius: 5%;
-    padding: 10px;
-    grid-column-start: 2;
-    text-align: center;
-    grid-column-end: 2;
-}
-
-#deleteProf{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-    text-align: center;
-}
-#delete2{
-    padding: 10px;
-    grid-column-start: 2;
-    grid-column-end: 2;
-    align-items: center;
-    text-align: center;
-}
-
 #formAdding{
     grid-column-start: 2;
     grid-column-end: 2;
@@ -303,7 +146,6 @@
     grid-template-columns: 25% 50% 25%;
     margin: 50px;
 }
-
 #formCycle{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -321,16 +163,9 @@
     margin-left: 10px;
     margin-right: 10px;
 }
-
 #choiceCycleSelect{
     grid-column-start: 1;
     grid-column-end: 1;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-#choiceAnnee{
-    grid-column-start: 2;
-    grid-column-end: 2;
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -347,7 +182,6 @@
     margin: 0;
     text-align: center;
 }
-
 #filtreCours{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -359,17 +193,6 @@
     color: #0B162C;
     padding: 10px;
 }
-
-.coloredV5{
-    background-color: #1C2942;
-    border-color: #1C2942;
-}
-.coloredV5:hover{
-    background-color: #394054;
-    border-color: #394054;
-}
-
-
 #titreCours{
     grid-column-start: 1;
     grid-column-end: 1;
@@ -401,34 +224,24 @@ svg{
     width: 50px;
     height: 50px;
 }
-
 svg path{
     stroke: #3B556B;
 }
-
 #board{
     margin-top: 120px;
     margin-left: 50px;
     margin-right: 50px;
 }
-
-
 #dropDE{
     max-width: 50px;
     max-height: 50px;
     margin-left: 1%;
     margin-right: 1%;
 }
-
-.testV1:hover{
-    background-color: #394054;
-}
-
 .gestion{
     margin:3%;
     padding:2%;
 }
-
 .gestion h1{
     font-family: 'Roboto', sans-serif;
     font-size: 30px;
@@ -443,7 +256,6 @@ svg path{
 .space{
     max-width: 400px;
 }
-
 .ppV2{
     text-align: center;
     align-items: center;

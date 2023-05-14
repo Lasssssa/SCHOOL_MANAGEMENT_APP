@@ -1,34 +1,3 @@
- /* 
-    BLANC : #F8F3F3 
-    BLEU : #5FC2BA
-    #3B556B
-    #1C2942
-    #0B162C
-    */
-    
-    /*
-    E0E2E8
-    B0C0D4
-    5DA5B3
-    394054
-    1C1C1F
-    */
-    /* body{
-        background-color: #F8F3F3;
-    } */
-
-.pageEnseignant{
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-}
-h6{
-    font-family: 'Roboto', sans-serif;
-    font-size: 32px;
-    color: #F8F3F3;
-    text-align: center;
-    align-items: center;
-    padding-top: 2%; 
-}
 .accordion-item h5{
     font-family: 'Roboto', sans-serif;
     font-size: 25px;
@@ -39,11 +8,9 @@ h6{
     font-size: 25px;
     color: #3B556B;
 }
-
 #navbarEns{
     max-height: 100px;
 }
-
 #bodyNotes{
     margin-top: 120px;
     margin-left: 50px;
@@ -52,9 +19,7 @@ h6{
 #header{ 
     padding-left: 2%;
     padding-right: 2%;
-    /* background: linear-gradient(.25turn, #1E559C, #478AF7); */
     background: linear-gradient(.25turn, #394054, #394054);
-    /* font-size: small; */
 }
 #header a:link{
     text-decoration: none;
@@ -75,14 +40,6 @@ h6{
 #ecart{
     padding-left: 4%;
     padding-right: 4%;
-}
-#account a:link{
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size: 23px;
-    padding-top: 10px;
-    text-align: center;
-    align-items: center;
 }
 .title h1{
     font-family: 'Roboto', sans-serif;
@@ -106,7 +63,6 @@ h6{
     margin: 0;
     text-align: center;
 }
-
 .ppV2{
     text-align: center;
     align-items: center;
@@ -130,7 +86,6 @@ h6{
 }
 .import{
     margin-top: 3%;
-    
 }
 .info{
     grid-column-start: 2;
@@ -153,25 +108,16 @@ h6{
     padding: 10px;
     text-align: center;
 }
-
 .notes h1{
     font-family: 'Roboto', sans-serif;
     font-size: 25px;
     color: #394054;
     text-align: center;
 }
-
 #choixSemestre{
     display: grid;
     grid-template-columns: 2fr 1fr;
     margin: 2%;
-}
-
-#formSemestre{
-    display: grid;
-    grid-row-start: 1;
-    grid-row-end: 2;
-    grid-template-columns: 2fr 1fr;
 }
 #titleSemestre{
     font-family: 'Roboto', sans-serif;
@@ -185,7 +131,6 @@ h6{
 }
 #borderFull{
     border: solid 1px black;
-
 }
 #selectSemestre{
     grid-column-start: 1;
@@ -202,7 +147,6 @@ h6{
 #coursAppreciation{
     margin: 2%;
 }
-
 #coursAppreciation h1{
     font-family: 'Roboto', sans-serif;
     font-size: 35px;
@@ -210,12 +154,6 @@ h6{
     text-align: center;
     align-items: center;
     padding-top: 10px;
-}
-#coursNotes{
-    margin: 50px;
-    /* border: solid 1px black; */
-    padding: 50px ;
-
 }
 
 #titre h2{
@@ -230,26 +168,17 @@ h6{
     color: #1C2942;
     padding: 1%;
 }
-#coursNotes h2{
-    font-family: 'Roboto', sans-serif;
-    font-size: 20px;
-    color: #478AF7;
-    padding-top: 10px;
-}
 #epreuveNotes{
     margin: 10px;
-    /* border: solid 1px black; */
     padding: 20px ;
     align-items: center;
 }
-
 .hovered:hover{
     text-decoration: none;
     color: #F8F3F3;
     margin-left: 5%;
     transform: scale(1.1);
 }
-
 /* Colored */
 .colored{
     background-color: #5FC2BA;
@@ -291,4 +220,9 @@ h6{
 .coloredV5:hover{
     background-color: #394054;
     border-color: #394054;
+}
+#board{
+    margin-top: 120px;
+    margin-left: 50px;
+    margin-right: 50px;
 }

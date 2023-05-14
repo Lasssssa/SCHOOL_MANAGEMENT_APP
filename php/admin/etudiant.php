@@ -23,7 +23,7 @@
     <!-- A réadapter -->
 
     <body>
-    <div id="navbarEns">
+        <div id="navbarEns">
             <nav class="navbar navbar-dark bg-dark fixed-top left" id="header">
                 <div class="container-fluid">
                     <img src="../images/logoIsen.png" alt="Bootstrap" width="190">
@@ -71,103 +71,103 @@
         </div>
         <div id ="board">
             
-    </div>
+        </div>
 
 
-<?php
-        //Modal pour modifier un étudiant
-        require_once('../database.php');
-        $dbConnection = dbConnect(); 
-        $allStudents = getAllStudents($dbConnection);
-        foreach($allStudents as $student){
-            echo '
-                <div class="modal" id="modal_'.$student['id_etu'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">MODIFICATION D\'UN ÉLÈVE</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="etudiant.php" method="post">
-                                    <div class="mb-3">
-                                        <label for="nom" class="form-label">Nom</label>
-                                        <input type="text" class="form-control" id="nom" name="nom" value="'.$student['nom_etu'].'">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="prenom" class="form-label">Prénom</label>
-                                        <input type="text" class="form-control" id="prenom" name="prenom" value="'.$student['prenom_etu'].'">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="mail" class="form-label">Mail</label>
-                                        <input type="email" class="form-control" id="mail" name="mail" value="'.$student['mail_etu'].'">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="telephone" class="form-label">Téléphone</label>
-                                        <input type="tel" class="form-control" id="telephone" name="telephone" value="'.$student['telephone_etu'].'">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">';
-                                        echo '<label for="mail" class="form-label">Année</label>';
-                                        echo '<select class="form-select" aria-label="Default select example" name="annee_cursus">';
-                                                echo '<option value="'.$student['annee_cursus'].'">'.$student['annee_cursus'].'</option>';
-                                                for ($i = 1; $i <= 5; $i++) {
-                                                    if($i != $student['annee_cursus'])
-                                                    {
-                                                        echo '<option value="'.$i.'">'.$i.'</option>';
-                                                    }
-                                                }
-                                                echo '
-                                            </select>
-                                        </div>
-                                    </div>';
-                                    echo '<br>';
-                                    echo '<label for="mail" class="form-label">Cycle</label>';
-                                    $cycles = getAllCycles($dbConnection);
-                                    echo '<div><select class="form-select" aria-label="Default select example" name="cycle">';
-                                        echo '<option value="'.$student['nom_cycle'].'">'.$student['nom_cycle'].'</option>';
-                                    foreach($cycles as $cycle){
-                                        if($cycle['nom_cycle'] != $student['nom_cycle'])
-                                        {
-                                            echo '<option value="'.$cycle['nom_cycle'].'">'.$cycle['nom_cycle'].'</option>';
-                                        }
-                                    }
-                                    echo '</select></div><br>';
-                                    echo '<button type="submit" class="btn btn-primary coloredV2" name="modifier">Modifier</button>
-                                    <input type="hidden" name="id_etu" value="'.$student['id_etu'].'" name="id_etu">
-                                </form>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                ';
+        <?php
+            //Modal pour modifier un étudiant
+            require_once('../database.php');
+            $dbConnection = dbConnect(); 
+            $allStudents = getAllStudents($dbConnection);
+            foreach($allStudents as $student){
                 echo '
-                <div class="modal" id="modalSupp_'.$student['id_etu'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">SUPPRESSION D\'UN ÉLÈVES</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="etudiant.php" method="post">
-                                    <p>Êtes-vous sûr de vouloir supprimer cet élève ?</p>
-                                    <input type="hidden" name="id_etu" value="'.$student['id_etu'].'">
-                                    <button type="submit" class="btn btn-success colored" name="supprimer">Supprimer</button>
-                                    <button type="submit" class="btn btn-danger coloredV4" name="retour">Retour</button>
-                                </form>
+                    <div class="modal" id="modal_'.$student['id_etu'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">MODIFICATION D\'UN ÉLÈVE</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="etudiant.php" method="post">
+                                        <div class="mb-3">
+                                            <label for="nom" class="form-label">Nom</label>
+                                            <input type="text" class="form-control" id="nom" name="nom" value="'.$student['nom_etu'].'">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="prenom" class="form-label">Prénom</label>
+                                            <input type="text" class="form-control" id="prenom" name="prenom" value="'.$student['prenom_etu'].'">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="mail" class="form-label">Mail</label>
+                                            <input type="email" class="form-control" id="mail" name="mail" value="'.$student['mail_etu'].'">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="telephone" class="form-label">Téléphone</label>
+                                            <input type="tel" class="form-control" id="telephone" name="telephone" value="'.$student['telephone_etu'].'">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">';
+                                            echo '<label for="mail" class="form-label">Année</label>';
+                                            echo '<select class="form-select" aria-label="Default select example" name="annee_cursus">';
+                                                    echo '<option value="'.$student['annee_cursus'].'">'.$student['annee_cursus'].'</option>';
+                                                    for ($i = 1; $i <= 5; $i++) {
+                                                        if($i != $student['annee_cursus'])
+                                                        {
+                                                            echo '<option value="'.$i.'">'.$i.'</option>';
+                                                        }
+                                                    }
+                                                    echo '
+                                                </select>
+                                            </div>
+                                        </div>';
+                                        echo '<br>';
+                                        echo '<label for="mail" class="form-label">Cycle</label>';
+                                        $cycles = getAllCycles($dbConnection);
+                                        echo '<div><select class="form-select" aria-label="Default select example" name="cycle">';
+                                            echo '<option value="'.$student['nom_cycle'].'">'.$student['nom_cycle'].'</option>';
+                                        foreach($cycles as $cycle){
+                                            if($cycle['nom_cycle'] != $student['nom_cycle'])
+                                            {
+                                                echo '<option value="'.$cycle['nom_cycle'].'">'.$cycle['nom_cycle'].'</option>';
+                                            }
+                                        }
+                                        echo '</select></div><br>';
+                                        echo '<button type="submit" class="btn btn-primary coloredV2" name="modifier">Modifier</button>
+                                        <input type="hidden" name="id_etu" value="'.$student['id_etu'].'" name="id_etu">
+                                    </form>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
-                </div>
-                ';
-        }
-       ?>
+                    ';
+                    echo '
+                    <div class="modal" id="modalSupp_'.$student['id_etu'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">SUPPRESSION D\'UN ÉLÈVES</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="etudiant.php" method="post">
+                                        <p>Êtes-vous sûr de vouloir supprimer cet élève ?</p>
+                                        <input type="hidden" name="id_etu" value="'.$student['id_etu'].'">
+                                        <button type="submit" class="btn btn-success colored" name="supprimer">Supprimer</button>
+                                        <button type="submit" class="btn btn-danger coloredV4" name="retour">Retour</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ';
+            }
+        ?>
         <?php
             if(isset($_POST['envoyer']) && isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['email']) && isset($_POST['emailConfirmed']) && isset($_POST['password']) && isset($_POST['passwordConfirmed']) && isset($_POST['annee']) && isset($_POST['cycle']) && isset($_POST['telephone'])){
                 if($_POST['email']!= $_POST['emailConfirmed']){
@@ -425,19 +425,15 @@
                 </div>
             </div>
             <div class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" id="dropDE">
-                <!-- <span class="carousel-control-prev-icon" aria-hidden="true" id="test2"></span> -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
             <div class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" id="dropDE"> 
-                <!-- <span class="carousel-control-next-icon" aria-hidden="true" id="test2"></span> -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
         </div>
-
-        
     </body>
 </html>

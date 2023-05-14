@@ -87,8 +87,6 @@
                 $_SESSION['numero_semestre'] = getNumberOfSemester($db, $_SESSION['idSemestre']);
             }
         ?>
-
-
         <?php
                 if(isset($_POST['validerAppreciation'])){
                     require_once('../database.php');
@@ -102,42 +100,36 @@
                 }
             ?>
 
-
-
         <div id="bodyNotes">
-            <form action="consultation.php" method="post">
-            <div id="choixSemestre">
+            <form action="appreciation.php" method="post">
+                <div id="choixSemestre">
                     <h1 id="titleSemestre">CHOIX DU SEMESTRE</h1>
-                        <?php
-                            require_once('../database.php');
-                            $db = dbConnect();
-                            $allSemesters = getAllSemesters($db);
-                            echo '<div id="selectSemestre">';
-                            echo '<select class="form-select" aria-label="Default select example" name="semester">';
+                    <?php
+                        require_once('../database.php');
+                        $db = dbConnect();
+                        $allSemesters = getAllSemesters($db);
+                        echo '<div id="selectSemestre">';
+                        echo '<select class="form-select" aria-label="Default select example" name="semester">';
+                        if(isset($_SESSION['idSemestre'])){
+                            echo '<option value="'.$_SESSION['idSemestre'].'">Semestre '.$_SESSION['numero_semestre'].' | Année '.$_SESSION['numero_annee'].'</option>';
+                        }
+                        foreach($allSemesters as $semester){
                             if(isset($_SESSION['idSemestre'])){
-                                echo '<option value="'.$_SESSION['idSemestre'].'">Semestre '.$_SESSION['numero_semestre'].' | Année '.$_SESSION['numero_annee'].'</option>';
-                            }
-                            foreach($allSemesters as $semester){
-                                if(isset($_SESSION['idSemestre'])){
-                                    if($semester['id_semestre'] != $_SESSION['idSemestre']){
-                                        echo '<option value="'.$semester['id_semestre'].'">Semestre '.$semester['numero_semestre'].' | Année '.$semester['numero_annee'].'</option>';
-                                    }
-                                }else{
+                                if($semester['id_semestre'] != $_SESSION['idSemestre']){
                                     echo '<option value="'.$semester['id_semestre'].'">Semestre '.$semester['numero_semestre'].' | Année '.$semester['numero_annee'].'</option>';
                                 }
+                            }else{
+                                echo '<option value="'.$semester['id_semestre'].'">Semestre '.$semester['numero_semestre'].' | Année '.$semester['numero_annee'].'</option>';
                             }
-                            echo '</select>';
-                            echo '</div>';
-                        ?>
-                        <div id="buttonSemestre">
-                            <input type="submit" name="validerSemestre" value="Valider" class="btn btn-primary coloredV5">
-                        </div>
+                        }
+                           echo '</select>';
+                        echo '</div>';
+                    ?>
+                    <div id="buttonSemestre">
+                        <input type="submit" name="validerSemestre" value="Valider" class="btn btn-primary coloredV5">
+                    </div>
                 </div>
-                </form>
-
-
-
-
+            </form>
 
                 <?php
                  if(isset($_SESSION['idSemestre']) || isset($_POST['validerSemestre'])){
@@ -208,10 +200,9 @@
                         }
                         echo '</div>';
                         echo '</div>';
-                        }
                     }
+                }
             ?>
         </div>
-        
     </body>
 </html>
