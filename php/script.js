@@ -11,11 +11,6 @@ function togglePassword() {
     let l = document.getElementById("showPassword3");
     let m = document.getElementById("password5");
     let n = document.getElementById("showPassword5");
-    if(n.checked) {
-        m.type = "text";
-    } else {
-        m.type = "password";
-    }
     if (y.checked) {
         x.type = "text";
     } else {
@@ -33,6 +28,12 @@ function togglePassword() {
     else {
         k.type = "password";
     }
+    if(n.checked) {
+        m.type = "text";
+    } else {
+        m.type = "password";
+    }
+    
 }
 
 function togglePassword2() {

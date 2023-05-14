@@ -179,7 +179,7 @@
                             }else{
                                 echo '<td>'.$appreciation['commentaire'].'</td>';
                             }
-                            if($average < 10){
+                            if($average < 10 && $average != null){
                                 echo '<td>Oui</td>';
                             }else{
                                 echo '<td>Non</td>';
