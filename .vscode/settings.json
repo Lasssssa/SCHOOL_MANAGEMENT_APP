@@ -6,19 +6,9 @@
             "port": 5432,
             "askForPassword": true,
             "driver": "PostgreSQL",
-            "name": "projetweb",
-            "database": "isentest",
+            "name": "Projet_Web",
+            "database": "dbisen",
             "username": "postgres"
-        },
-        {
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "askForPassword": true,
-            "driver": "PostgreSQL",
-            "name": "Projet_web_final",
-            "username": "postgres",
-            "database": "dbisen"
         }
     ]
 }
