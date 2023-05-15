@@ -174,7 +174,7 @@
                                         if($moyenne == null){
                                             echo '<td>Note manquante</td>';
                                         }else{
-                                            echo '<td>'.$moyenne.'</td>';
+                                            echo '<td>'.number_format($moyenne,2).'</td>';
                                         }
                                         echo '<td><input type="text" class="form-control" id="exampleFormControlInput1" name="appreciation_'.$student['id_etu'].'" placeholder="Entrez une appréciation"></td>
                                         </tr>';

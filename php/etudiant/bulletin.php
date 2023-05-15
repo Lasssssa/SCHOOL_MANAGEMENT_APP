@@ -145,7 +145,7 @@
                     $student = getStudentById($db, $_SESSION['id']);
                     echo '<h4>'.$student['nom_cycle'].$student['annee_cursus'].' Nantes - Semestre '.$_SESSION['numero_semestre'].' | '.$_SESSION['numero_annee'].'</h4>';
                     $generalAverage = getGeneralAverageInSemester($db, $_SESSION['id'], $_SESSION['idSemestre']);
-                    echo '<h5>Moyenne générale : '.$generalAverage.'</h5>';
+                    echo '<h5>Moyenne générale : '.number_format($generalAverage,2).'</h5>';
                     echo '<h5>Période validée : ';
                     if($generalAverage >= 10){
                         echo 'Oui';
