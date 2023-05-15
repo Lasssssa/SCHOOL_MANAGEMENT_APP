@@ -48,7 +48,8 @@
 #choixSemestre{
     display: grid;
     grid-template-columns: 2fr 1fr;
-    margin: 30px;
+    margin: 2%;
+    text-align: left;
 }
 #titleSemestre{
     font-family: 'Roboto', sans-serif;
@@ -196,6 +197,7 @@
     grid-column-start: 2;
     grid-column-end: 2;
 }
+
 .titlePage{
     text-align: center;
     margin-top: 5%;
