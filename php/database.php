@@ -715,32 +715,64 @@
 
     function updateProfessor($dbConnection, $nom, $prenom, $mail, $telephone,$id){
         try{
-            $query = 'UPDATE enseignant SET nom_prof = :nom, prenom_prof = :prenom, mail_prof = :mail, telephone_prof = :telephone WHERE id_prof = :id';
+            $query = 'SELECT * FROM enseignant WHERE mail_prof = :mail AND id_prof != :id';
             $statement = $dbConnection->prepare($query);
-            $statement->bindParam(':nom', $nom);
-            $statement->bindParam(':prenom', $prenom);
             $statement->bindParam(':mail', $mail);
-            $statement->bindParam(':telephone', $telephone);
             $statement->bindParam(':id', $id);
             $statement->execute();
-        }catch(Exception $e){
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
             echo $e->getMessage();
+        }
+        if(count($result) == 0){
+            try{
+                $query = 'UPDATE enseignant SET nom_prof = :nom, prenom_prof = :prenom, mail_prof = :mail, telephone_prof = :telephone WHERE id_prof = :id';
+                $statement = $dbConnection->prepare($query);
+                $statement->bindParam(':nom', $nom);
+                $statement->bindParam(':prenom', $prenom);
+                $statement->bindParam(':mail', $mail);
+                $statement->bindParam(':telephone', $telephone);
+                $statement->bindParam(':id', $id);
+                $statement->execute();
+            }catch(Exception $e){
+                echo $e->getMessage();
+            }
+            return true;
+        }else{
+            return false;
         }
     }
     
     function updateStudent($dbConnection, $nom, $prenom, $mail,$id,$id_classe,$telephone){
         try{
-            $query = 'UPDATE etudiant SET nom_etu = :nom, prenom_etu = :prenom, mail_etu = :mail, id_classe = :id_classe, telephone_etu = :telephone WHERE id_etu = :id';
+            $query = 'SELECT * FROM etudiant WHERE mail_etu = :mail AND id_etu != :id';
             $statement = $dbConnection->prepare($query);
-            $statement->bindParam(':nom', $nom);
-            $statement->bindParam(':prenom', $prenom);
             $statement->bindParam(':mail', $mail);
-            $statement->bindParam(':id_classe', $id_classe);
             $statement->bindParam(':id', $id);
-            $statement->bindParam(':telephone', $telephone);
             $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         }catch(Exception $e){
             echo $e->getMessage();
+        }
+        if(count($result) != 0){
+            return false;
+        }else{
+            try{
+                $query = 'UPDATE etudiant SET nom_etu = :nom, prenom_etu = :prenom, mail_etu = :mail, id_classe = :id_classe, telephone_etu = :telephone WHERE id_etu = :id';
+                $statement = $dbConnection->prepare($query);
+                $statement->bindParam(':nom', $nom);
+                $statement->bindParam(':prenom', $prenom);
+                $statement->bindParam(':mail', $mail);
+                $statement->bindParam(':id_classe', $id_classe);
+                $statement->bindParam(':id', $id);
+                $statement->bindParam(':telephone', $telephone);
+                $statement->execute();
+            }catch(Exception $e){
+                echo $e->getMessage();
+                return false;
+            }
+            return true;
         }
     }
     

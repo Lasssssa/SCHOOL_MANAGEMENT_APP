@@ -76,10 +76,17 @@
             require_once('../database.php');
             $dbConnection = dbConnect();
             if(isset($_POST['modifier'])){
-                updateProfessor($dbConnection, $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['id_prof']);
-                echo '<div class="alert alert-success" role="alert">
-                        L\'enseignant a bien été modifié.
-                        </div>';
+                $true = updateProfessor($dbConnection, $_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['telephone'], $_POST['id_prof']);
+                if($true){
+                    echo '<div class="alert alert-success" role="alert">
+                    L\'enseignant a bien été modifié.
+                    </div>';
+                }else{
+                    echo '<div class="alert alert-danger" role="alert">
+                    L\'enseignant n\'a pas pu être modifié.
+                    </div>';
+                }
+
             }
             if(isset($_POST['supprimer'])){
                 if(cantDeleteProfessor($dbConnection,$_POST['id_prof'])){
@@ -96,74 +103,6 @@
                 }
             }
 
-        ?>
-        <?php
-            require_once('../database.php');
-            $dbConnection = dbConnect();
-            $allProfessors = getAllProfessors($dbConnection);
-            foreach($allProfessors as $enseignant){
-                echo '
-                <div class="modal" id="modal_'.$enseignant['id_prof'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">MODIFICATION D\'UN ENSEIGNANT</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="enseignant.php" method="post">
-                                    <div class="mb-3">
-                                        <label for="nom" class="form-label">Nom</label>
-                                        <input type="text" class="form-control" id="nom" name="nom" value="'.$enseignant['nom_prof'].'">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="prenom" class="form-label">Prénom</label>
-                                        <input type="text" class="form-control" id="prenom" name="prenom" value="'.$enseignant['prenom_prof'].'">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="mail" class="form-label">Mail</label>
-                                        <input type="email" class="form-control" id="mail" name="mail" value="'.$enseignant['mail_prof'].'">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="telephone" class="form-label">Téléphone</label>
-                                        <input type="tel" class="form-control" id="telephone" name="telephone" value="'.$enseignant['telephone_prof'].'">
-                                    </div>
-                                    <input type="hidden" name="id_prof" value="'.$enseignant['id_prof'].'">
-                                    <button type="submit" class="btn btn-primary coloredV2" name="modifier">Modifier</button>
-                                </form>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                ';
-                echo '
-                <div class="modal" id="modalSupp_'.$enseignant['id_prof'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">SUPPRESSION D\'UN ENSEIGNANT</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="enseignant.php" method="post">
-                                    <p>Êtes-vous sûr de vouloir supprimer cet enseignant ?</p>
-                                    <input type="hidden" name="id_prof" value="'.$enseignant['id_prof'].'">
-                                    <button type="submit" class="btn btn-success colored" name="supprimer">Supprimer</button>
-                                    <button type="submit" class="btn btn-danger coloredV4" name="retour">Retour</button>
-                                </form>
-                                 
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                ';
-            }
         ?>
 
         <?php
@@ -329,5 +268,74 @@
                 </svg>
             </div>
         </div>
+        <?php
+            require_once('../database.php');
+            $dbConnection = dbConnect();
+            $allProfessors = getAllProfessors($dbConnection);
+            foreach($allProfessors as $enseignant){
+                echo '
+                <div class="modal" id="modal_'.$enseignant['id_prof'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">MODIFICATION D\'UN ENSEIGNANT</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="enseignant.php" method="post">
+                                    <div class="mb-3">
+                                        <label for="nom" class="form-label">Nom</label>
+                                        <input type="text" class="form-control" id="nom" name="nom" value="'.$enseignant['nom_prof'].'">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="prenom" class="form-label">Prénom</label>
+                                        <input type="text" class="form-control" id="prenom" name="prenom" value="'.$enseignant['prenom_prof'].'">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="mail" class="form-label">Mail</label>
+                                        <input type="email" class="form-control" id="mail" name="mail" value="'.$enseignant['mail_prof'].'">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="telephone" class="form-label">Téléphone</label>
+                                        <input type="tel" class="form-control" id="telephone" name="telephone" value="'.$enseignant['telephone_prof'].'">
+                                    </div>
+                                    <input type="hidden" name="id_prof" value="'.$enseignant['id_prof'].'">
+                                    <button type="submit" class="btn btn-primary coloredV2" name="modifier">Modifier</button>
+                                </form>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                ';
+                echo '
+                <div class="modal" id="modalSupp_'.$enseignant['id_prof'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">SUPPRESSION D\'UN ENSEIGNANT</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="enseignant.php" method="post">
+                                    <p>Êtes-vous sûr de vouloir supprimer cet enseignant ?</p>
+                                    <input type="hidden" name="id_prof" value="'.$enseignant['id_prof'].'">
+                                    <button type="submit" class="btn btn-success colored" name="supprimer">Supprimer</button>
+                                    <button type="submit" class="btn btn-danger coloredV4" name="retour">Retour</button>
+                                </form>
+                                 
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                ';
+            }
+        ?>
     </body>
 </html>
+

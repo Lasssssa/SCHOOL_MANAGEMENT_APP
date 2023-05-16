@@ -145,189 +145,6 @@
             }
         ?>
 
-        <?php
-            $dbConnection = dbConnect();
-            $allCourses = getAllCourses($dbConnection);
-            foreach($allCourses as $cours){
-                echo '
-                <div class="modal" id="modal_'.$cours['id_matiere'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">MODIFICATION D\'UN COURS</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="cours.php" method="post">
-                                <div class="mb-3">
-                                    <label for="nom" class="form-label">Nom de la matière</label>
-                                    <input type="text" class="form-control" id="nom" name="nom" value="'.$cours['nom_matiere'].'">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="prenom" class="form-label">Durée</label>
-                                    <input type="number" class="form-control" id="duree" name="duree" value="'.$cours['duree'].'">
-                                </div>
-                                ';
-                                $professors = getAllProfessors($dbConnection);
-                            if($professors){
-                                echo '
-                                <div class="form-group">
-                                    <label for="nom" class="form-label">Enseignant responsable</label>
-                                    <select class="form-control" name="id_prof">
-                                        <option value="'.$cours['id_prof'].'">'.$cours['prenom_prof'].' '.$cours['nom_prof'].'</option>';
-                                        foreach($professors as $professor){
-                                            if($professor['id_prof'] != $cours['id_prof']){
-                                                echo '<option value="'.$professor['id_prof'].'">'.$professor['prenom_prof'].' '.$professor['nom_prof'].'</option>';
-                                            }
-                                        }
-                                        echo '
-                                    </select>
-                                </div>';
-                            }    
-                            echo "<br>";
-                            $dateOfTheCours = getAllSemesters($dbConnection);
-                            if($dateOfTheCours){
-                                echo '
-                                <div class="form-group">
-                                <label for="nom" class="form-label">Semestre</label>
-                                    <select class="form-control" name="id_semestre">
-                                        <option value="'.$cours['id_semestre'].'">Semestre : '.$cours['numero_semestre'].' Année : '.$cours['numero_annee'].'</option>';
-                                        foreach($dateOfTheCours as $date){
-                                            if($date['id_semestre'] != $cours['id_semestre']){
-                                                echo '<option value="'.$date['id_semestre'].'">Semestre : '.$date['numero_semestre'].' Année : '.$date['numero_annee'].'</option>';
-                                            }
-                                        }
-                                        echo '
-                                    </select>
-                                </div>';
-                            }
-                            echo '
-                    <div class="row">
-                        <div class="col">';
-                    echo '
-                            <label for="mail" class="form-label">Année du cursus</label>';
-                    echo '      <select class="form-select" aria-label="Default select example" name="annee">';
-                    $allYears = getAllYearsClass($dbConnection);
-                    echo '<option value="'.$cours['annee_cursus'].'">'.$cours['annee_cursus'].'</option>';
-                    foreach($allYears as $year){
-                        if($year['annee_cursus'] != $cours['annee_cursus'])
-                        {
-                            echo '<option value="'.$year['annee_cursus'].'">'.$year['annee_cursus'].'</option>';
-                        }
-                    }
-                            echo '
-                        </select>
-                    </div>
-                </div>';
-                echo '<br>';
-                echo '<label for="mail" class="form-label">Cycle</label>';
-                $cycles = getAllCycles($dbConnection);
-                echo '<div><select class="form-select" aria-label="Default select example" name="cycle">';
-                echo '<option value="'.$cours['nom_cycle'].'">'.$cours['nom_cycle'].'</option>';
-                foreach($cycles as $cycle){
-                    if($cycle['nom_cycle'] != $cours['nom_cycle'])
-                    {
-                        echo '<option value="'.$cycle['nom_cycle'].'">'.$cycle['nom_cycle'].'</option>';
-                    }
-                }
-                echo '</select></div><br>';
-                                echo '<button type="submit" class="btn btn-primary coloredV2" name="modifier">Modifier</button>
-                                <input type="hidden" name="id_matiere" value="'.$cours['id_matiere'].'" name="id_matiere">
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                ';
-                echo '
-                <div class="modal" id="modalSupp_'.$cours['id_matiere'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">SUPPRESSION D\'UN COURS</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="cours.php" method="post">
-                                    <p>Êtes-vous sûr de vouloir supprimer ce cours ?</p>
-                                    <input type="hidden" name="id_matiere" value="'.$cours['id_matiere'].'">
-                                    <button type="submit" class="btn btn-success colored" name="supprimer">Supprimer</button>
-                                    <button type="submit" class="btn btn-danger coloredV4" name="retour">Retour</button>
-                                </form>
-                                 
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                ';
-                echo '
-                <div class="modal" id="modalAjout_'.$cours['id_matiere'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">AJOUT D\'UNE ÉPREUVE</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                            <form action="cours.php" method="post">
-                            <h4>Cours : '.$cours['nom_matiere'].'</h4>
-                            <div class="mb-3">
-                                <label for="nom" class="form-label">Numéro de l\'épreuve</label>
-                                <input type="number" class="form-control" id="nom" name="nom_epreuve"">
-                            </div>
-                            <div class="mb-3">
-                                <label for="prenom" class="form-label">Coefficient</label>
-                                <input type="number" class="form-control" id="duree" name="coefficient">
-                            </div>
-                            <input type="hidden" name="id_matiere" value="'.$cours['id_matiere'].'">';
-                            echo '<button type="submit" class="btn btn-primary coloredV2" name="ajout_epreuve">Ajouter</button>
-                            </form>
-                                 
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                ';
-                echo '
-                <div class="modal" id="modifEpreuve_'.$cours['id_matiere'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">MODIFICATIONS DES ÉPREUVES</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                            <table class="table table-striped">';
-                                echo '<tr><th>Nom</th><th>Matière</th><th>Coefficient</th><th>Supression</th></tr>';
-                                $epreuves = getEpreuvesOfACourse($dbConnection, $cours['id_matiere']);   
-                                foreach($epreuves as $epreuve){
-                                    echo '<tr><td>'.$epreuve['nom_epreuve'].'</td><td>'.$epreuve['nom_matiere'].'</td><td>'.$epreuve['coefficient'].'</td><td>
-                                    <form action="cours.php" method="post">
-                                    <button type="submit" class="btn btn-danger coloredV4" name="supprimer_epreuve">Supprimer</button>
-                                    <input type="hidden" name="id_epreuve" value="'.$epreuve['id_epreuve'].'">
-                                    </form></td></tr>';
-                                }
-                echo'    
-                                </table>
-                                 
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                ';  
-            }
-        ?>
         <div id="carouselExample" class="carousel slide">
             <div class="carousel-inner">
                 <div class="carousel-item">
@@ -569,6 +386,190 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
-        </div>        
+        </div> 
+        
+        <?php
+            $dbConnection = dbConnect();
+            $allCourses = getAllCourses($dbConnection);
+            foreach($allCourses as $cours){
+                echo '
+                <div class="modal" id="modal_'.$cours['id_matiere'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">MODIFICATION D\'UN COURS</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="cours.php" method="post">
+                                <div class="mb-3">
+                                    <label for="nom" class="form-label">Nom de la matière</label>
+                                    <input type="text" class="form-control" id="nom" name="nom" value="'.$cours['nom_matiere'].'">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="prenom" class="form-label">Durée</label>
+                                    <input type="number" class="form-control" id="duree" name="duree" value="'.$cours['duree'].'">
+                                </div>
+                                ';
+                                $professors = getAllProfessors($dbConnection);
+                            if($professors){
+                                echo '
+                                <div class="form-group">
+                                    <label for="nom" class="form-label">Enseignant responsable</label>
+                                    <select class="form-control" name="id_prof">
+                                        <option value="'.$cours['id_prof'].'">'.$cours['prenom_prof'].' '.$cours['nom_prof'].'</option>';
+                                        foreach($professors as $professor){
+                                            if($professor['id_prof'] != $cours['id_prof']){
+                                                echo '<option value="'.$professor['id_prof'].'">'.$professor['prenom_prof'].' '.$professor['nom_prof'].'</option>';
+                                            }
+                                        }
+                                        echo '
+                                    </select>
+                                </div>';
+                            }    
+                            echo "<br>";
+                            $dateOfTheCours = getAllSemesters($dbConnection);
+                            if($dateOfTheCours){
+                                echo '
+                                <div class="form-group">
+                                <label for="nom" class="form-label">Semestre</label>
+                                    <select class="form-control" name="id_semestre">
+                                        <option value="'.$cours['id_semestre'].'">Semestre : '.$cours['numero_semestre'].' Année : '.$cours['numero_annee'].'</option>';
+                                        foreach($dateOfTheCours as $date){
+                                            if($date['id_semestre'] != $cours['id_semestre']){
+                                                echo '<option value="'.$date['id_semestre'].'">Semestre : '.$date['numero_semestre'].' Année : '.$date['numero_annee'].'</option>';
+                                            }
+                                        }
+                                        echo '
+                                    </select>
+                                </div>';
+                            }
+                            echo '
+                    <div class="row">
+                        <div class="col">';
+                    echo '
+                            <label for="mail" class="form-label">Année du cursus</label>';
+                    echo '      <select class="form-select" aria-label="Default select example" name="annee">';
+                    $allYears = getAllYearsClass($dbConnection);
+                    echo '<option value="'.$cours['annee_cursus'].'">'.$cours['annee_cursus'].'</option>';
+                    foreach($allYears as $year){
+                        if($year['annee_cursus'] != $cours['annee_cursus'])
+                        {
+                            echo '<option value="'.$year['annee_cursus'].'">'.$year['annee_cursus'].'</option>';
+                        }
+                    }
+                            echo '
+                        </select>
+                    </div>
+                </div>';
+                echo '<br>';
+                echo '<label for="mail" class="form-label">Cycle</label>';
+                $cycles = getAllCycles($dbConnection);
+                echo '<div><select class="form-select" aria-label="Default select example" name="cycle">';
+                echo '<option value="'.$cours['nom_cycle'].'">'.$cours['nom_cycle'].'</option>';
+                foreach($cycles as $cycle){
+                    if($cycle['nom_cycle'] != $cours['nom_cycle'])
+                    {
+                        echo '<option value="'.$cycle['nom_cycle'].'">'.$cycle['nom_cycle'].'</option>';
+                    }
+                }
+                echo '</select></div><br>';
+                                echo '<button type="submit" class="btn btn-primary coloredV2" name="modifier">Modifier</button>
+                                <input type="hidden" name="id_matiere" value="'.$cours['id_matiere'].'" name="id_matiere">
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ';
+                echo '
+                <div class="modal" id="modalSupp_'.$cours['id_matiere'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">SUPPRESSION D\'UN COURS</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="cours.php" method="post">
+                                    <p>Êtes-vous sûr de vouloir supprimer ce cours ?</p>
+                                    <input type="hidden" name="id_matiere" value="'.$cours['id_matiere'].'">
+                                    <button type="submit" class="btn btn-success colored" name="supprimer">Supprimer</button>
+                                    <button type="submit" class="btn btn-danger coloredV4" name="retour">Retour</button>
+                                </form>
+                                 
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                ';
+                echo '
+                <div class="modal" id="modalAjout_'.$cours['id_matiere'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">AJOUT D\'UNE ÉPREUVE</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                            <form action="cours.php" method="post">
+                            <h4>Cours : '.$cours['nom_matiere'].'</h4>
+                            <div class="mb-3">
+                                <label for="nom" class="form-label">Numéro de l\'épreuve</label>
+                                <input type="number" class="form-control" id="nom" name="nom_epreuve"">
+                            </div>
+                            <div class="mb-3">
+                                <label for="prenom" class="form-label">Coefficient</label>
+                                <input type="number" class="form-control" id="duree" name="coefficient">
+                            </div>
+                            <input type="hidden" name="id_matiere" value="'.$cours['id_matiere'].'">';
+                            echo '<button type="submit" class="btn btn-primary coloredV2" name="ajout_epreuve">Ajouter</button>
+                            </form>
+                                 
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                ';
+                echo '
+                <div class="modal" id="modifEpreuve_'.$cours['id_matiere'].'" data-bs-backdrop=”static” tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">MODIFICATIONS DES ÉPREUVES</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                            <table class="table table-striped">';
+                                echo '<tr><th>Nom</th><th>Matière</th><th>Coefficient</th><th>Supression</th></tr>';
+                                $epreuves = getEpreuvesOfACourse($dbConnection, $cours['id_matiere']);   
+                                foreach($epreuves as $epreuve){
+                                    echo '<tr><td>'.$epreuve['nom_epreuve'].'</td><td>'.$epreuve['nom_matiere'].'</td><td>'.$epreuve['coefficient'].'</td><td>
+                                    <form action="cours.php" method="post">
+                                    <button type="submit" class="btn btn-danger coloredV4" name="supprimer_epreuve">Supprimer</button>
+                                    <input type="hidden" name="id_epreuve" value="'.$epreuve['id_epreuve'].'">
+                                    </form></td></tr>';
+                                }
+                echo'    
+                                </table>
+                                 
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                ';  
+            }
+        ?>
     </body>
 </html>
