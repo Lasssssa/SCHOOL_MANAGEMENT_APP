@@ -174,7 +174,8 @@
                             $averageStudent = getAverageNoteOfCourseOfStudent($db, $_SESSION['id'], $course['id_matiere']);
                             echo '<td>'.number_format($averageStudent,2).'</td>';
                             $rank = getRankOfCourse($db, $_SESSION['id'], $course['id_matiere']);
-                            echo '<td>'.$rank.'</td>';
+                            $nbRank = getNumberOfStudentOfCourse($db, $course['id_matiere']);
+                            echo '<td>'.$rank.'/'.$nbRank.'</td>';
                             $appreciation = getAppreciationOfStudent($db, $_SESSION['id'], $course['id_matiere']);
                             if($appreciation == null){
                                 echo '<td>Aucune</td>';
@@ -205,7 +206,7 @@
                                 if($rank == null){
                                     echo '<td>Note manquante</td>';
                                 }else{
-                                    echo '<td>'.$rank.'</td>';
+                                    echo '<td>'.$rank.'/'.$nbRank.'</td>';
                                 }
                                 echo '<td>/</td>';
                                 echo '</tr>';

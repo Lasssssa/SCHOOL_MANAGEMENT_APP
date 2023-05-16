@@ -304,11 +304,12 @@
                                             echo '<td>'.number_format($average,2).'</td>';
                                         }
                                         $ranking = getRankOfCourse($db, $student['id_etu'], $course['id_matiere']);
+                                        $nbRank = getNumberOfStudentOfCourse($db, $course['id_matiere']);
                                         if($ranking == null){
                                             echo '<td>Non renseigné</td>';
                                         }
                                         else{
-                                            echo '<td>'.$ranking.'</td>';
+                                            echo '<td>'.$ranking.'/'.$nbRank.'</td>';
                                         }
                                         echo '<td><button type="submit" class="btn btn-primary coloredV2" data-bs-toggle="modal" data-bs-target="#modif_'.$student['id_etu'].'" name="supp_'.$student['id_etu'].'">Modifier
                                         </button></td></tr>';
