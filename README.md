@@ -1,4 +1,4 @@
-# University curriculum management web application project - Project CIR2 - PHP Course
+# University management web application project - Project CIR2 - PHP Course
 
 Creator of this project : Théo Porodo / Mathis Meunier
 
