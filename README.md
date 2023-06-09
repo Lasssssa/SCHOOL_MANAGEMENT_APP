@@ -1,8 +1,8 @@
 # University management web application project - Project CIR2 - PHP Course
 
 Creator of this project : Théo Porodo / Mathis Meunier
-
-#Goal of the project 
+ 
+# Goal of the project 
 
 The aim of this project was to create a Pronote-type curriculum management web application.
 The web application consists of three parts: the administrator part, the teacher part and the student part.
