@@ -39,10 +39,10 @@ Change `peer` to `trust` on the lines `local all postgres` and `local all all`
 - `apt-get install git git-core`
 ### Clone the repository
 - `cd /var/www/html`
-- `sudo git clone https://github.com/Lasssssa/SCHOOL_MANAGEMENT_APPLICATION` 
+- `sudo git clone https://github.com/Lasssssa/SCHOOL_MANAGEMENT_APP` 
 ### Update
 - `cd /var/www/html/PROJET_WEB_CIR2_PHP`
-- `sudo git pull https://github.com/Lasssssa/SCHOOL_MANAGEMENT_APPLICATION`
+- `sudo git pull https://github.com/Lasssssa/SCHOOL_MANAGEMENT_APP`
 
 # Create the database
 
@@ -80,4 +80,4 @@ Now your server is all setup and you can start the application
 - To test the professor part : `proftest@gmail.com` with password : `mdp`
 
 ## Repertory Github : 
-https://github.com/Lasssssa/SCHOOL_MANAGEMENT_APPLICATION
+https://github.com/Lasssssa/SCHOOL_MANAGEMENT_APP
